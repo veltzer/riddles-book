@@ -1,0 +1,15 @@
+references:
+http://ringlord.com/latex-to-pdf-howto.html
+
+- the executable we run
+we need to run pdflatex and and pdftex since pdflatex has access to all the libraries of tex
+while pdftex does not.
+
+- if you want to see if the thumbnail generation thing worked you can use acroread by adobe.
+	a package by the name of 'acroread' is available for ubuntu.
+
+Bookmarks in the pdf files
+==========================
+If you want the bookmarks you need to run pdflatex TWO TIMES on the input.
+If you only run one time you get no bookmarks (it's a second pass thing...).
+Stangely, this also reduces the size of the output file so it's good either way.

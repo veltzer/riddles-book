@@ -1,0 +1,4 @@
+- create a pdflatex invocation wrapper that will create all outputs 444 and will remove the
+	ugly output from the screen.
+
+- move this sometime into github.

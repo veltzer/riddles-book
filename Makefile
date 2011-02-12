@@ -7,7 +7,7 @@ SOURCE_DIR:=tex
 # do you want dependency on the makefile itself ?!?
 DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
-DO_MKDBG:=0
+DO_MKDBG:=1
 
 #############
 # variables #
@@ -51,6 +51,15 @@ clean_git:
 # RULES
 
 # rule about how to create .pdf files out of tex files
+#$(OBJECTS_PDF): %.pdf: %.tex $(ALL_DEPS)
+#	$(info doing [$@])
+#	$(Q)pdflatex -output-directory $(dir $@) $<
+#	$(Q)pdflatex -output-directory $(dir $@) $<
+#	$(Q)cd $(dir $@); thumbpdf $(notdir $@)
+#	$(Q)pdflatex -output-directory $(dir $@) $<
+
+# old rule about generating pdf from tex, without thumbnails
 $(OBJECTS_PDF): %.pdf: %.tex $(ALL_DEPS)
 	$(info doing [$@])
+	$(Q)pdflatex -output-directory $(dir $@) $<
 	$(Q)pdflatex -output-directory $(dir $@) $<
