@@ -2,8 +2,10 @@
 # parameters #
 ##############
 
-# directories
+# where are the sources ?
 SOURCE_DIR:=src
+# where is the output folder ?
+OUT_DIR:=out
 # do you want dependency on the makefile itself ?!?
 DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
@@ -33,8 +35,10 @@ endif # DO_MKDBG
 SOURCES_GIT:=$(shell git ls-tree HEAD -r --full-name --name-only)
 SOURCES_TEX:=$(filter %.tex,$(SOURCES_GIT))
 #SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
-OBJECTS_PDF:=$(addsuffix .pdf,$(basename $(SOURCES_TEX)))
-OBJECTS_HTM:=$(addsuffix /index.html,$(basename $(SOURCES_TEX)))
+#OBJECTS_PDF:=$(addsuffix .pdf,$(basename $(SOURCES_TEX)))
+OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(SOURCES_TEX))))
+#OBJECTS_HTM:=$(addsuffix .out/index.html,$(basename $(SOURCES_TEX)))
+OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 
 .PHONY: all
 all: $(OBJECTS_PDF) $(OBJECTS_HTM)
@@ -64,13 +68,13 @@ clean:
 #	$(Q)pdflatex -output-directory $(dir $@) $<
 
 # old rule about generating pdf from tex, without thumbnails
-$(OBJECTS_PDF): %.pdf: %.tex $(ALL_DEPS)
+$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)lacheck $<
 	$(Q)pdflatex -output-directory $(dir $@) $<
 	$(Q)pdflatex -output-directory $(dir $@) $<
 
-$(OBJECTS_HTM): %/index.html: %.tex $(ALL_DEPS)
+$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
-	$(Q)latex2html $< --dir=$(dir $@)
+	$(Q)mkdir $(dir $@).out 2> /dev/null || exit 0
+	$(Q)latex2html $< --dir=$(dir $@).out
