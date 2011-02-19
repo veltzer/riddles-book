@@ -17,4 +17,3 @@
 - find how to run latex:
 	- without it interactivly stopping in the middle when there are errors.
 	- with maximum warnings and errors.
-- can I translate latex into html?
