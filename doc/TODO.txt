@@ -1,10 +1,10 @@
+- move into github.
+- add riddling in my blog with:
+	- access to this pdf.
+	- link to the repository on github.
 - create a pdflatex invocation wrapper that will create all outputs 444 and will remove the
 	ugly output from the screen.
-
-- move into github.
-
 - find a way to spell check the latex files and add it to the makefile.
-
 - when compiling via tex we give a directory where the output should reside as
 	--directory-or-some-such $(dir $@)
 	This means that tex gets:
@@ -12,3 +12,9 @@
 	The extra slash at the end causes the entire compilation process to be
 	conducted with two slashses.
 	Remove it.
+- move all latex documentation into their own folders.
+- create a text file with links to latex documentation sites.
+- find how to run latex:
+	- without it interactivly stopping in the middle when there are errors.
+	- with maximum warnings and errors.
+- can I translate latex into html?

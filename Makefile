@@ -30,22 +30,27 @@ Q:=@
 endif # DO_MKDBG
 
 # silent stuff
-SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
+SOURCES_GIT:=$(shell git ls-tree HEAD -r --full-name --name-only)
+SOURCES_TEX:=$(filter %.tex,$(SOURCES_GIT))
+#SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
 OBJECTS_PDF:=$(addsuffix .pdf,$(basename $(SOURCES_TEX)))
+OBJECTS_HTM:=$(addsuffix /index.html,$(basename $(SOURCES_TEX)))
 
 .PHONY: all
-all: $(OBJECTS_PDF)
+all: $(OBJECTS_PDF) $(OBJECTS_HTM)
 
 .PHONY: debug
 debug:
+	$(info SOURCES_GIT is $(SOURCES_GIT))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info OBJECTS_PDF is $(OBJECTS_PDF))
+	$(info OBJECTS_HTM is $(OBJECTS_HTM))
 
 # -x: remove everything not known to git (not only ignore rules).
 # -d: remove directories also.
 # -f: force.
-.PHONY: clean_git
-clean_git:
+.PHONY: clean
+clean:
 	@git clean -xdf
 
 # RULES
@@ -61,5 +66,11 @@ clean_git:
 # old rule about generating pdf from tex, without thumbnails
 $(OBJECTS_PDF): %.pdf: %.tex $(ALL_DEPS)
 	$(info doing [$@])
+	$(Q)lacheck $<
 	$(Q)pdflatex -output-directory $(dir $@) $<
 	$(Q)pdflatex -output-directory $(dir $@) $<
+
+$(OBJECTS_HTM): %/index.html: %.tex $(ALL_DEPS)
+	$(info doing [$@])
+	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
+	$(Q)latex2html $< --dir=$(dir $@)
