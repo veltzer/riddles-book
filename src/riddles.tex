@@ -1,9 +1,8 @@
 \documentclass{article}
-\usepackage{color}
+\usepackage{amssymb,amsmath,color,thumbpdf}
 \definecolor{rltred}{rgb}{0.75,0,0}
 \definecolor{rltgreen}{rgb}{0,0.5,0}
 \definecolor{rltblue}{rgb}{0,0,0.75}
-\usepackage{thumbpdf}
 \usepackage[pdftex,
         colorlinks=true,
         urlcolor=rltblue,       % \href{...}{...} external (URL)
@@ -30,10 +29,26 @@
 
 \subsection{Question}
 
-Could there be a circle on the plane where only one point has rational co-ordinates ?
+Could there be a circle on the plane where only one point has rational co-ordinates? A point has rational co-ordinates if $x,y\in\mathbb{Q}$. What about a sphere? Are there circles with more than one rational point? Are there circles with infinite rational points? Can you find a circle with exactly $n$ rational points on it for each $n\in\mathbb{N}$?
 
 \subsection{Solution}
 
-Yes, there could. Consider the circle: $(x-\pi)$
+Yes, there could. Consider the circle: $(x-r)^2+y^2=r^2$ for some irrational $r$.
+$(0,0)$ is a point on this circle and is rational. But from the equation it follows
+that: $x^2-2xr+r^2+y^2=r^2$ or $x^2+y^2=2xr$ or $r=(x^2+y^2)/2x$. If there
+was a rational solution to this equation where $x\ne0$ then it would follow that
+$r$ is rational since it is the result of multiplication, division, addition and subtration
+of rational number and this is a contradiction. This means that this equation can only
+have rational solutions for $x=0$. $(0,0)$ is the only such solution.
+
+Same solution applies to a sphere: $(x-r)^2+y^2+z^2=r^2$ for some irrational $r$.
+In this case: $r=(x^2+y^2+z^2)/2x$. Which means that for $x\ne0$ any rational soultion would imply a rational $r$.
+$(0,0,0)$ is therefor the only rational solution.
+
+Yes, there are circles with more than one rational point. Take $x^2+y^2=2$ which is the circle whose
+center is at $(0,0)$ and whose radius is $\sqrt{2}$. The points $(1,1),(-1,1),(1,-1),(-1,-1)$ are four rational
+points which are on this circle.
+
+Yes, there are circles with infinite rational points.
 
 \label{end}\end{document}
