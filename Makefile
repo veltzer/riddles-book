@@ -36,7 +36,7 @@ SOURCES_GIT:=$(shell git ls-tree HEAD -r --full-name --name-only)
 SOURCES_TEX:=$(filter %.tex,$(SOURCES_GIT))
 #SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
 #OBJECTS_PDF:=$(addsuffix .pdf,$(basename $(SOURCES_TEX)))
-OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(SOURCES_TEX))))
+OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 #OBJECTS_HTM:=$(addsuffix .out/index.html,$(basename $(SOURCES_TEX)))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 
@@ -76,5 +76,5 @@ $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 
 $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)mkdir $(dir $@).out 2> /dev/null || exit 0
-	$(Q)latex2html $< --dir=$(dir $@).out
+	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
+	$(Q)latex2html $< --dir=$(dir $@)
