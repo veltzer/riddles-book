@@ -6,8 +6,8 @@
 # *~
 
 # tex stuff...
-*.aux
-*.log
-*.pdf
-*.out
-*.tpt
+src/*.aux
+src/*.log
+src/*.pdf
+src/*.out
+src/*.tpt

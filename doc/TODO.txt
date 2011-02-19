@@ -1,0 +1,14 @@
+- create a pdflatex invocation wrapper that will create all outputs 444 and will remove the
+	ugly output from the screen.
+
+- move into github.
+
+- find a way to spell check the latex files and add it to the makefile.
+
+- when compiling via tex we give a directory where the output should reside as
+	--directory-or-some-such $(dir $@)
+	This means that tex gets:
+	--directory tex/
+	The extra slash at the end causes the entire compilation process to be
+	conducted with two slashses.
+	Remove it.

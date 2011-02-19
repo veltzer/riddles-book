@@ -3,7 +3,7 @@
 ##############
 
 # directories
-SOURCE_DIR:=tex
+SOURCE_DIR:=src
 # do you want dependency on the makefile itself ?!?
 DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
