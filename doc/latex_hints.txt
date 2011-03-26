@@ -13,3 +13,10 @@ Bookmarks in the pdf files
 If you want the bookmarks you need to run pdflatex TWO TIMES on the input.
 If you only run one time you get no bookmarks (it's a second pass thing...).
 Stangely, this also reduces the size of the output file so it's good either way.
+
+comments in latex files
+=======================
+Just add % at the start of the line and the rest is a comment.
+
+references:
+http://www.rasmusen.org/x/2007/09/07/comments-in-latex/
