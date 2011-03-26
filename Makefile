@@ -57,7 +57,8 @@ debug:
 # -f: force.
 .PHONY: clean
 clean:
-	@git clean -xdf
+	$(info doing [$@])
+	$(Q)git clean -xdf > /dev/null
 
 # RULES
 
@@ -70,16 +71,22 @@ clean:
 #	$(Q)pdflatex -output-directory $(dir $@) $<
 
 # old rule about generating pdf from tex, without thumbnails
+# the -rf for rm is in order to make rm not return an error
+# code to make if the file is not there (which causes make
+# to print an annoying on screen message about disregarding
+# the error)
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
+	$(Q)-rm -rf $@ 2> /dev/null
 	$(Q)lacheck $<
 	$(Q)pdflatex -output-directory $(dir $@) $< > /dev/null
 	$(Q)pdflatex -output-directory $(dir $@) $< > /dev/null
 
 $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
+	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
-	$(Q)latex2html $< --dir=$(dir $@)
+	$(Q)latex2html $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
 # Short cuts to make me see the riddles fast...
 .PHONY: view
