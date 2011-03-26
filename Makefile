@@ -9,7 +9,9 @@ OUT_DIR:=out
 # do you want dependency on the makefile itself ?!?
 DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
-DO_MKDBG:=1
+DO_MKDBG:=0
+# the primary output name
+PRIME_PDF=out/riddles.pdf
 
 #############
 # variables #
@@ -71,10 +73,15 @@ clean:
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)lacheck $<
-	$(Q)pdflatex -output-directory $(dir $@) $<
-	$(Q)pdflatex -output-directory $(dir $@) $<
+	$(Q)pdflatex -output-directory $(dir $@) $< > /dev/null
+	$(Q)pdflatex -output-directory $(dir $@) $< > /dev/null
 
 $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
 	$(Q)latex2html $< --dir=$(dir $@)
+
+# Short cuts to make me see the riddles fast...
+.PHONY: view
+view: $(PRIME_PDF)
+	gnome-open $(PRIME_PDF)

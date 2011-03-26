@@ -38,8 +38,9 @@ $(0,0)$ is a point on this circle and is rational. But from the equation it foll
 that: $x^2-2xr+r^2+y^2=r^2$ or $x^2+y^2=2xr$ or $r=(x^2+y^2)/2x$. If there
 was a rational solution to this equation where $x\ne0$ then it would follow that
 $r$ is rational since it is the result of multiplication, division, addition and subtration
-of rational number and this is a contradiction. This means that this equation can only
-have rational solutions for $x=0$. $(0,0)$ is the only such solution.
+of rational numbers and this is a contradiction. This means this equation can only
+have rational solutions for $x=0$. If $x=0$ then $r^2+y^2=r^2$ and so $y=0$ and so
+$(0,0)$ is the only such solution.
 
 Same solution applies to a sphere: $(x-r)^2+y^2+z^2=r^2$ for some irrational $r$.
 In this case: $r=(x^2+y^2+z^2)/2x$. Which means that for $x\ne0$ any rational soultion would imply a rational $r$.
@@ -50,5 +51,18 @@ center is at $(0,0)$ and whose radius is $\sqrt{2}$. The points $(1,1),(-1,1),(1
 points which are on this circle.
 
 Yes, there are circles with infinite rational points.
+
+\section{Always lead in election (combinatorics)}
+
+\subsection{Question}
+
+An election was voted a perfect tie (even number of electors) and was decided by way of putting
+all the votes into a hat, mixing them uniformly and counting them one by one. What is the chance
+that one of the candidates was leading during the entire counting process?
+
+\subsection{Solution}
+The question is really how many graphs that go either one step up or one step down (lets call those
+binary graphs) do not go down below zero out of the set of all graphs that go from zero to zero.
+The solution for n seems to be 1/((n/2)+1) (this was derived numerically).
 
 \label{end}\end{document}
