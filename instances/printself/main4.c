@@ -1,0 +1,1 @@
+int main(void){char* a="int main(void){char* a=%c%s%c;char c='%c%c';char b='%c%c';char d='%cn';printf(a,b,a,b,c,c,c,b,c,d);return(0);}%c";char c='\\';char b='\"';char d='\n';printf(a,b,a,b,c,c,c,b,c,d);return(0);}

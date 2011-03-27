@@ -1,0 +1,49 @@
+First solution:
+Treat the lower N bits of the day as a bit mask that represents knowledge.
+The rule: if the light is shining on day N then it is CERTAIN that the prisoners
+whose numbers are the positive bits in the lower N bits of the bitvector representation
+of the number N were ALREADY IN THE CELL.
+A prisoners knowledge of the situation can be thought of as a bitvector of size N
+about which prisoners he knows were already in the cell.
+When a prisoner comes in at day N and sees the light on then he understands that
+the prisoners that are represented by N-1 (since the light was left on by the
+prisoner of the day before) were already in the cell. He updates his own knowledge
+with that knowledge (or'ing the bitmasks).
+If the day on which he came in N, in bitvector representation, matches what he
+knows (meaning that every bit which is turned on in the bitvector representation
+of the number N is a prisoner for which he knows now for sure was already in the
+cell) then he will leave the light on. Otherwise he will leave it off.
+
+Problems:
+It takes forever to run... 2^300 many times over... 
+
+The problem: most days are wasted since they represent subsets which do not match
+the knowledge of any particular prisoner, and whats more when they do represent
+knowledge of one of the prisoners then the chance that that particular prisoner
+will come in at that same day is vanishingly low.
+
+We need to use more days to pass information. This solutino tries to pass off complete
+information which is a mistake. The idea is that passing even partial information is good
+enough. 
+
+Second solution:
+Whenever the light N is on it means that prisoner N has been in the room.
+
+Same updating of prisoners knowledge as before.
+
+This is much faster than the previous solution. It seems that for 300 prisoners
+you can end the experiment at 1,000,000 days.
+
+The question is: Can't we do it faster ?
+
+Better solution:
+Lets not give the id N to prisoner number N. Instead, each prisoner will get an ID which
+is the day on which he first stepped into the room in the first 300 days. No two prisoners will
+get the same id. How many prisoners will get ids the first 300 days? Well, what is the chance
+that a prisoner will not enter the room in the first 300 days?
+	(299/300)^300=0.36
+This means that 0.64 of the prisoners will get ids AND will report them (they leave the light
+on when this happens...  
+
+The problem: what about the rest of the prisoners who did not get ids ?
+They will wait till they come in and see the light off.

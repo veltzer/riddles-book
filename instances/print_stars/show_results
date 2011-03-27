@@ -1,0 +1,5 @@
+#/bin/bash
+./main1 | wc -m
+./main2 | wc -m
+./main3 | wc -m
+./main4 | wc -m
