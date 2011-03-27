@@ -1,1 +1,2 @@
-This folder is here so that git will not remove it.
+This file is here and registered with git so that auto tools (like git)
+that remove empty folders will not remove the folder that this file is in...
