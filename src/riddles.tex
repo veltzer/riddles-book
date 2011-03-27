@@ -5,17 +5,17 @@
 \definecolor{rltblue}{rgb}{0,0,0.75}
 \usepackage [pdftex,
 	%colorlinks=true,
-        %urlcolor=rltblue,       % \href{...}{...} external (URL)
-        %filecolor=rltgreen,     % \href{...} local file
-        %linkcolor=rltred,       % \ref{...} and \pageref{...}
-        pdftitle={Riddles},
-        pdfauthor={Mark Veltzer},
-        pdfsubject={A collection of riddles},
-        pdfkeywords={riddles, Mark Veltzer, collection, math, mathematics},
-        %pdfproducer={pdfLaTeX},
-        %pagebackref,
-        %pdfpagemode=UseNone,
-        bookmarksopen=true] {hyperref}
+	%urlcolor=rltblue, % \href{...}{...} external (URL)
+	%filecolor=rltgreen, % \href{...} local file
+	%linkcolor=rltred, % \ref{...} and \pageref{...}
+	pdftitle={Riddles},
+	pdfauthor={Mark Veltzer},
+	pdfsubject={A collection of riddles},
+	pdfkeywords={riddles, Mark Veltzer, collection, math, mathematics},
+	%pdfproducer={pdfLaTeX},
+	%pagebackref,
+	%pdfpagemode=UseNone,
+	bookmarksopen=true] {hyperref}
 
 \title{Riddles}
 \author{Mark Veltzer}
@@ -56,13 +56,27 @@ Yes, there are circles with infinite rational points.
 
 \subsection{Question}
 
+%id=elections (for out of source references to this riddle)
+
 An election was voted a perfect tie (even number of electors) and was decided by way of putting
 all the votes into a hat, mixing them uniformly and counting them one by one. What is the chance
 that one of the candidates was leading during the entire counting process?
 
 \subsection{Solution}
-The question is really how many graphs that go either one step up or one step down (lets call those
-binary graphs) do not go down below zero out of the set of all graphs that go from zero to zero.
-The solution for n seems to be 1/((n/2)+1) (this was derived numerically).
+The question is really how many graphs that go either one step up or one step down (lets call those binary graphs) do not go down below zero out of the set of all graphs that go from zero to zero. At first lets note that in the following solution $n$ is even and so there is no problem with $n/2$. A first observation is that the set of all graphs going from 0 to 0 in $n$ steps is ${n \choose n/2}$.
+
+Let's try to count the graphs that tip below 0. Every graph that tips below 0 will reach -1 at one or more points. Lets find the first place where the graph reaches -1. From that point on the graph climbs one more than it descends since it finally reaches 0. Lets flip it from that point on - meaning switch every climb with descent and every descent with a climb. Now the graph descends one more than it climbs and since it starts from that point at height -1 then it now reaches a height -2 at $n$ instead of the original 0.
+
+The main proposition is that \emph{every} graph which travels from 0 to -2 correspons with a \emph{1-1 correspondance} to graphs that travel from 0 to 0 and reach -1 at some point (convince yourself
+of this).
+
+If this is so then the number of graphs that go from 0 to -2 is ${n \choose n/2+1}$ since we need to
+choose points at which the graph will go down and we have $n/2+1$ descends. If so then the number of
+graphs that do not reach -1 is:
+
+${n \choose n/2} - {n \choose n/2+1} = \frac{(n)!}{(n/2+1)!(n/2)!} = \frac{1}{n/2+1}{n \choose n/2}$.
+
+The result is all about \href{http://en.wikipedia.org/wiki/Catalan_number}{Catalan numbers} and
+\href{http://en.wikipedia.org/wiki/http://en.wikipedia.org/wiki/Bertrand's_ballot_theorem}{Bertrand's ballot theorem}.
 
 \label{end}\end{document}
