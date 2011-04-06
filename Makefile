@@ -10,8 +10,16 @@ OUT_DIR:=out
 DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
-# the primary output name
-PRIME_PDF=out/riddles.pdf
+# the prime file
+PRIME:=riddles
+# the primary pdf file name
+PRIME_PDF:=out/$(PRIME).pdf
+# the primary html file name
+PRIME_HTM:=out/$(PRIME)/index.html
+# the primary output folder
+PRIME_FOLDER:=out/$(PRIME)
+# where is the web folder?
+WEB:=/var/www
 
 #############
 # variables #
@@ -51,6 +59,10 @@ debug:
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info OBJECTS_PDF is $(OBJECTS_PDF))
 	$(info OBJECTS_HTM is $(OBJECTS_HTM))
+	$(info PRIME is $(PRIME))
+	$(info PRIME_PDF is $(PRIME_PDF))
+	$(info PRIME_HTM is $(PRIME_HTM))
+	$(info PRIME_FOLDER is $(PRIME_FOLDER))
 
 # -x: remove everything not known to git (not only ignore rules).
 # -d: remove directories also.
@@ -86,7 +98,15 @@ $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
 	$(Q)latex2html $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
-# Short cuts to make me see the riddles fast...
+# short cut to show the riddles pdf output fast...
 .PHONY: view
 view: $(PRIME_PDF)
 	gnome-open $(PRIME_PDF)
+# make the riddles public on a web folder...
+.PHONY: public
+public: $(PRIME_HTM)
+	-sudo rm -rf $(WEB)/$(PRIME)
+	-sudo rm -rf $(WEB)/usr
+	sudo cp -r $(PRIME_FOLDER) $(WEB)
+	sudo mkdir -p $(WEB)/usr/share/latex2html
+	sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html 
