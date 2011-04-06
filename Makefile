@@ -77,10 +77,8 @@ clean:
 # the error)
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)-rm -rf $@ 2> /dev/null
 	$(Q)lacheck $<
-	$(Q)pdflatex -output-directory $(dir $@) $< > /dev/null
-	$(Q)pdflatex -output-directory $(dir $@) $< > /dev/null
+	$(Q)scripts/latex2pdf.pl $< $@
 
 $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(info doing [$@])
