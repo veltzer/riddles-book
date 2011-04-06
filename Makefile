@@ -99,9 +99,13 @@ $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
 	$(Q)latex2html $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
 # short cut to show the riddles pdf output fast...
-.PHONY: view
-view: $(PRIME_PDF)
+.PHONY: view_pdf
+view_pdf: $(PRIME_PDF)
 	gnome-open $(PRIME_PDF)
+# short cut to show the html output fast...
+.PHONY: view_htm
+view_htm: $(PRIME_HTM)
+	gnome-open $(PRIME_HTM)
 # make the riddles public on a web folder...
 .PHONY: public
 public: $(PRIME_HTM)
