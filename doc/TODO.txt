@@ -1,3 +1,2 @@
-- add access to the html from the blog in an iframe:
 - add access to the pdf from the blog.
 - find a way to spell check the latex files and add it to the makefile.
