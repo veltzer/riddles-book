@@ -22,7 +22,7 @@ Maybe more reasons will follow...
 
 #parameters
 # do you want debugging...
-my($debug)=1;
+my($debug)=0;
 # remove the tmp file for output at the end of the run? (this should be yes
 # unless you want junk files hanging around in /tmp...)
 my($remove_tmp)=1;
@@ -30,6 +30,9 @@ my($remove_tmp)=1;
 # print to stdout a file content
 sub printout($) {
 	my($filename)=@_;
+	if($debug) {
+		print 'printing ['.$filename.']'."\n";
+	}
 	open(FILE,$filename) || die('unable to open ['.$filename.']');
 	my($line);
 	while($line=<FILE>) {
@@ -71,7 +74,7 @@ my($output_dir)=File::Basename::dirname($output);
 # temporary file name to store errors...
 my($volume,$directories,$myscript) = File::Spec->splitpath($0);
 my($tmp_fname)='/tmp/'.$myscript.$$;
-my($cmd)='pdflatex -output-directory '.$output_dir.' '.$input.' > '.$tmp_fname;
+my($cmd)='pdflatex -interaction=nonstopmode -output-directory '.$output_dir.' '.$input.' > '.$tmp_fname;
 if($debug) {
 	print 'input is ['.$input.']'."\n";
 	print 'output is ['.$output.']'."\n";
@@ -95,15 +98,21 @@ for(my($i)=0;$i<2;$i++) {
 		if($remove_tmp) {
 			unlink_check($tmp_fname,1);
 		}
+		# make sure to the remove the output (we are in the error path)
+		if(-f $output) {
+			unlink_check($output,1);
+		}
 		# exit with error code of the child...
-		exit($res << 8);
+		exit($res >> 8);
 	} else {
 		# everything is ok
 		# remove the tmp file for the errors
 		if($remove_tmp) {
 			unlink_check($tmp_fname,1);
 		}
-		# change the output to be unchangble...
-		chmod_check($output,1);
+		# change the output to be unchangble (but only in the second time!)
+		if($i==1) {
+			chmod_check($output,1);
+		}
 	}
 }
