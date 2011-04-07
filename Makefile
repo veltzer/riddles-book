@@ -108,9 +108,11 @@ view_htm: $(PRIME_HTM)
 	gnome-open $(PRIME_HTM)
 # make the riddles public on a web folder...
 .PHONY: public
-public: $(PRIME_HTM)
+public: $(PRIME_HTM) $(PRIME_PDF)
 	-sudo rm -rf $(WEB)/$(PRIME)
 	-sudo rm -rf $(WEB)/usr
 	sudo cp -r $(PRIME_FOLDER) $(WEB)
 	sudo mkdir -p $(WEB)/usr/share/latex2html
 	sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html 
+	sudo cp $(PRIME_PDF) $(WEB)/$(PRIME)
+	sudo zip -r $(WEB)/$(PRIME)/$(PRIME).zip $(PRIME_FOLDER)
