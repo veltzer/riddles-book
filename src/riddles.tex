@@ -60,6 +60,10 @@ graphs that do not reach -1 is:
 
 ${n \choose n/2} - {n \choose n/2+1} = \frac{(n)!}{(n/2+1)!(n/2)!} = \frac{1}{n/2+1}{n \choose n/2}$.
 
+And now back to the original question "What is the chance that one of the candidates was leading the whole time?". Well divide the latter result with the former and we get:
+
+$\frac{1}{n/2+1}{n \choose n/2} / {n \choose n/2} = \frac{1}{n/2+1}$
+
 The result is all about \htmladdnormallink{Catalan numbers}{http://en.wikipedia.org/wiki/Catalan_number}
 and \htmladdnormallink{Bertrand's ballot theorem}{http://en.wikipedia.org/wiki/Bertrand\%27s_ballot_theorem}.
 

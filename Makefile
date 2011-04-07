@@ -122,4 +122,4 @@ public: $(PRIME_HTM) $(PRIME_PDF)
 	sudo mkdir -p $(WEB)/usr/share/latex2html
 	sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html 
 	sudo cp $(PRIME_PDF) $(WEB_PRIME)
-	sudo zip -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
+	sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
