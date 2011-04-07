@@ -1,3 +1,5 @@
+- make my site be able to show the pdf INLINE. One way to do it
+	would be through scribd.
 - pick a license for this project and attach it to the source files.
 - add access to the pdf from the blog.
 - find a way to spell check the latex files and add it to the makefile.
