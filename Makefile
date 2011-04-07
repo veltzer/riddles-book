@@ -13,11 +13,11 @@ DO_MKDBG:=0
 # the prime file
 PRIME:=riddles
 # the primary pdf file name
-PRIME_PDF:=out/$(PRIME).pdf
+PRIME_PDF:=$(OUT_DIR)/$(PRIME).pdf
 # the primary html file name
-PRIME_HTM:=out/$(PRIME)/index.html
+PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.html
 # the primary output folder
-PRIME_FOLDER:=out/$(PRIME)
+PRIME_HTM_FOLDER:=$(OUT_DIR)/$(PRIME)
 # where is the web folder?
 WEB:=/var/www
 
@@ -25,6 +25,12 @@ WEB:=/var/www
 # variables #
 #############
 
+# the tag name of the project ?
+TAG:=$(shell git tag | tail -1)
+# web stuff... 
+WEB_PRIME:=$(WEB)/$(PRIME)
+WEB_PDF:=$(WEB_PRIME)/$(PRIME).pdf
+WEB_ZIP:=$(WEB_PRIME)/$(PRIME).zip
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
 ALL_DEPS:=Makefile
@@ -62,7 +68,8 @@ debug:
 	$(info PRIME is $(PRIME))
 	$(info PRIME_PDF is $(PRIME_PDF))
 	$(info PRIME_HTM is $(PRIME_HTM))
-	$(info PRIME_FOLDER is $(PRIME_FOLDER))
+	$(info PRIME_HTM_FOLDER is $(PRIME_HTM_FOLDER))
+	$(info TAG is $(TAG))
 
 # -x: remove everything not known to git (not only ignore rules).
 # -d: remove directories also.
@@ -109,10 +116,10 @@ view_htm: $(PRIME_HTM)
 # make the riddles public on a web folder...
 .PHONY: public
 public: $(PRIME_HTM) $(PRIME_PDF)
-	-sudo rm -rf $(WEB)/$(PRIME)
+	-sudo rm -rf $(WEB_PRIME)
 	-sudo rm -rf $(WEB)/usr
-	sudo cp -r $(PRIME_FOLDER) $(WEB)
+	sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
 	sudo mkdir -p $(WEB)/usr/share/latex2html
 	sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html 
-	sudo cp $(PRIME_PDF) $(WEB)/$(PRIME)
-	sudo zip -r $(WEB)/$(PRIME)/$(PRIME).zip $(PRIME_FOLDER)
+	sudo cp $(PRIME_PDF) $(WEB_PRIME)
+	sudo zip -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
