@@ -163,3 +163,10 @@ ifeq ($(DO_INCLUDE),1)
 # include the deps files (no warnings)
 -include $(ALL_DEPS)
 endif # DO_INCLUDE
+
+.PHONY: view_sketch_doc_htm
+view_sketch_doc_htm:
+	gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null
+.PHONY: view_sketch_doc_pdf
+view_sketch_doc_pdf:
+	gnome-open /usr/share/doc/sketch-doc/sketch.pdf.gz
