@@ -1,0 +1,10 @@
+I used sketch to draw 3d diagrams.
+
+In ubuntu you just need to install the 'sketch' package.
+(apt-get install sketch).
+If you want documentation install 'sketch-doc'.
+
+web site is:
+http://www.frontiernet.net/~eugene.ressler/
+and
+http://groups.google.com/group/sketch-users

@@ -1,0 +1,136 @@
+%% take from /usr/share/doc/sketch-doc/examples/cone.sk by Mark Veltzer
+
+% truncated cone diagram
+% Modified for PGF/TikZ
+def O (0,0,0)
+def I [1,0,0]
+def J [0,1,0]
+def K [0,0,1]
+
+def p0 (1,2)
+def p1 (1.5,0)
+def N 8
+def seg_rot rotate(360 / N, [J])
+def dx
+  <labeled> 2
+  <> 2.3
+def dy 
+  <labeled> 2
+  <> 3.3
+def dz dx
+
+def basic_cone {
+
+  % draw the cone; this is the easy part!
+  sweep[cull=false,fill=blue!20,fill opacity=0.8] { N, [[seg_rot]] } line(p0)(p1)
+
+  % draw the axes
+  def ax (dx,0,0)
+  def ay (0,dy,0)
+  def az (0,0,dz)
+  line[arrows=<->,linewidth=.4pt](ax)(O)(ay)
+  line[arrows=->,linewidth=.4pt](O)(az)
+  % repeat dotted as an overlay to hint at the hidden lines
+  %line[lay=over,linestyle=dotted,linewidth=.4pt](ax)(O)(ay)
+ % line[lay=over,linestyle=dotted,linewidth=.4pt](O)(az)
+  % label
+  special|\path #1 node[below] {$x$}
+     #2 node[above] {$y$}
+     #3 node[left] {$z$};|
+    (ax)(ay)(az)
+
+  % height measurement mark takes too much code!
+  def c0 (p0) then scale([J])
+  def hdim_ref unit((p1) - (O)) then [[seg_rot]]^2
+  def h00 (c0) + 1.1 * [hdim_ref]
+  def h01 (c0) + 1.9 * [hdim_ref]
+  def h02 (c0) + 1.8 * [hdim_ref]
+  line(h00)(h01)
+  def h10 (O) + 1.6 * [hdim_ref]
+  def h11 (O) + 1.9 * [hdim_ref]
+  def h12 (O) + 1.8 * [hdim_ref]
+  line(h10)(h11)
+  line[arrows=<->](h02)(h12)
+  def hm2 ((h02)-(O)+(h12)-(O)) / 2 + (O)
+  special|\node[ann] at #1 {$h$};|(hm2)
+
+  % radius measurement marks
+  def gap [0,.2,0]
+  % first r1
+  def up1 [0,3.1,0]
+  def r1 ((p1) then [[seg_rot]]^-2) + [up1]
+  def r1c (r1) then scale([J])
+  def r1t (r1) + [gap]
+  def r1b ((r1t) then scale([1,0,1])) + [gap]
+  line[arrows=<->](r1c)(r1)
+  line(r1b)(r1t)
+  def r1m ((r1) - (O) + (r1c) - (O)) / 2 + (O)
+  special |\node[ann] at #1 {$r_1$};|(r1m)
+  % same drill for r0, but must project down first
+  def up0 [0,2.7,0]
+  def r0 ((p0) then scale([1,0,1]) then [[seg_rot]]^-2) + [up0]
+  def r0c (r0) then scale([J])
+  def r0t (r0) + [gap]
+  def r0b ((p0) then [[seg_rot]]^-2) + [gap]
+  line[arrows=<->](r0c)(r0)
+  line(r0b)(r0t)
+  def r0m ((r0) - (O) + (r0c) - (O)) / 2 + (O)
+  special |\node[ann] at #1 {$r_0$};|(r0m)
+}
+
+def labeled_cone {
+	
+  % the "ghost" of the entire cone
+  sweep[draw=lightgray,cull=false] { N-1, [[seg_rot]] } 
+    line(p0)(p1)
+
+  % for the highlighted face, we need explicit points
+  def p00 (p0) then [[seg_rot]]^-1
+  def p10 (p1) then [[seg_rot]]^-1
+  def p01 (p0)
+  def p11 (p1)
+  %polygon[showpoints=true](p00)(p10)(p11)(p01)
+  polygon[fillcolor=red,dotsep=semitransparent](p00)(p10)(p11)(p01)
+  % TikZ does not have a showpoints option. Use dots.
+  dots(p00)(p10)(p11)(p01)
+  % TikZ special for labels.
+  special|\fill[black,font=\footnotesize]
+                #1 node [above] {$P_{00}$}
+                #2 node [below] {$P_{10}$}
+                #3 node [above] {$P_{01}$}
+                #4 node [below] {$P_{11}$};|
+    (p00)(p10)(p01)(p11)
+  def mid ((p00)-(O)+(p10)-(O)+(p11)-(O)+(p01)-(O))/4+(O)
+  % The TikZ arc operation starts at the current point. We therefore
+  % need to shift it to get mid to be the center of the arc
+  special|\draw #1+(-60:.25) [yscale=1.3,->] arc(-60:240:.25);|
+    [lay=over](mid)
+  def mid_left ((p00)-(O)+(p10)-(O))/2+(O)
+  def mid_right ((p11)-(O)+(p01)-(O))/2+(O)
+  special|\path[font=\footnotesize] 
+          #1 node[left] {$j$}
+          #2 node[right] {$j\hbox{$+$}1$};|
+    (mid_left)(mid_right)
+  def top_lbl (p01) then [[seg_rot]]^2
+  def bot_lbl (p11) then [[seg_rot]]^2
+  special|\path[font=\footnotesize]
+          #1 node[right] {$i\hbox{$=$}0$}
+          #2 node[right] {$i\hbox{$=$}1$};|
+    (top_lbl)(bot_lbl)
+}
+
+
+
+
+def cone 
+  <labeled> {labeled_cone}
+  <>        {basic_cone}
+
+put { view((10,4,2)) } {cone}
+
+% Cool trick: lay = under forces this to be output first in the tikz picture block.
+special |\tikzstyle{ann} = [fill=white,font=\footnotesize,inner sep=1pt]|[lay=under]
+
+global {
+  language tikz
+}

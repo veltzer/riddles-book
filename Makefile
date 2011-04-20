@@ -50,19 +50,23 @@ endif # DO_MKDBG
 # silent stuff
 SOURCES_GIT:=$(shell git ls-tree HEAD -r --full-name --name-only)
 SOURCES_TEX:=$(filter %.tex,$(SOURCES_GIT))
+SOURCES_SK:=$(filter %.sk,$(SOURCES_GIT))
 #SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
 #OBJECTS_PDF:=$(addsuffix .pdf,$(basename $(SOURCES_TEX)))
 OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 #OBJECTS_HTM:=$(addsuffix .out/index.html,$(basename $(SOURCES_TEX)))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
+OBJECTS_TEX:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_SK)))))
 
 .PHONY: all
-all: $(OBJECTS_PDF) $(OBJECTS_HTM)
+all: $(OBJECTS_TEX) $(OBJECTS_PDF) $(OBJECTS_HTM)
 
 .PHONY: debug
 debug:
 	$(info SOURCES_GIT is $(SOURCES_GIT))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
+	$(info SOURCES_SK is $(SOURCES_SK))
+	$(info OBJECTS_TEX is $(OBJECTS_TEX))
 	$(info OBJECTS_PDF is $(OBJECTS_PDF))
 	$(info OBJECTS_HTM is $(OBJECTS_HTM))
 	$(info PRIME is $(PRIME))
@@ -94,12 +98,12 @@ clean:
 # code to make if the file is not there (which causes make
 # to print an annoying on screen message about disregarding
 # the error)
-$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
+$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OJBECTS_TEX)
 	$(info doing [$@])
 	$(Q)lacheck $<
 	$(Q)scripts/latex2pdf.pl $< $@
 
-$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS)
+$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OJBECTS_TEX)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
