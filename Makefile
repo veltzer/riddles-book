@@ -20,6 +20,10 @@ PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.html
 PRIME_HTM_FOLDER:=$(OUT_DIR)/$(PRIME)
 # where is the web folder?
 WEB:=/var/www
+# do you want to generate dependencies ?
+DO_DEPS:=1
+# do you want to include the deps ?
+DO_INCLUDE:=0
 
 #############
 # variables #
@@ -58,9 +62,15 @@ OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOUR
 #OBJECTS_HTM:=$(addsuffix .out/index.html,$(basename $(SOURCES_TEX)))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_TEX:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_SK)))))
+OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
+
+ALL:=$(OBJECTS_PDF) $(OBJECTS_HTM)
+ifeq ($(DO_DEPS),1)
+ALL:=$(OBJECTS_DEP) $(ALL)
+endif # DO_DEPS
 
 .PHONY: all
-all: $(OBJECTS_TEX) $(OBJECTS_PDF) $(OBJECTS_HTM)
+all: $(ALL)
 
 .PHONY: debug
 debug:
@@ -70,11 +80,13 @@ debug:
 	$(info OBJECTS_TEX is $(OBJECTS_TEX))
 	$(info OBJECTS_PDF is $(OBJECTS_PDF))
 	$(info OBJECTS_HTM is $(OBJECTS_HTM))
+	$(info OBJECTS_DEP is $(OBJECTS_DEP))
 	$(info PRIME is $(PRIME))
 	$(info PRIME_PDF is $(PRIME_PDF))
 	$(info PRIME_HTM is $(PRIME_HTM))
 	$(info PRIME_HTM_FOLDER is $(PRIME_HTM_FOLDER))
 	$(info TAG is $(TAG))
+	$(info ALL is $(ALL))
 
 # -x: remove everything not known to git (not only ignore rules).
 # -d: remove directories also.
@@ -110,6 +122,10 @@ $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJEC
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
 	$(Q)latex2html $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
+$(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) scripts/latex2dep.pl
+	$(info doing [$@])
+	$(Q)scripts/latex2dep.pl $< $@
+
 $(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)sketch $< -o $@ 2> /dev/null
@@ -132,3 +148,8 @@ public: $(PRIME_HTM) $(PRIME_PDF)
 	sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html 
 	sudo cp $(PRIME_PDF) $(WEB_PRIME)
 	sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
+
+ifeq ($(DO_INCLUDE),1)
+# include the deps files (no warnings)
+-include $(ALL_DEPS)
+endif # DO_INCLUDE
