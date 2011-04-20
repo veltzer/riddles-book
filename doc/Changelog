@@ -1,3 +1,5 @@
 19/02/11: added the first riddle
 19/02/11: added generation of html from latex
 19/02/11: started the design document
+20/4/11: handled the caching issues of web browsers (documented the solution).
+20/4/11: handled dependencies for tex files.
