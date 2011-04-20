@@ -5,5 +5,5 @@
 # *.[oa]
 # *~
 
-# tex stuff...
+# ignore everything in out but don't ignore other things (good policy)...
 out/*
