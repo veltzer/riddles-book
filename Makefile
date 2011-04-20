@@ -48,7 +48,8 @@ Q:=@
 endif # DO_MKDBG
 
 # silent stuff
-SOURCES_GIT:=$(shell git ls-tree HEAD -r --full-name --name-only)
+#SOURCES_GIT:=$(shell git ls-tree HEAD -r --full-name --name-only)
+SOURCES_GIT:=$(shell git ls-files)
 SOURCES_TEX:=$(filter %.tex,$(SOURCES_GIT))
 SOURCES_SK:=$(filter %.sk,$(SOURCES_GIT))
 #SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
@@ -108,6 +109,10 @@ $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OJBEC
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
 	$(Q)latex2html $< --dir=$(dir $@) > /dev/null 2> /dev/null
+
+$(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS)
+	$(info doing [$@])
+	$(Q)sketch $< -o $@ 2> /dev/null
 
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf

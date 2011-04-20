@@ -3,9 +3,9 @@
 % truncated cone diagram
 % Modified for PGF/TikZ
 def O (0,0,0)
-def I [1,0,0]
+%def I [1,0,0]
 def J [0,1,0]
-def K [0,0,1]
+%def K [0,0,1]
 
 def p0 (1,2)
 def p1 (1.5,0)
@@ -28,8 +28,8 @@ def basic_cone {
   def ax (dx,0,0)
   def ay (0,dy,0)
   def az (0,0,dz)
-  line[arrows=<->,linewidth=.4pt](ax)(O)(ay)
-  line[arrows=->,linewidth=.4pt](O)(az)
+  line[arrows=<->](ax)(O)(ay)
+  line[arrows=->](O)(az)
   % repeat dotted as an overlay to hint at the hidden lines
   %line[lay=over,linestyle=dotted,linewidth=.4pt](ax)(O)(ay)
  % line[lay=over,linestyle=dotted,linewidth=.4pt](O)(az)
