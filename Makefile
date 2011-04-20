@@ -72,6 +72,9 @@ endif # DO_DEPS
 .PHONY: all
 all: $(ALL)
 
+.PHONY: deps
+deps: $(OBJECTS_DEP)
+
 .PHONY: debug
 debug:
 	$(info SOURCES_GIT is $(SOURCES_GIT))

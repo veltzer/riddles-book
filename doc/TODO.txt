@@ -2,5 +2,3 @@
 	would be through scribd.
 - pick a license for this project and attach it to the source files.
 - find a way to spell check the latex files and add it to the makefile.
-
-- add automatic dependency detection to the makefile and the build system.

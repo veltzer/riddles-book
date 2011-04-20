@@ -26,11 +26,14 @@ my($output)=shift(@ARGV);
 my($line);
 open(FILE,$input) || die('unable to open input file ['.$input.']');
 open(OUT,'> '.$output) || die('unable to open output file ['.$output.']');
+my(@list);
+print OUT $input.': ';
 while($line=<FILE>) {
-	print OUT 'start';
-	if($line=~/^\\input{\w+}/) {
-		print OUT 'foo';
+	if($line=~/^\\input{.+}/) {
+		my($file)=($line=~/^\\input{(.+)}/);
+		push(@list,$file);
 	}
 }
+print OUT join(' ',@list)."\n";
 close(FILE) || die('unable to close input file ['.$input.']');
 close(OUT) || die('unable to close output file ['.$output.']');
