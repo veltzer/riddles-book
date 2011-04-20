@@ -25,6 +25,12 @@ DO_DEPS:=1
 # do you want to include the deps ?
 DO_INCLUDE:=0
 
+# tools
+TOOL_LATEX2HTML=latex2html
+TOOL_LACHECK=lacheck
+TOOL_SKETCH=sketch
+TOOL_PDFLATEX=pdflatex
+
 #############
 # variables #
 #############
@@ -116,14 +122,14 @@ clean:
 # the error)
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) scripts/latex2pdf.pl
 	$(info doing [$@])
-	$(Q)lacheck $< 2> /dev/null > /dev/null
+	$(Q)$(TOOL_LACHECK) $< 2> /dev/null > /dev/null
 	$(Q)scripts/latex2pdf.pl $< $@
 
 $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
-	$(Q)latex2html $< --dir=$(dir $@) > /dev/null 2> /dev/null
+	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
 $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) scripts/latex2dep.pl
 	$(info doing [$@])
@@ -131,7 +137,7 @@ $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
 
 $(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)sketch $< -o $@ 2> /dev/null
+	$(Q)$(TOOL_SKETCH) $< -o $@ 2> /dev/null
 
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf
