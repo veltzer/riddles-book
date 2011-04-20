@@ -142,8 +142,8 @@ view_pdf: $(PRIME_PDF)
 view_htm: $(PRIME_HTM)
 	gnome-open $(PRIME_HTM)
 # make the riddles public on a web folder...
-.PHONY: public
-public: $(PRIME_HTM) $(PRIME_PDF)
+.PHONY: install
+install: $(PRIME_HTM) $(PRIME_PDF) web/htaccess
 	-sudo rm -rf $(WEB_PRIME)
 	-sudo rm -rf $(WEB)/usr
 	sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
@@ -151,6 +151,7 @@ public: $(PRIME_HTM) $(PRIME_PDF)
 	sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html 
 	sudo cp $(PRIME_PDF) $(WEB_PRIME)
 	sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
+	sudo cp web/htaccess $(WEB_PRIME)/.htaccess
 
 ifeq ($(DO_INCLUDE),1)
 # include the deps files (no warnings)
