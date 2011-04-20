@@ -94,7 +94,7 @@ my($output_dir)=File::Basename::dirname($output);
 # temporary file name to store errors...
 my($volume,$directories,$myscript) = File::Spec->splitpath($0);
 my($tmp_fname)='/tmp/'.$myscript.$$;
-my($cmd)='pdflatex -interaction=nonstopmode -halt-on-error -output-directory '.$output_dir.' '.$input.' > '.$tmp_fname;
+my($cmd)='pdflatex -interaction=nonstopmode -halt-on-error -output-directory '.$output_dir.' '.$input.' > '.$tmp_fname.' 2> /dev/null';
 if($debug) {
 	print 'input is ['.$input.']'."\n";
 	print 'output is ['.$output.']'."\n";

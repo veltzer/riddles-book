@@ -99,12 +99,12 @@ clean:
 # code to make if the file is not there (which causes make
 # to print an annoying on screen message about disregarding
 # the error)
-$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OJBECTS_TEX)
+$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
 	$(info doing [$@])
-	$(Q)lacheck $<
+	$(Q)lacheck $< 2> /dev/null > /dev/null
 	$(Q)scripts/latex2pdf.pl $< $@
 
-$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OJBECTS_TEX)
+$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
