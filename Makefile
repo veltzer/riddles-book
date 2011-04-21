@@ -159,6 +159,10 @@ view_pdf: $(PRIME_PDF)
 .PHONY: view_htm
 view_htm: $(PRIME_HTM)
 	gnome-open $(PRIME_HTM)
+# short cut to show the swf using flex paper fast...
+.PHONY: show_swf
+view_swf: $(PRIME_SWF)
+	gnome-open http://www.veltzer.net/riddles/flexpaper/index.html
 # make the riddles public on a web folder...
 .PHONY: install
 install: $(PRIME_HTM) $(PRIME_PDF) web/htaccess
