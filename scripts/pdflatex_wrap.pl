@@ -32,6 +32,8 @@ my($debug)=0;
 # remove the tmp file for output at the end of the run? (this should be yes
 # unless you want junk files hanging around in /tmp...)
 my($remove_tmp)=1;
+# how many times to run 'pdflatex(1)' ?
+my($runs)=2;
 
 # print to stdout a file content
 # this function is adjusted for the ugly output that pdflatex produces and so it
@@ -105,7 +107,7 @@ if(-f $output) {
 	unlink_check($output,1);
 }
 # we need to run the command twice!!! (to generate the index and more)
-for(my($i)=0;$i<2;$i++) {
+for(my($i)=0;$i<$runs;$i++) {
 	my($res)=system($cmd);
 	if($debug) {
 		print 'system returned ['.$res.']'."\n";
@@ -130,8 +132,8 @@ for(my($i)=0;$i<2;$i++) {
 		if($remove_tmp) {
 			unlink_check($tmp_fname,1);
 		}
-		# change the output to be unchangble (but only in the second time!)
-		if($i==1) {
+		# change the output to be unchangble (but only in the final run!)
+		if($i==$runs-1) {
 			chmod_check($output,1);
 		}
 	}

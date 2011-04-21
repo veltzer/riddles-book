@@ -1,3 +1,8 @@
+Now:
+====
+- fix the issue with html and images and publish.
+- finish the bottles riddle with correct sketches.
+
 website:
 ========
 - make my site be able to show the pdf INLINE. One way to do it
