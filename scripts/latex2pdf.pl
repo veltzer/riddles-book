@@ -158,7 +158,7 @@ for(my($i)=0;$i<2;$i++) {
 		}
 	}
 }
-my($cmd2)='dvips '.$dvi.' -o '.$ps.' > '.$tmp_fname;
+my($cmd2)='dvips '.$dvi.' -o '.$ps.' > '.$tmp_fname.' 2> /dev/null';
 my($res)=my_system($cmd2);
 if($res) {
 	# error path
