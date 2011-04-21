@@ -29,7 +29,7 @@ mode to ask the user what to do about an error (what is this behaviour anyway ?!
 
 #parameters
 # do you want debugging...
-my($debug)=1;
+my($debug)=0;
 # remove the tmp file for output at the end of the run? (this should be yes
 # unless you want junk files hanging around in /tmp...)
 my($remove_tmp)=1;
@@ -182,4 +182,29 @@ if($res) {
 	}
 	# change the output to be unchangble (but only in the second time!)
 	chmod_check($ps,1);
+}
+my($cmd3)='ps2pdf '.$ps.' '.$output.' > '.$tmp_fname;
+$res=my_system($cmd3);
+if($res) {
+	# error path
+	# print the errors
+	printout($tmp_fname);
+	# remove the tmp file for the errors
+	if($remove_tmp) {
+		unlink_check($tmp_fname,1);
+	}
+	# make sure to the remove the output (we are in the error path)
+	if(-f $output) {
+		unlink_check($output,1);
+	}
+	# exit with error code of the child...
+	exit($res >> 8);
+} else {
+	# everything is ok
+	# remove the tmp file for the errors
+	if($remove_tmp) {
+		unlink_check($tmp_fname,1);
+	}
+	# change the output to be unchangble (but only in the second time!)
+	chmod_check($output,1);
 }
