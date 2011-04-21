@@ -14,6 +14,8 @@ DO_MKDBG:=0
 PRIME:=riddles
 # the primary pdf file name
 PRIME_PDF:=$(OUT_DIR)/$(PRIME).pdf
+# the primary swf file name
+PRIME_SWF:=$(OUT_DIR)/$(PRIME).swf
 # the primary html file name
 PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.html
 # the primary output folder
@@ -145,7 +147,9 @@ $(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS) scripts/sketch_
 
 $(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)pdf2swf $< $@
+	$(Q)-rm -f $@
+	$(Q)pdf2swf -T 9 -f $< $@ 2> /dev/null > /dev/null
+	$(Q)chmod 444 $@
 
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf
@@ -166,6 +170,8 @@ install: $(PRIME_HTM) $(PRIME_PDF) web/htaccess
 	sudo cp $(PRIME_PDF) $(WEB_PRIME)
 	sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
 	sudo cp web/htaccess $(WEB_PRIME)/.htaccess
+	sudo cp -r flexpaper $(WEB_PRIME) 
+	sudo cp $(PRIME_SWF) $(WEB_PRIME)/flexpaper
 
 ifeq ($(DO_INCLUDE),1)
 # include the deps files (no warnings)
