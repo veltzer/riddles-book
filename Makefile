@@ -135,9 +135,9 @@ $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
 	$(info doing [$@])
 	$(Q)scripts/latex2dep.pl $< $@
 
-$(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS)
+$(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS) scripts/sketch_wrap.pl
 	$(info doing [$@])
-	$(Q)$(TOOL_SKETCH) $< -o $@ 2> /dev/null
+	$(Q)scripts/sketch_wrap.pl $< $@
 
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf

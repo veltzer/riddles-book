@@ -1,3 +1,12 @@
 - make my site be able to show the pdf INLINE. One way to do it
-	would be through scribd.
+	would be through scribd (do I want that ?!?).
 - find a way to spell check the latex files and add it to the makefile.
+
+- rethink the license for this package.
+
+build system:
+=============
+- add an alternate path:
+	tex -> dvi -> ps -> pdf
+	latex	   dvips    ps2pdf 
+- use everything to see drawings in the output (pdf as well as html).
