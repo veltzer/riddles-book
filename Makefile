@@ -67,12 +67,13 @@ SOURCES_SK:=$(filter %.sk,$(SOURCES_GIT))
 #SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
 #OBJECTS_PDF:=$(addsuffix .pdf,$(basename $(SOURCES_TEX)))
 OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
+OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 #OBJECTS_HTM:=$(addsuffix .out/index.html,$(basename $(SOURCES_TEX)))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_TEX:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_SK)))))
 OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 
-ALL:=$(OBJECTS_PDF) $(OBJECTS_HTM)
+ALL:=$(OBJECTS_PDF) $(OBJECTS_HTM) $(OBJECTS_SWF)
 ifeq ($(DO_DEPS),1)
 ALL:=$(OBJECTS_DEP) $(ALL)
 endif # DO_DEPS
@@ -90,6 +91,7 @@ debug:
 	$(info SOURCES_SK is $(SOURCES_SK))
 	$(info OBJECTS_TEX is $(OBJECTS_TEX))
 	$(info OBJECTS_PDF is $(OBJECTS_PDF))
+	$(info OBJECTS_SWF is $(OBJECTS_SWF))
 	$(info OBJECTS_HTM is $(OBJECTS_HTM))
 	$(info OBJECTS_DEP is $(OBJECTS_DEP))
 	$(info PRIME is $(PRIME))
@@ -140,6 +142,10 @@ $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
 $(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS) scripts/sketch_wrap.pl
 	$(info doing [$@])
 	$(Q)scripts/sketch_wrap.pl $< $@
+
+$(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
+	$(info doing [$@])
+	$(Q)pdf2swf $< $@
 
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf
