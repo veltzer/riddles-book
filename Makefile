@@ -30,6 +30,7 @@ TOOL_LATEX2HTML=latex2html
 TOOL_LACHECK=lacheck
 TOOL_SKETCH=sketch
 TOOL_PDFLATEX=pdflatex
+USE_LATEX2PDF=scripts/latex2pdf.pl
 
 #############
 # variables #
@@ -120,10 +121,10 @@ clean:
 # code to make if the file is not there (which causes make
 # to print an annoying on screen message about disregarding
 # the error)
-$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) scripts/pdflatex_wrap.pl
+$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $< 2> /dev/null > /dev/null
-	$(Q)scripts/pdflatex_wrap.pl $< $@
+	$(Q)$(USE_LATEX2PDF) $< $@
 
 $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
 	$(info doing [$@])

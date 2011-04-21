@@ -132,8 +132,8 @@ for(my($i)=0;$i<2;$i++) {
 			unlink_check($tmp_fname,1);
 		}
 		# change the output to be unchangble (but only in the second time!)
-		if($i==1) {
-			chmod_check($output,1);
-		}
+		#if($i==1) {
+		#	chmod_check($output,1);
+		#}
 	}
 }
