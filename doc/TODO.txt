@@ -10,3 +10,4 @@ build system:
 	tex -> dvi -> ps -> pdf
 	latex	   dvips    ps2pdf 
 - use everything to see drawings in the output (pdf as well as html).
+- write a wrapper for lacheck (it is also problematic).
