@@ -29,7 +29,7 @@ mode to ask the user what to do about an error (what is this behaviour anyway ?!
 
 #parameters
 # do you want debugging...
-my($debug)=0;
+my($debug)=1;
 # remove the tmp file for output at the end of the run? (this should be yes
 # unless you want junk files hanging around in /tmp...)
 my($remove_tmp)=1;
@@ -87,11 +87,26 @@ sub chmod_check($$) {
 		}
 	}
 }
+# this wraps calls to system()
+sub my_system($) {
+	my($cmd)=@_;
+	if($debug) {
+		print 'system ['.$cmd.']'."\n";
+	}
+	my($res)=system($cmd);
+	if($debug) {
+		print 'system returned ['.$res.']'."\n";
+	}
+	return $res;
+}
 
 # here we go...
 my($input)=shift(@ARGV);
 my($output)=shift(@ARGV);
 my($output_dir)=File::Basename::dirname($output);
+my($name)=File::Basename::fileparse($output,'.pdf');
+my($dvi)=$output_dir.'/'.$name.'.dvi';
+my($ps)=$output_dir.'/'.$name.'.ps';
 # temporary file name to store errors...
 my($volume,$directories,$myscript) = File::Spec->splitpath($0);
 my($tmp_fname)='/tmp/'.$myscript.$$;
@@ -100,17 +115,23 @@ if($debug) {
 	print 'input is ['.$input.']'."\n";
 	print 'output is ['.$output.']'."\n";
 	print 'cmd is ['.$cmd.']'."\n";
+	print 'name is ['.$name.']'."\n";
+	print 'dvi is ['.$dvi.']'."\n";
+	print 'ps is ['.$ps.']'."\n";
 }
 # first remove the output (if it exists)
 if(-f $output) {
 	unlink_check($output,1);
 }
+if(-f $dvi) {
+	unlink_check($dvi,1);
+}
+if(-f $ps) {
+	unlink_check($ps,1);
+}
 # we need to run the command twice!!! (to generate the table of contents and more)
 for(my($i)=0;$i<2;$i++) {
-	my($res)=system($cmd);
-	if($debug) {
-		print 'system returned ['.$res.']'."\n";
-	}
+	my($res)=my_system($cmd);
 	if($res) {
 		# error path
 		# print the errors
@@ -120,8 +141,8 @@ for(my($i)=0;$i<2;$i++) {
 			unlink_check($tmp_fname,1);
 		}
 		# make sure to the remove the output (we are in the error path)
-		if(-f $output) {
-			unlink_check($output,1);
+		if(-f $dvi) {
+			unlink_check($dvi,1);
 		}
 		# exit with error code of the child...
 		exit($res >> 8);
@@ -132,8 +153,33 @@ for(my($i)=0;$i<2;$i++) {
 			unlink_check($tmp_fname,1);
 		}
 		# change the output to be unchangble (but only in the second time!)
-		#if($i==1) {
-		#	chmod_check($output,1);
-		#}
+		if($i==1) {
+			chmod_check($dvi,1);
+		}
 	}
+}
+my($cmd2)='dvips '.$dvi.' -o '.$ps.' > '.$tmp_fname;
+my($res)=my_system($cmd2);
+if($res) {
+	# error path
+	# print the errors
+	printout($tmp_fname);
+	# remove the tmp file for the errors
+	if($remove_tmp) {
+		unlink_check($tmp_fname,1);
+	}
+	# make sure to the remove the output (we are in the error path)
+	if(-f $ps) {
+		unlink_check($ps,1);
+	}
+	# exit with error code of the child...
+	exit($res >> 8);
+} else {
+	# everything is ok
+	# remove the tmp file for the errors
+	if($remove_tmp) {
+		unlink_check($tmp_fname,1);
+	}
+	# change the output to be unchangble (but only in the second time!)
+	chmod_check($ps,1);
 }
