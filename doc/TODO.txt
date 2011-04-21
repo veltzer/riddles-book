@@ -1,8 +1,8 @@
 Now:
 ====
+- finish the bottles riddle with correct sketches.
 - fix the issue with html and images and publish html on my site (instead of inlined pdf
 that I have now ?!?).
-- finish the bottles riddle with correct sketches.
 
 better quality of latex:
 ========================

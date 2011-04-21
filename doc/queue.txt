@@ -1,0 +1,5 @@
+This is a queue of riddles to be written down properly:
+- why is (n k) (n over k) always a whole number?
+	One way to explain this is to explain what (n k) means and therefore
+	deduce that it's whole. But what about a purely mathematical explanation
+	of why n! is divisible by k!(n-k)! ?
