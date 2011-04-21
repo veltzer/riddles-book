@@ -1,12 +1,8 @@
 Now:
 ====
-- fix the issue with html and images and publish.
+- fix the issue with html and images and publish html on my site (instead of inlined pdf
+that I have now ?!?).
 - finish the bottles riddle with correct sketches.
-
-website:
-========
-- make my site be able to show the pdf INLINE. One way to do it
-	would be through scribd (do I want that ?!?).
 
 better quality of latex:
 ========================
@@ -18,4 +14,4 @@ licensing:
 
 build system:
 =============
-- write a wrapper for lacheck (it is also problematic).
+- write a perl wrapper for lacheck (it is also problematic).
