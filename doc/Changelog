@@ -4,3 +4,7 @@
 20/4/11: handled the caching issues of web browsers (documented the solution).
 20/4/11: handled dependencies for tex files.
 21/4/11: wrote a wrapper for sketch.
+21/4/11: added flexpaper support.
+21/4/11: added flash generation support.
+21/4/11: added list of packages to install on ubuntu.
+21/4/11: added inline showing of the pdf generated from my website.
