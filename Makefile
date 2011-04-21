@@ -31,6 +31,7 @@ TOOL_LACHECK=lacheck
 TOOL_SKETCH=sketch
 TOOL_PDFLATEX=pdflatex
 USE_LATEX2PDF=scripts/latex2pdf.pl
+#USE_LATEX2PDF=scripts/pdflatex_wrap.pl
 
 #############
 # variables #
