@@ -154,7 +154,7 @@ $(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf
 view_pdf: $(PRIME_PDF)
-	gnome-open $(PRIME_PDF)
+	gnome-open $(PRIME_PDF) 2> /dev/null
 # short cut to show the html output fast...
 .PHONY: view_htm
 view_htm: $(PRIME_HTM)

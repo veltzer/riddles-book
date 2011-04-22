@@ -1,26 +1,47 @@
 %% Drawing of bottles of Coke on their heads...
 
-% the base and then the top of a single bottle
-% the base (wide) side
-%def b11 (0,-1,-1)
-%def b12 (0,-1,+1)
-% def b22 (0,+1,+1)
-% def b21 (0,+1,-1)
-
-% the top (narrow) side
-%def t11 (0,-0.5,-0.5)
-%def t12 (0,-0.5,+0.5)
-% def t22 (0,+0.5,+0.5)
-% def t21 (0,+0.5,-0.5)
+% the origin
+def O (0,0,0)
 
 % one sheet
-%polygon (B11)(B12)(t11)(t12)
+def bottle {
+	def l 0
+	def h 3
+	def bb 0.7
+	def tt 0.5
+	% the base and then the top of a single bottle
+	% the base (wide) side
+	def b11 (-bb,l,-bb)
+	def b12 (-bb,l,bb)
+	def b22 (bb,l,bb)
+	def b21 (bb,l,-bb)
 
-%global {
-%	language tikz
-%}
+	% the top (narrow) side
+	def t11 (-tt,h,-tt)
+	def t12 (-tt,h,tt)
+	def t22 (tt,h,tt)
+	def t21 (tt,h,-tt)
 
-% Cool trick: lay = under forces this to be output first in the tikz picture block.
-special |\tikzstyle{ann} = [fill=white,font=\footnotesize,inner sep=1pt]|[lay=under]
-polygon(0,0,1)(1,0,0)(0,1,0)
-line(-1,-1,-1)(2,2,2)
+	polygon(b11)(b12)(b22)(b21)
+	polygon(t11)(t12)(t22)(t21)
+
+	polygon(b11)(b12)(t12)(t11)
+	polygon(b12)(b22)(t22)(t12)
+	polygon(b22)(b21)(t21)(t22)
+	polygon(b21)(b11)(t11)(t21)
+}
+
+def axes {
+	def sz 5
+	line [arrows=<->] (sz,0,0)(O)(0,sz,0)
+	line [arrows=->] (O)(0,0,sz)
+	line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,0,-10)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,-10,0)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(-10,0,0)
+	special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}|
+		(sz,0,0)(0,sz,0)(0,0,sz)
+}
+
+def eye (10,4,10)
+def look_at (0,0,-5)
+put { view((eye), (look_at)) } { {bottle}{axes} }
