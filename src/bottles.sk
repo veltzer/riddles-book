@@ -54,21 +54,22 @@ put { view((eye), (look_at)) } {
 	put { rotate(180, (0,h/2,0), [0,0,1]) then translate([0,0,h]) } {bottle}
 	put { rotate(180, (0,h/2,0), [0,0,1]) then translate([h,0,0]) } {bottle}
 	
-	line [linewidth=.3pt,arrows=<->] (0,h,0)(h,h,h) % diagonal 1
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (0,h,0)(h,h,h) % diagonal 1
 	special |\uput[u]#1{$l$}| (h/2,h,h/2)
-	line [linewidth=.3pt,arrows=<->] (h,0,0)(0,0,h) % diagonal 2
+
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (h,0,0)(0,0,h) % diagonal 2
 	special |\uput[u]#1{$l$}| (h/2,0,h/2)
 
-	line [linewidth=.3pt,arrows=<->] (0,h,0)(h,0,0)
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (0,h,0)(h,0,0)
 	special |\uput[u]#1{$l$}| (h/2,h/2,0)
 	
-	line [linewidth=.3pt,arrows=<->] (h,0,0)(h,h,h)
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (h,0,0)(h,h,h)
 	special |\uput[u]#1{$l$}| (h,h/2,h/2)
 	
-	line [linewidth=.3pt,arrows=<->] (h,h,h)(0,0,h)
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (h,h,h)(0,0,h)
 	special |\uput[u]#1{$l$}| (h/2,h/2,h)
 	
-	line [linewidth=.3pt,arrows=<->] (0,0,h)(0,h,0)
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (0,0,h)(0,h,0)
 	special |\uput[u]#1{$l$}| (0,h/2,h/2)
 }
 
