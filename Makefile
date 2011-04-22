@@ -165,7 +165,7 @@ view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddles/flexpaper/index.html
 # make the riddles public on a web folder...
 .PHONY: install
-install: $(PRIME_HTM) $(PRIME_PDF) web/htaccess
+install: $(PRIME_HTM) $(PRIME_PDF) $(PRIME_SWF) web/htaccess
 	-sudo rm -rf $(WEB_PRIME)
 	-sudo rm -rf $(WEB)/usr
 	sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
