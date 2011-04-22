@@ -13,3 +13,18 @@ If you want to read documentation checkout the makefile targets that open up the
 The documentation package also has examples that you can copy from.
 Ubuntu also has examples in the sketch-doc package and you can find them at:
 /usr/share/doc/sketch-doc/examples.
+
+hints:
+======
+Stuff in sketch is either point or vector.
+Functions like 'translate' want a vector.
+Functions like 'line' want two points.
+How do you convert a point 'p' into a vector? (p)-(O) (where O is the point of the origin, (0,0,0)).
+How do you convert a vector 'v' into a point? v+(O)
+Arithmetic in sketch could only be done on vectors and so in order to find the middle point between
+two points p1 and p2 you do:
+def mid ((p1)-(O)+(p2)-(O))/2+(O)
+and then use mid in your calculations. Yes - it is ugly.
+You cannot passoff arithmetical expressions of this sort directly to primitive functions since they
+expect to receive computed values. Precompute and put into temporary variables and then pass those
+off.
