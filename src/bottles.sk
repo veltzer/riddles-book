@@ -2,13 +2,14 @@
 
 % the origin
 def O (0,0,0)
+def h 3
+def e 0.02
 
 % one sheet
 def bottle {
 	def l 0
-	def h 3
-	def bb 0.7
-	def tt 0.5
+	def bb 0.5
+	def tt 0.3
 	% the base and then the top of a single bottle
 	% the base (wide) side
 	def b11 (-bb,l,-bb)
@@ -22,26 +23,55 @@ def bottle {
 	def t22 (tt,h,tt)
 	def t21 (tt,h,-tt)
 
-	polygon(b11)(b12)(b22)(b21)
-	polygon(t11)(t12)(t22)(t21)
+	polygon[opacity=0.5,cull=false](b11)(b12)(b22)(b21)
+	polygon[opacity=0.5,cull=false](t11)(t12)(t22)(t21)
 
-	polygon(b11)(b12)(t12)(t11)
-	polygon(b12)(b22)(t22)(t12)
-	polygon(b22)(b21)(t21)(t22)
-	polygon(b21)(b11)(t11)(t21)
+	polygon[opacity=0.5,cull=false](b11)(b12)(t12)(t11)
+	polygon[opacity=0.5,cull=false](b12)(b22)(t22)(t12)
+	polygon[opacity=0.5,cull=false](b22)(b21)(t21)(t22)
+	polygon[opacity=0.5,cull=false](b21)(b11)(t11)(t21)
 }
 
 def axes {
-	def sz 5
-	line [arrows=<->] (sz,0,0)(O)(0,sz,0)
-	line [arrows=->] (O)(0,0,sz)
+	% size of the axes
+	def axis_x 5
+	def axis_y 4
+	def axis_z 5
+	line [arrows=->] (O)(axis_x,0,0) % x axis
+	line [arrows=->] (O)(0,axis_y,0) % y axis
+	line [arrows=->] (O)(0,0,axis_z) % z axis
 	line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,0,-10)
 	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,-10,0)
 	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(-10,0,0)
-	special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}|
-		(sz,0,0)(0,sz,0)(0,0,sz)
+	special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
 }
 
-def eye (10,4,10)
+def eye (7,4,10)
 def look_at (0,0,-5)
-put { view((eye), (look_at)) } { {bottle}{axes} }
+put { view((eye), (look_at)) } {
+	{axes}
+	{bottle}
+	put { translate([h,0,h]) } {bottle}
+	put { rotate(180, (0,h/2,0), [0,0,1]) then translate([0,0,h]) } {bottle}
+	put { rotate(180, (0,h/2,0), [0,0,1]) then translate([h,0,0]) } {bottle}
+	
+	line [linewidth=.3pt,arrows=<->] (0,h+e,0)(h,h+e,h) % diagonal 1
+	special |\uput[u]#1{$l$}| (h/2,h+e,h/2)
+	line [linewidth=.3pt,arrows=<->] (h,0,0)(0,0,h) % diagonal 2
+	special |\uput[u]#1{$l$}| (h/2,0,h/2)
+
+	line [linewidth=.3pt,arrows=<->] (0,h+e,0)(h,0,0)
+	special |\uput[u]#1{$l$}| (h/2,(h+e)/2,0)
+	
+	line [linewidth=.3pt,arrows=<->] (h,0,0)(h,h+e,h)
+	special |\uput[u]#1{$l$}| (h,(h+e)/2,h/2)
+	
+	line [linewidth=.3pt,arrows=<->] (h,h+e,h)(0,0,h)
+	special |\uput[u]#1{$l$}| (h/2,(h+e)/2,h)
+	
+	line [linewidth=.3pt,arrows=<->] (0,0,h)(0,h+e,0)
+	special |\uput[u]#1{$l$}| (0,(h+e)/2,h/2)
+}
+
+% we use pstricks and not tikz (had problems with tikz)
+%global { language tikz }

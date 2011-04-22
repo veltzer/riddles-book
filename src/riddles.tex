@@ -1,13 +1,36 @@
 \documentclass{article}
 %\usepackage{pdftricks}
 %\usepackage{pst-all}
-\usepackage{pstricks}
 % if you use the following package straight latex running (not via pdflatex), will not work...
 %\usepackage{pst-pdf}
 %\usepackage{auto-pst-pdf}
-\usepackage{tikz}
-\usepackage{amssymb,amsmath,color,thumbpdf,html,hyperref}
-%%\usepackage{pst-barcode,pstricks-add}
+%\usepackage[pdftex,
+%	colorlinks=true,
+%	urlcolor=rltblue, % \href{...}{...} external (URL)
+%	filecolor=rltgreen, % \href{...} local file
+%	linkcolor=rltred, % \ref{...} and \pageref{...}
+%	pdftitle={Untitled},
+%	pdfauthor={Your Name},
+%	pdfsubject={Just a test},
+%	pdfkeywords={test, testing, testable stuff},
+%	pdfproducer={pdfLaTeX},
+%	pagebackref,
+%	pdfpagemode=UseNone,
+%	bookmarksopen=true]{hyperref} % needed for sketch
+%\definecolor{rltred}{rgb}{0.75,0,0}
+%\definecolor{rltgreen}{rgb}{0,0.5,0}
+%\definecolor{rltblue}{rgb}{0,0,0.75}
+%\usepackage{tikz} % for sketch with tikz
+%\usepackage{amsmath,color,thumbpdf,html,hyperref}
+%\usepackage{pst-barcode,pstricks-add}
+
+% these are the packages that we actually use
+\usepackage{thumbpdf} % for thumbnails
+\usepackage{hyperref} % for hyperlinks
+\usepackage{color} % for colors
+\usepackage{amsmath} % for math
+\usepackage{amssymb} % for math symbols
+\usepackage{pstricks} % for sketch with pstricks support (default for sketch)
 
 \title{Riddles}
 \author{Mark Veltzer}
@@ -81,15 +104,16 @@ and \htmladdnormallink{Bertrand's ballot theorem}{http://en.wikipedia.org/wiki/B
 \section{Four Coke bottles on a table}
 
 Arrange four Coke bottles on a table so that the distances between each pair of caps will be the same. Assume that
-you can make a Coke bottle stand on it's head (this is a pretty strong hint!, maybe I should remove it ?!?).
+you can make a Coke bottle stand on it's head (this is a pretty strong hint!, maybe I should remove it ?!?). The length
+of the bottle is ${h}$.
 
 \subsection{Solution}
 
 There are two solutions:
 
-The first solution is to put the bottles in a square where each the side of the square is the length of the bottle. Bottles
+The first solution is to put the bottles in a square where the side of the square is the length of the bottle. Bottles
 next to each other will stand \emph{in reverse} (if the first is on it's head the the second will stand straight).
-The distance between each two bottles will be $\sqrt{2l^2}$.
+The distance between each two bottles will be $l=\sqrt{2h^2}$.
 
 \begin{center}
 \input{out/bottles.tex}
