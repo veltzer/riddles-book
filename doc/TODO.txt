@@ -15,3 +15,5 @@ licensing:
 build system:
 =============
 - write a perl wrapper for lacheck (it is also problematic).
+- build each .sk into an image of it's own. This way it will be very easy to work on the drawings
+	and I could make a logo for the riddling project itself.

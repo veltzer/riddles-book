@@ -1,0 +1,77 @@
+% A perfect triangular pyramid to ilustrate the calculations for the bottles riddle
+
+% some useful definitions
+def O (0,0,0)
+
+% the name 'axes' is right for this function since it is the plural of 'axis'...
+def axes {
+	% size of the axes
+	def axis_x 5
+	def axis_y 4
+	def axis_z 5
+	line [arrows=->] (O)(axis_x,0,0) % x axis
+	line [arrows=->] (O)(0,axis_y,0) % y axis
+	line [arrows=->] (O)(0,0,axis_z) % z axis
+	line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,0,-10)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,-10,0)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(-10,0,0)
+	special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
+}
+
+def eye (7,4,10)
+def look_at (0,0,-5)
+put { view((eye), (look_at)) } {
+	% no need for axes in this drawing...
+	%{axes}
+	% the height of the pyramid...
+	def h 3
+	% the side of the pyramid...
+	def d sqrt(1.5)*h 
+	def p1 (0,0,0)
+	def p2 (d,0,0)
+	def p3 (d*cos(60),0,d*sin(60))
+	def p4 (d/2*cos(30),h,d/2*sin(30))
+	% the base center
+	def bc (d/2*cos(30),0,d/2*sin(30))
+	% center of the forward edge
+	def p23 ((p3)-(O)+(p2)-(O))/2+(O)
+	% center of the back edge
+	def p14 ((p1)-(O)+(p4)-(O))/2+(O)
+
+	% draw the pyramid
+	line (p1)(p2)
+	line (p2)(p3)
+	line (p3)(p4)
+	line (p4)(p1)
+	line (p1)(p3)
+	line (p2)(p4)
+
+	% draw the names of the points of the pyramid...(debug)
+	%special |\uput[l]#1{$p1$}| (p1)
+	%special |\uput[r]#1{$p2$}| (p2)
+	%special |\uput[d]#1{$p3$}| (p3)
+	%special |\uput[u]#1{$p4$}| (p4)
+	%special |\uput[u]#1{$bc$}| (bc)
+	%special |\uput[d]#1{$p23$}| (p23)
+	%special |\uput[d]#1{$p14$}| (p14)
+
+	% draw lines
+	line [linewidth=.2pt](p1)(p23)
+	def mid1 ((p1)-(O)+(p23)-(O))/2+(O)
+	special |\uput[d]#1{$H$}| (mid1)
+	line [linewidth=.2pt](p4)(p23)
+	def mid2 ((p4)-(O)+(p23)-(O))/2+(O)
+	special |\uput[r]#1{$H$}| (mid2)
+	line [linewidth=.2pt](p4)(bc)
+	def mid3 ((p4)-(O)+(bc)-(O))/2+(O)
+	special |\uput[u]#1{$h$}| (mid3)
+	line [linewidth=.2pt](p23)(p14)
+	def mid4 ((p23)-(O)+(p14)-(O))/2+(O)
+	special |\uput[u]#1{$H'$}| (mid4)
+
+	% mark d
+	special |\uput[l]#1{$d$}| (p14)
+}
+
+% we use pstricks and not tikz (had problems with tikz)
+%global { language tikz }

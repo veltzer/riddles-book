@@ -6,15 +6,15 @@ def h 3
 
 % one sheet
 def bottle {
-	def l 0
+	def ll 0
 	def bb 0.5
 	def tt 0.3
 	% the base and then the top of a single bottle
 	% the base (wide) side
-	def b11 (-bb,l,-bb)
-	def b12 (-bb,l,bb)
-	def b22 (bb,l,bb)
-	def b21 (bb,l,-bb)
+	def b11 (-bb,ll,-bb)
+	def b12 (-bb,ll,bb)
+	def b22 (bb,ll,bb)
+	def b21 (bb,ll,-bb)
 
 	% the top (narrow) side
 	def t11 (-tt,h,-tt)
@@ -50,27 +50,40 @@ def look_at (0,0,-5)
 put { view((eye), (look_at)) } {
 	{axes}
 	{bottle}
+
+	% four corners of the pyramid
+	def p1 (0,h,0) 
+	def p2 (h,0,0) 
+	def p3 (h,h,h) 
+	def p4 (0,0,h) 
+
 	put { translate([h,0,h]) } {bottle}
-	put { rotate(180, (0,h/2,0), [0,0,1]) then translate([0,0,h]) } {bottle}
-	put { rotate(180, (0,h/2,0), [0,0,1]) then translate([h,0,0]) } {bottle}
-	
-	line [linewidth=.3pt,arrows=<->,linecolor=red] (0,h,0)(h,h,h) % diagonal 1
-	special |\uput[u]#1{$l$}| (h/2,h,h/2)
+	put { rotate(180, (0,h/2,0), [0,0,1]) then translate((p4)-(O)) } {bottle}
+	put { rotate(180, (0,h/2,0), [0,0,1]) then translate((p2)-(O)) } {bottle}
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red] (h,0,0)(0,0,h) % diagonal 2
-	special |\uput[u]#1{$l$}| (h/2,0,h/2)
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (p1)(p3) % diagonal 1
+	def mid1 ((p1)-(O)+(p3)-(O))/2+(O)
+	special |\uput[u]#1{$d$}| (mid1)
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red] (0,h,0)(h,0,0)
-	special |\uput[u]#1{$l$}| (h/2,h/2,0)
-	
-	line [linewidth=.3pt,arrows=<->,linecolor=red] (h,0,0)(h,h,h)
-	special |\uput[u]#1{$l$}| (h,h/2,h/2)
-	
-	line [linewidth=.3pt,arrows=<->,linecolor=red] (h,h,h)(0,0,h)
-	special |\uput[u]#1{$l$}| (h/2,h/2,h)
-	
-	line [linewidth=.3pt,arrows=<->,linecolor=red] (0,0,h)(0,h,0)
-	special |\uput[u]#1{$l$}| (0,h/2,h/2)
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (p2)(p4) % diagonal 2
+	def mid2 ((p2)-(O)+(p4)-(O))/2+(O)
+	special |\uput[u]#1{$d$}| (mid2)
+
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (p1)(p2)
+	def mid3 ((p1)-(O)+(p2)-(O))/2+(O)
+	special |\uput[u]#1{$d$}| (mid3)
+
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (p2)(p3)
+	def mid4 ((p2)-(O)+(p3)-(O))/2+(O)
+	special |\uput[u]#1{$d$}| (mid4)
+
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (p3)(p4)
+	def mid5 ((p3)-(O)+(p4)-(O))/2+(O)
+	special |\uput[u]#1{$d$}| (mid5)
+
+	line [linewidth=.3pt,arrows=<->,linecolor=red] (p4)(p1)
+	def mid6 ((p4)-(O)+(p1)-(O))/2+(O)
+	special |\uput[u]#1{$d$}| (mid6)
 }
 
 % we use pstricks and not tikz (had problems with tikz)
