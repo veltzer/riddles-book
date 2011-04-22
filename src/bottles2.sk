@@ -1,0 +1,56 @@
+%% Drawing of bottles of Coke on their heads...
+
+% the origin
+def O (0,0,0)
+def h 3
+
+% one sheet
+def bottle {
+	def l 0
+	def bb 0.5
+	def tt 0.3
+	% the base and then the top of a single bottle
+	% the base (wide) side
+	def b11 (-bb,l,-bb)
+	def b12 (-bb,l,bb)
+	def b22 (bb,l,bb)
+	def b21 (bb,l,-bb)
+
+	% the top (narrow) side
+	def t11 (-tt,h,-tt)
+	def t12 (-tt,h,tt)
+	def t22 (tt,h,tt)
+	def t21 (tt,h,-tt)
+
+	polygon[opacity=0.5,cull=false](b11)(b12)(b22)(b21)
+	polygon[opacity=0.5,cull=false](t11)(t12)(t22)(t21)
+
+	polygon[opacity=0.5,cull=false](b11)(b12)(t12)(t11)
+	polygon[opacity=0.5,cull=false](b12)(b22)(t22)(t12)
+	polygon[opacity=0.5,cull=false](b22)(b21)(t21)(t22)
+	polygon[opacity=0.5,cull=false](b21)(b11)(t11)(t21)
+}
+
+def axes {
+	% size of the axes
+	def axis_x 5
+	def axis_y 4
+	def axis_z 5
+	line [arrows=->] (O)(axis_x,0,0) % x axis
+	line [arrows=->] (O)(0,axis_y,0) % y axis
+	line [arrows=->] (O)(0,0,axis_z) % z axis
+	line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,0,-10)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,-10,0)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(-10,0,0)
+	special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
+}
+
+def eye (7,4,10)
+def look_at (0,0,-5)
+put { view((eye), (look_at)) } {
+	{axes}
+	special |\uput[u]#1{To be drawn...}| (0,0,0)
+}
+
+% we use pstricks and not tikz (had problems with tikz)
+%global { language tikz }

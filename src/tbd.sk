@@ -1,0 +1,28 @@
+% This is a "To be drawn" shape to be placed until I actually draw something...
+
+% the origin
+def O (0,0,0)
+
+def axes {
+	% size of the axes
+	def axis_x 5
+	def axis_y 4
+	def axis_z 5
+	line [arrows=->] (O)(axis_x,0,0) % x axis
+	line [arrows=->] (O)(0,axis_y,0) % y axis
+	line [arrows=->] (O)(0,0,axis_z) % z axis
+	line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,0,-10)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,-10,0)
+	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(-10,0,0)
+	special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
+}
+
+def eye (7,4,10)
+def look_at (0,0,-5)
+put { view((eye), (look_at)) } {
+	{axes}
+	special |\uput[u]#1{To be drawn...}| (0,0,0)
+}
+
+% we use pstricks and not tikz (had problems with tikz)
+%global { language tikz }
