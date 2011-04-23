@@ -197,3 +197,6 @@ pdfinfo:
 .PHONY: view_luatex_doc_pdf
 view_luatex_doc_pdf:
 	gnome-open /usr/share/doc/texmf/luatex/base/luatexref-t.pdf
+.PHONY: view_pgf_doc_pdf
+view_pgf_doc_pdf:
+	gnome-open  /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
