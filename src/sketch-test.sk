@@ -31,8 +31,8 @@ def basic_cone {
   line[arrows=<->](ax)(O)(ay)
   line[arrows=->](O)(az)
   % repeat dotted as an overlay to hint at the hidden lines
-  %line[lay=over,linestyle=dotted,linewidth=.4pt](ax)(O)(ay)
- % line[lay=over,linestyle=dotted,linewidth=.4pt](O)(az)
+  %line[lay=over,line style=dotted,line width=.4pt](ax)(O)(ay)
+ % line[lay=over,line style=dotted,line width=.4pt](O)(az)
   % label
   special|\path #1 node[below] {$x$}
      #2 node[above] {$y$}

@@ -9,3 +9,7 @@
 21/4/11: added list of packages to install on ubuntu.
 21/4/11: added inline showing of the pdf generated from my website.
 23/4/11: added pdf post processing with qpdf.
+23/4/11: removed html generation.
+23/4/11: better makefile as far as dependencies go.
+23/4/11: better makefile structure.
+23/4/11: first riddle with nice sketches now works well.

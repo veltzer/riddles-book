@@ -39,9 +39,9 @@ def axes {
 	line [arrows=->] (O)(axis_x,0,0) % x axis
 	line [arrows=->] (O)(0,axis_y,0) % y axis
 	line [arrows=->] (O)(0,0,axis_z) % z axis
-	line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,0,-10)
-	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,-10,0)
-	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(-10,0,0)
+	line [line width=.2pt,draw=blue,line style=dashed] (O)(0,0,-10)
+	%line [line width=.2pt,draw=blue,line style=dashed] (O)(0,-10,0)
+	%line [line width=.2pt,draw=blue,line style=dashed] (O)(-10,0,0)
 	% this is for pstricks
 	%special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
 	% this is for tikz
@@ -66,36 +66,35 @@ put { view((eye), (look_at)) } {
 	put { rotate(180, (0,h/2,0), [0,0,1]) then translate((p4)-(O)) } {bottle}
 	put { rotate(180, (0,h/2,0), [0,0,1]) then translate((p2)-(O)) } {bottle}
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red,draw=red] (p1)(p3) % diagonal 1
+	line [line width=.3pt,arrows=<->,draw=red] (p1)(p3) % diagonal 1
 	def mid1 ((p1)-(O)+(p3)-(O))/2+(O)
 	%special |\uput[u]#1{$d$}| (mid1)
 	special|\node[above,color=red] at #1 {$d$};|(mid1)
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red,draw=red] (p2)(p4) % diagonal 2
+	line [line width=.3pt,arrows=<->,draw=red] (p2)(p4) % diagonal 2
 	def mid2 ((p2)-(O)+(p4)-(O))/2+(O)
 	%special |\uput[u]#1{$d$}| (mid2)
 	special|\node[above,color=red] at #1 {$d$};|(mid2)
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red,draw=red] (p1)(p2)
+	line [line width=.3pt,arrows=<->,draw=red] (p1)(p2)
 	def mid3 ((p1)-(O)+(p2)-(O))/2+(O)
 	%special |\uput[u]#1{$d$}| (mid3)
 	special|\node[above,color=red] at #1 {$d$};|(mid3)
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red,draw=red] (p2)(p3)
+	line [line width=.3pt,arrows=<->,draw=red] (p2)(p3)
 	def mid4 ((p2)-(O)+(p3)-(O))/2+(O)
 	%special |\uput[u]#1{$d$}| (mid4)
 	special|\node[above,color=red] at #1 {$d$};|(mid4)
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red,draw=red] (p3)(p4)
+	line [line width=.3pt,arrows=<->,draw=red] (p3)(p4)
 	def mid5 ((p3)-(O)+(p4)-(O))/2+(O)
 	%special |\uput[u]#1{$d$}| (mid5)
 	special|\node[above,color=red] at #1 {$d$};|(mid5)
 
-	line [linewidth=.3pt,arrows=<->,linecolor=red,draw=red] (p4)(p1)
+	line [line width=.3pt,arrows=<->,draw=red] (p4)(p1)
 	def mid6 ((p4)-(O)+(p1)-(O))/2+(O)
 	%special |\uput[u]#1{$d$}| (mid6)
 	special|\node[above,color=red] at #1 {$d$};|(mid6)
 }
 
-% we use pstricks and not tikz (had problems with tikz)
 global { language tikz }
