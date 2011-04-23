@@ -1,4 +1,4 @@
-%% Drawing of bottles of Coke on their heads...
+% Drawing of bottles of Coke on their heads (first version)...
 
 % the origin
 def O (0,0,0)
@@ -40,11 +40,6 @@ def axes {
 	line [arrows=->] (O)(0,axis_y,0) % y axis
 	line [arrows=->] (O)(0,0,axis_z) % z axis
 	line [line width=.2pt,draw=blue,line style=dashed] (O)(0,0,-10)
-	%line [line width=.2pt,draw=blue,line style=dashed] (O)(0,-10,0)
-	%line [line width=.2pt,draw=blue,line style=dashed] (O)(-10,0,0)
-	% this is for pstricks
-	%special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
-	% this is for tikz
 	special|\node[right] at #1 {$x$};|(axis_x,0,0)
 	special|\node[above] at #1 {$y$};|(0,axis_y,0)
 	special|\node[left] at #1 {$z$};|(0,0,axis_z)
@@ -68,32 +63,26 @@ put { view((eye), (look_at)) } {
 
 	line [line width=.3pt,arrows=<->,draw=red] (p1)(p3) % diagonal 1
 	def mid1 ((p1)-(O)+(p3)-(O))/2+(O)
-	%special |\uput[u]#1{$d$}| (mid1)
 	special|\node[above,color=red] at #1 {$d$};|(mid1)
 
 	line [line width=.3pt,arrows=<->,draw=red] (p2)(p4) % diagonal 2
 	def mid2 ((p2)-(O)+(p4)-(O))/2+(O)
-	%special |\uput[u]#1{$d$}| (mid2)
 	special|\node[above,color=red] at #1 {$d$};|(mid2)
 
 	line [line width=.3pt,arrows=<->,draw=red] (p1)(p2)
 	def mid3 ((p1)-(O)+(p2)-(O))/2+(O)
-	%special |\uput[u]#1{$d$}| (mid3)
 	special|\node[above,color=red] at #1 {$d$};|(mid3)
 
 	line [line width=.3pt,arrows=<->,draw=red] (p2)(p3)
 	def mid4 ((p2)-(O)+(p3)-(O))/2+(O)
-	%special |\uput[u]#1{$d$}| (mid4)
 	special|\node[above,color=red] at #1 {$d$};|(mid4)
 
 	line [line width=.3pt,arrows=<->,draw=red] (p3)(p4)
 	def mid5 ((p3)-(O)+(p4)-(O))/2+(O)
-	%special |\uput[u]#1{$d$}| (mid5)
 	special|\node[above,color=red] at #1 {$d$};|(mid5)
 
 	line [line width=.3pt,arrows=<->,draw=red] (p4)(p1)
 	def mid6 ((p4)-(O)+(p1)-(O))/2+(O)
-	%special |\uput[u]#1{$d$}| (mid6)
 	special|\node[above,color=red] at #1 {$d$};|(mid6)
 }
 
