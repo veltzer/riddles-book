@@ -32,8 +32,8 @@ TOOL_LATEX2HTML=latex2html
 TOOL_LACHECK=lacheck
 TOOL_SKETCH=sketch
 TOOL_PDFLATEX=pdflatex
-USE_LATEX2PDF=scripts/latex2pdf.pl
-#USE_LATEX2PDF=scripts/pdflatex_wrap.pl
+#USE_LATEX2PDF=scripts/latex2pdf.pl
+USE_LATEX2PDF=scripts/pdflatex_wrap.pl
 
 #############
 # variables #
@@ -154,7 +154,7 @@ $(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf
 view_pdf: $(PRIME_PDF)
-	gnome-open $(PRIME_PDF) 2> /dev/null &
+	gnome-open $(PRIME_PDF) > /dev/null 2> /dev/null &
 # short cut to show the html output fast...
 .PHONY: view_htm
 view_htm: $(PRIME_HTM)
@@ -188,3 +188,12 @@ view_sketch_doc_htm:
 .PHONY: view_sketch_doc_pdf
 view_sketch_doc_pdf:
 	gnome-open /usr/share/doc/sketch-doc/sketch.pdf.gz
+.PHONY: view_pdftex_doc_pdf
+view_pdftex_doc_pdf:
+	gnome-open /usr/share/doc/texlive-doc/pdftex/manual/pdftex-s.pdf
+.PHONY: pdfinfo
+pdfinfo:
+	pdfinfo $(PRIME_PDF)
+.PHONY: view_luatex_doc_pdf
+view_luatex_doc_pdf:
+	gnome-open /usr/share/doc/texmf/luatex/base/luatexref-t.pdf

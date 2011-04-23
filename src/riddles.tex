@@ -1,36 +1,41 @@
 \documentclass{article}
+%\usepackage[pdftex]{} % for pdf features
+\usepackage{thumbpdf} % for thumbnails
+\usepackage[pdftex,
+	pdftitle={Riddles},
+	pdfauthor={Mark Veltzer},
+	pdfsubject={A collection of riddles},
+	pdfkeywords={riddles, riddling, math, mathematics, geometry, combinatorics, Mark Veltzer, veltzer, Veltzer},
+	pdfproducer={Mark Veltzer <mark.veltzer@gmail.com>},
+	]{hyperref}
+\pdfminorversion=5
+\pdfoutput=1
+\pdfcompresslevel=0
 %\usepackage{pdftricks}
 %\usepackage{pst-all}
 % if you use the following package straight latex running (not via pdflatex), will not work...
-%\usepackage{pst-pdf}
+\usepackage{pst-pdf}
 %\usepackage{auto-pst-pdf}
-%\usepackage[pdftex,
 %	colorlinks=true,
 %	urlcolor=rltblue, % \href{...}{...} external (URL)
 %	filecolor=rltgreen, % \href{...} local file
 %	linkcolor=rltred, % \ref{...} and \pageref{...}
-%	pdftitle={Untitled},
-%	pdfauthor={Your Name},
-%	pdfsubject={Just a test},
-%	pdfkeywords={test, testing, testable stuff},
-%	pdfproducer={pdfLaTeX},
 %	pagebackref,
 %	pdfpagemode=UseNone,
 %	bookmarksopen=true]{hyperref} % needed for sketch
 %\definecolor{rltred}{rgb}{0.75,0,0}
 %\definecolor{rltgreen}{rgb}{0,0.5,0}
 %\definecolor{rltblue}{rgb}{0,0,0.75}
-%\usepackage{tikz} % for sketch with tikz
 %\usepackage{amsmath,color,thumbpdf,html,hyperref}
 %\usepackage{pst-barcode,pstricks-add}
 
 % these are the packages that we actually use
-\usepackage{thumbpdf} % for thumbnails
-\usepackage{hyperref} % for hyperlinks
-\usepackage{color} % for colors
-\usepackage{amsmath} % for math
-\usepackage{amssymb} % for math symbols
-\usepackage{pstricks} % for sketch with pstricks support (default for sketch)
+%\usepackage{hyperref} % for hyperlinks
+%\usepackage{color} % for colors (creates errors when applied with pdftex option)
+\usepackage{amsmath} % for math (does not pdftex option)
+\usepackage{amssymb} % for math symbols (does not pdftex option)
+%\usepackage{pstricks} % for sketch with pstricks support (default for sketch)
+\usepackage{tikz} % for sketch with tikz (does not pdftex option)
 
 \title{Riddles}
 \author{Mark Veltzer}

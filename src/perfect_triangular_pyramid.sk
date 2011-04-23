@@ -15,7 +15,10 @@ def axes {
 	line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,0,-10)
 	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(0,-10,0)
 	%line [linewidth=.2pt,linecolor=blue,linestyle=dashed] (O)(-10,0,0)
-	special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
+	%special |\uput[r]#1{$x$}\uput[u]#2{$y$}\uput[l]#3{$z$}| (axis_x,0,0)(0,axis_y,0)(0,0,axis_z)
+	special|\node[ann] at #1 {$x$};|(axis_x,0,0)
+	special|\node[ann] at #1 {$y$};|(0,axis_y,0)
+	special|\node[ann] at #1 {$z$};|(0,0,axis_z)
 }
 
 def eye (7,4,10)
@@ -56,22 +59,30 @@ put { view((eye), (look_at)) } {
 	%special |\uput[d]#1{$p14$}| (p14)
 
 	% draw lines
-	line [linewidth=.2pt](p1)(p23)
+	line [line width=.1pt,draw=red](p1)(p23)
 	def mid1 ((p1)-(O)+(p23)-(O))/2+(O)
-	special |\uput[d]#1{$H$}| (mid1)
-	line [linewidth=.2pt](p4)(p23)
+	%special |\uput[d]#1{$H$}| (mid1)
+	special |\node[below] at #1 {$H$};| (mid1)
+
+	line [line width=.1pt,draw=red](p4)(p23)
 	def mid2 ((p4)-(O)+(p23)-(O))/2+(O)
-	special |\uput[r]#1{$H$}| (mid2)
-	line [linewidth=.2pt](p4)(bc)
+	%special |\uput[r]#1{$H$}| (mid2)
+	special |\node[right] at #1 {$H$};| (mid2)
+
+	line [line width=.1pt,draw=red](p4)(bc)
 	def mid3 ((p4)-(O)+(bc)-(O))/2+(O)
-	special |\uput[u]#1{$h$}| (mid3)
-	line [linewidth=.2pt](p23)(p14)
+	%special |\uput[u]#1{$h$}| (mid3)
+	special |\node[above] at #1 {$h$};| (mid3)
+
+	line [line width=.1pt,draw=red](p23)(p14)
 	def mid4 ((p23)-(O)+(p14)-(O))/2+(O)
-	special |\uput[u]#1{$H'$}| (mid4)
+	%special |\uput[u]#1{$H'$}| (mid4)
+	special |\node[above] at #1 {$H'$};| (mid4)
 
 	% mark d
-	special |\uput[l]#1{$d$}| (p14)
+	%special |\uput[l]#1{$d$}| (p14)
+	special |\node[left] at #1 {$d$};| (p14)
 }
 
 % we use pstricks and not tikz (had problems with tikz)
-%global { language tikz }
+global { language tikz }

@@ -8,3 +8,4 @@
 21/4/11: added flash generation support.
 21/4/11: added list of packages to install on ubuntu.
 21/4/11: added inline showing of the pdf generated from my website.
+23/4/11: added pdf post processing with qpdf.

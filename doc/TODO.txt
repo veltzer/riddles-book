@@ -1,12 +1,16 @@
 Now:
 ====
-- finish the bottles riddle with correct sketches.
-- fix the issue with html and images and publish html on my site (instead of inlined pdf
-that I have now ?!?).
 
-better quality of latex:
-========================
+latex code:
+===========
 - find a way to spell check the latex files and add it to the makefile.
+- give better colors to the hyper links in the latex.
+- mark all TODO items the same way (using a latex macro?!?).
+
+sketch code:
+============
+- start breaking down the .sk files into chunks of defs and reusing them all
+over to avoid code duplication.
 
 licensing:
 ==========
@@ -17,3 +21,19 @@ build system:
 - write a perl wrapper for lacheck (it is also problematic).
 - build each .sk into an image of it's own. This way it will be very easy to work on the drawings
 	and I could make a logo for the riddling project itself.
+
+direct pdf viewing on web:
+==========================
+- when using the google API to see the pdf directly in an iframe in my web page links like the table
+of content (intra-document PDF links) do not work. Links to the outside do work. Check if we can fix this.
+
+html generation:
+================
+- in the html version sketch images are not produced. Fix this and publish html on my site (instead of inlined pdf
+that I have now ?!?).
+
+misc:
+=====
+- collect links to various riddling sites over the web in the 'doc' folder.
+- remove lots of the manuals that I carry in doc and have command to show them from ubuntu (provided
+	that they do exist in some ubuntu -doc package that is...).

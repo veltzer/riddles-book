@@ -34,6 +34,8 @@ my($debug)=0;
 my($remove_tmp)=1;
 # how many times to run 'pdflatex(1)' ?
 my($runs)=2;
+# do you want to run the 'qpdf' post processing stage?
+my($qpdf)=1;
 
 # print to stdout a file content
 # this function is adjusted for the ugly output that pdflatex produces and so it
@@ -42,14 +44,14 @@ my($runs)=2;
 sub printout($) {
 	my($filename)=@_;
 	if($debug) {
-		print 'printing ['.$filename.']'."\n";
+		print STDERR 'printing ['.$filename.']'."\n";
 	}
 	open(FILE,$filename) || die('unable to open ['.$filename.']');
 	my($line);
 	my($inerr)=0;
 	while($line=<FILE>) {
 		if($inerr) {
-			print $line;
+			print STDERR $line;
 			if($line=~/^\!/) {
 				$inerr=0;
 			}
@@ -63,28 +65,55 @@ sub printout($) {
 	close(FILE) || die('unable to close ['.$filename.']');
 }
 # this is a function that removes a file and can optionally die if there is a problem
-sub unlink_check($$) {
-	my($file,$check)=@_;
-	if($debug) {
-		print 'unlinking ['.$file.']'."\n";
-	}
-	my($ret)=unlink($file);
-	if($check) {
-		if($ret!=1) {
-			die('problem unlinking file ['.$file.']');
+sub unlink_check($$$) {
+	my($file,$check,$doit)=@_;
+	if($doit) {
+		if($debug) {
+			print STDERR 'unlinking ['.$file.']'."\n";
+		}
+		my($ret)=unlink($file);
+		if($check) {
+			if($ret!=1) {
+				die('problem unlinking file ['.$file.']');
+			}
 		}
 	}
 }
-# this is a function that removes a file and can optionally die if there is a problem
+# this is a function that chmods a file and can optionally die if there is a problem
 sub chmod_check($$) {
 	my($file,$check)=@_;
 	if($debug) {
-		print 'chmodding ['.$file.']'."\n";
+		print STDERR 'chmodding ['.$file.']'."\n";
 	}
 	my($ret)=chmod(0444,$file);
 	if($check) {
 		if($ret!=1) {
 			die('problem chmodding file ['.$file.']');
+		}
+	}
+}
+# this wraps calls to system()
+sub my_system($) {
+	my($cmd)=@_;
+	if($debug) {
+		print STDERR 'my_system ['.$cmd.']'."\n";
+	}
+	my($res)=system($cmd);
+	if($debug) {
+		print STDERR 'my_system res is ['.$res.']'."\n";
+	}
+	return $res;
+}
+# this is a function that renames a file and dies if there is a problem 
+sub my_rename($$$) {
+	my($old,$new,$check)=@_;
+	if($debug) {
+		print STDERR 'my_rename ['.$old.','.$new.']'."\n";
+	}
+	my($ret)=rename($old,$new);
+	if($check) {
+		if($ret!=1) {
+			die('my_rename problem ['.$old.','.$new.']');
 		}
 	}
 }
@@ -95,7 +124,8 @@ my($output)=shift(@ARGV);
 my($output_dir)=File::Basename::dirname($output);
 # temporary file name to store errors...
 my($volume,$directories,$myscript) = File::Spec->splitpath($0);
-my($tmp_fname)='/tmp/'.$myscript.$$;
+my($tmp_fname)='/tmp/'.$myscript.$$.'.err';
+#my($tmp_output)='/tmp/'.$myscript.$$.'.pdf';
 my($cmd)='pdflatex -interaction=nonstopmode -halt-on-error -output-directory '.$output_dir.' '.$input.' > '.$tmp_fname.' 2> /dev/null';
 if($debug) {
 	print 'input is ['.$input.']'."\n";
@@ -103,38 +133,56 @@ if($debug) {
 	print 'cmd is ['.$cmd.']'."\n";
 }
 # first remove the output (if it exists)
-if(-f $output) {
-	unlink_check($output,1);
-}
+unlink_check($output,1,-f $output);
 # we need to run the command twice!!! (to generate the index and more)
 for(my($i)=0;$i<$runs;$i++) {
-	my($res)=system($cmd);
-	if($debug) {
-		print 'system returned ['.$res.']'."\n";
-	}
+	my($res)=my_system($cmd);
 	if($res) {
 		# error path
 		# print the errors
 		printout($tmp_fname);
 		# remove the tmp file for the errors
-		if($remove_tmp) {
-			unlink_check($tmp_fname,1);
-		}
+		unlink_check($tmp_fname,1,$remove_tmp);
 		# make sure to the remove the output (we are in the error path)
-		if(-f $output) {
-			unlink_check($output,1);
-		}
+		unlink_check($output,1,-f $output);
 		# exit with error code of the child...
 		exit($res >> 8);
 	} else {
 		# everything is ok
 		# remove the tmp file for the errors
-		if($remove_tmp) {
-			unlink_check($tmp_fname,1);
-		}
+		unlink_check($tmp_fname,1,$remove_tmp);
 		# change the output to be unchangble (but only in the final run!)
 		if($i==$runs-1) {
 			chmod_check($output,1);
 		}
+	}
+}
+if($qpdf) {
+	# move the output to the new place
+	my($tmp_output)=$output.'.pdf';
+	my_rename($output,$tmp_output,1);
+	#my($cmd4)='qpdf --linearize --force-version=1.5 '.$tmp_output.' '.$output.' > '.$tmp_fname.' 2> /dev/null';
+	my($cmd4)='qpdf --linearize '.$tmp_output.' '.$output.' > '.$tmp_fname.' 2> /dev/null';
+	my($res)=my_system($cmd4);
+	if($res) {
+		# error path
+		# print the errors
+		printout($tmp_fname);
+		# remove the tmp file for the errors
+		unlink_check($tmp_fname,1,$remove_tmp);
+		# remove the temporary file...
+		unlink_check($tmp_output,1,1);
+		# make sure to the remove the output (we are in the error path)
+		unlink_check($output,1,-f $output);
+		# exit with error code of the child...
+		exit($res >> 8);
+	} else {
+		# everything is ok
+		# remove the temporary file...
+		unlink_check($tmp_output,1,1);
+		# remove the tmp file for the errors
+		unlink_check($tmp_fname,1,$remove_tmp);
+		# change the output to be unchangble (but only in the second time!)
+		chmod_check($output,1);
 	}
 }

@@ -25,6 +25,9 @@ mode to ask the user what to do about an error (what is this behaviour anyway ?!
 - -halt-on-error - this means that latex will stop on error.
 - -output-directory - this tells pdflatex where the output folder is.
 
+TODO:
+- add signal handling and cleanup nicely after myself.
+
 =cut
 
 #parameters
@@ -35,6 +38,8 @@ my($debug)=0;
 my($remove_tmp)=1;
 # how many times to run 'latex(1)' ?
 my($runs)=2;
+# do you want to run the 'qpdf' post processing stage?
+my($qpdf)=1;
 
 # print to stdout a file content
 # this function is adjusted for the ugly output that pdflatex produces and so it
@@ -43,14 +48,14 @@ my($runs)=2;
 sub printout($) {
 	my($filename)=@_;
 	if($debug) {
-		print 'printing ['.$filename.']'."\n";
+		print STDERR 'printing ['.$filename.']'."\n";
 	}
 	open(FILE,$filename) || die('unable to open ['.$filename.']');
 	my($line);
 	my($inerr)=0;
 	while($line=<FILE>) {
 		if($inerr) {
-			print $line;
+			print STDERR $line;
 			if($line=~/^\!/) {
 				$inerr=0;
 			}
@@ -64,15 +69,17 @@ sub printout($) {
 	close(FILE) || die('unable to close ['.$filename.']');
 }
 # this is a function that removes a file and can optionally die if there is a problem
-sub unlink_check($$) {
-	my($file,$check)=@_;
-	if($debug) {
-		print 'unlinking ['.$file.']'."\n";
-	}
-	my($ret)=unlink($file);
-	if($check) {
-		if($ret!=1) {
-			die('problem unlinking file ['.$file.']');
+sub unlink_check($$$) {
+	my($file,$check,$doit)=@_;
+	if($doit) {
+		if($debug) {
+			print STDERR 'unlinking ['.$file.']'."\n";
+		}
+		my($ret)=unlink($file);
+		if($check) {
+			if($ret!=1) {
+				die('problem unlinking file ['.$file.']');
+			}
 		}
 	}
 }
@@ -80,7 +87,7 @@ sub unlink_check($$) {
 sub chmod_check($$) {
 	my($file,$check)=@_;
 	if($debug) {
-		print 'chmodding ['.$file.']'."\n";
+		print STDERR 'chmodding ['.$file.']'."\n";
 	}
 	my($ret)=chmod(0444,$file);
 	if($check) {
@@ -93,11 +100,11 @@ sub chmod_check($$) {
 sub my_system($) {
 	my($cmd)=@_;
 	if($debug) {
-		print 'system ['.$cmd.']'."\n";
+		print STDERR 'system ['.$cmd.']'."\n";
 	}
 	my($res)=system($cmd);
 	if($debug) {
-		print 'system returned ['.$res.']'."\n";
+		print STDERR 'system returned ['.$res.']'."\n";
 	}
 	return $res;
 }
@@ -111,7 +118,8 @@ my($dvi)=$output_dir.'/'.$name.'.dvi';
 my($ps)=$output_dir.'/'.$name.'.ps';
 # temporary file name to store errors...
 my($volume,$directories,$myscript) = File::Spec->splitpath($0);
-my($tmp_fname)='/tmp/'.$myscript.$$;
+my($tmp_fname)='/tmp/'.$myscript.$$.'.err';
+my($tmp_output)='/tmp/'.$myscript.$$.'.pdf';
 my($cmd)='latex -interaction=nonstopmode -halt-on-error -output-directory='.$output_dir.' '.$input.' > '.$tmp_fname.' 2> /dev/null';
 if($debug) {
 	print 'input is ['.$input.']'."\n";
@@ -122,15 +130,9 @@ if($debug) {
 	print 'ps is ['.$ps.']'."\n";
 }
 # first remove the output (if it exists)
-if(-f $output) {
-	unlink_check($output,1);
-}
-if(-f $dvi) {
-	unlink_check($dvi,1);
-}
-if(-f $ps) {
-	unlink_check($ps,1);
-}
+unlink_check($output,1,-f $output);
+unlink_check($dvi,1,-f $dvi);
+unlink_check($ps,1,-f $ps);
 # we need to run the command twice!!! (to generate the table of contents and more)
 for(my($i)=0;$i<$runs;$i++) {
 	my($res)=my_system($cmd);
@@ -139,21 +141,15 @@ for(my($i)=0;$i<$runs;$i++) {
 		# print the errors
 		printout($tmp_fname);
 		# remove the tmp file for the errors
-		if($remove_tmp) {
-			unlink_check($tmp_fname,1);
-		}
+		unlink_check($tmp_fname,1,$remove_tmp);
 		# make sure to the remove the output (we are in the error path)
-		if(-f $dvi) {
-			unlink_check($dvi,1);
-		}
+		unlink_check($dvi,1,-f $dvi);
 		# exit with error code of the child...
 		exit($res >> 8);
 	} else {
 		# everything is ok
 		# remove the tmp file for the errors
-		if($remove_tmp) {
-			unlink_check($tmp_fname,1);
-		}
+		unlink_check($tmp_fname,1,$remove_tmp);
 		# change the output to be unchangble (but only in the final run!)
 		if($i==$runs-1) {
 			chmod_check($dvi,1);
@@ -167,46 +163,59 @@ if($res) {
 	# print the errors
 	printout($tmp_fname);
 	# remove the tmp file for the errors
-	if($remove_tmp) {
-		unlink_check($tmp_fname,1);
-	}
+	unlink_check($tmp_fname,1,$remove_tmp);
 	# make sure to the remove the output (we are in the error path)
-	if(-f $ps) {
-		unlink_check($ps,1);
-	}
+	unlink_check($ps,1,-f $ps);
 	# exit with error code of the child...
 	exit($res >> 8);
 } else {
 	# everything is ok
 	# remove the tmp file for the errors
-	if($remove_tmp) {
-		unlink_check($tmp_fname,1);
-	}
-	# change the output to be unchangble (but only in the second time!)
+	unlink_check($tmp_fname,1,$remove_tmp);
+	# change the output to be unchangble
 	chmod_check($ps,1);
 }
-my($cmd3)='ps2pdf '.$ps.' '.$output.' > '.$tmp_fname;
+my($out_file);
+if($qpdf) {
+	$out_file=$tmp_output;
+} else {
+	$out_file=$output;
+}
+my($cmd3)='ps2pdf '.$ps.' '.$out_file.' > '.$tmp_fname;
 $res=my_system($cmd3);
 if($res) {
 	# error path
 	# print the errors
 	printout($tmp_fname);
 	# remove the tmp file for the errors
-	if($remove_tmp) {
-		unlink_check($tmp_fname,1);
-	}
+	unlink_check($tmp_fname,1,$remove_tmp);
 	# make sure to the remove the output (we are in the error path)
-	if(-f $output) {
-		unlink_check($output,1);
-	}
+	unlink_check($out_file,1,-f $out_file);
 	# exit with error code of the child...
 	exit($res >> 8);
 } else {
 	# everything is ok
 	# remove the tmp file for the errors
-	if($remove_tmp) {
-		unlink_check($tmp_fname,1);
+	unlink_check($tmp_fname,1,$remove_tmp);
+}
+if($qpdf) {
+	my($cmd4)='qpdf --linearize --force-version=1.5 '.$tmp_output.' '.$output.' > '.$tmp_fname.' 2> /dev/null';
+	$res=my_system($cmd4);
+	if($res) {
+		# error path
+		# print the errors
+		printout($tmp_fname);
+		# remove the tmp file for the errors
+		unlink_check($tmp_fname,1,$remove_tmp);
+		# make sure to the remove the output (we are in the error path)
+		unlink_check($output,1,-f $output);
+		# exit with error code of the child...
+		exit($res >> 8);
+	} else {
+		# everything is ok
+		# remove the tmp file for the errors
+		unlink_check($tmp_fname,1,$remove_tmp);
+		# change the output to be unchangble (but only in the second time!)
+		chmod_check($output,1);
 	}
-	# change the output to be unchangble (but only in the second time!)
-	chmod_check($output,1);
 }
