@@ -124,9 +124,10 @@ my($output)=shift(@ARGV);
 my($output_dir)=File::Basename::dirname($output);
 # temporary file name to store errors...
 my($volume,$directories,$myscript) = File::Spec->splitpath($0);
-my($tmp_fname)='/tmp/'.$myscript.$$.'.err';
+my($tmp_fname_out)='/tmp/'.$myscript.$$.'.out';
+my($tmp_fname_err)='/tmp/'.$myscript.$$.'.err';
 #my($tmp_output)='/tmp/'.$myscript.$$.'.pdf';
-my($cmd)='pdflatex -interaction=nonstopmode -halt-on-error -output-directory '.$output_dir.' '.$input.' > '.$tmp_fname.' 2> /dev/null';
+my($cmd)='pdflatex -interaction=nonstopmode -halt-on-error -output-directory '.$output_dir.' '.$input.' > '.$tmp_fname_out.' 2> '.$tmp_fname_err;
 if($debug) {
 	print 'input is ['.$input.']'."\n";
 	print 'output is ['.$output.']'."\n";
@@ -140,9 +141,11 @@ for(my($i)=0;$i<$runs;$i++) {
 	if($res) {
 		# error path
 		# print the errors
-		printout($tmp_fname);
+		printout($tmp_fname_out);
+		printout($tmp_fname_err);
 		# remove the tmp file for the errors
-		unlink_check($tmp_fname,1,$remove_tmp);
+		unlink_check($tmp_fname_out,1,$remove_tmp);
+		unlink_check($tmp_fname_err,1,$remove_tmp);
 		# make sure to the remove the output (we are in the error path)
 		unlink_check($output,1,-f $output);
 		# exit with error code of the child...
@@ -150,7 +153,8 @@ for(my($i)=0;$i<$runs;$i++) {
 	} else {
 		# everything is ok
 		# remove the tmp file for the errors
-		unlink_check($tmp_fname,1,$remove_tmp);
+		unlink_check($tmp_fname_out,1,$remove_tmp);
+		unlink_check($tmp_fname_err,1,$remove_tmp);
 		# change the output to be unchangble (but only in the final run!)
 		if($i==$runs-1) {
 			chmod_check($output,1);
@@ -161,15 +165,17 @@ if($qpdf) {
 	# move the output to the new place
 	my($tmp_output)=$output.'.pdf';
 	my_rename($output,$tmp_output,1);
-	#my($cmd4)='qpdf --linearize --force-version=1.5 '.$tmp_output.' '.$output.' > '.$tmp_fname.' 2> /dev/null';
-	my($cmd4)='qpdf --linearize '.$tmp_output.' '.$output.' > '.$tmp_fname.' 2> /dev/null';
+	# I also had '--force-version=1.5' but it is not needed since I use pdflatex and pdftex with the right version there...
+	my($cmd4)='qpdf --linearize '.$tmp_output.' '.$output.' > '.$tmp_fname_out.' 2> '.$tmp_fname_err;
 	my($res)=my_system($cmd4);
 	if($res) {
 		# error path
 		# print the errors
-		printout($tmp_fname);
+		printout($tmp_fname_out);
+		printout($tmp_fname_err);
 		# remove the tmp file for the errors
-		unlink_check($tmp_fname,1,$remove_tmp);
+		unlink_check($tmp_fname_out,1,$remove_tmp);
+		unlink_check($tmp_fname_err,1,$remove_tmp);
 		# remove the temporary file...
 		unlink_check($tmp_output,1,1);
 		# make sure to the remove the output (we are in the error path)
@@ -181,7 +187,8 @@ if($qpdf) {
 		# remove the temporary file...
 		unlink_check($tmp_output,1,1);
 		# remove the tmp file for the errors
-		unlink_check($tmp_fname,1,$remove_tmp);
+		unlink_check($tmp_fname_out,1,$remove_tmp);
+		unlink_check($tmp_fname_err,1,$remove_tmp);
 		# change the output to be unchangble (but only in the second time!)
 		chmod_check($output,1);
 	}

@@ -8,4 +8,10 @@ Tools include: make, pdflatex, lacheck, latex, dvips, ps2pdf, latex2html, perl, 
 If you want to see the result checkout:
 http://veltzer.net/blog/riddling/
 
+If you want to compile this package then:
+- install all required packages.
+	Ubuntu users you are in luck: just run 'scripts/ubuntu_install.sh'...
+- make
+All the output is in the 'out' folder.
+
 	Mark Veltzer, 2011

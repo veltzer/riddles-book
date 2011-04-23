@@ -20,6 +20,9 @@ licensing:
 
 build system:
 =============
+- make the makefile check that all the tools that it is going to use are ready for use.
+	Do that using an external perl script.
+	This way people won't get funky error messages well off into the build process.
 - write a perl wrapper for lacheck (it is also problematic).
 - build each .sk into an image of it's own. This way it will be very easy to work on the drawings
 	and I could make a logo for the riddling project itself.
