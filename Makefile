@@ -90,6 +90,11 @@ ifeq ($(DO_DEP),1)
 ALL:=$(ALL) $(OBJECTS_DEP)
 endif # DO_DEP
 
+# do not include deps if the target is 'clean'...
+ifeq ($(MAKECMDGOALS),clean)
+DO_INCLUDE:=0
+endif # clean
+
 .PHONY: all
 all: $(ALL)
 
