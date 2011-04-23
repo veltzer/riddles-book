@@ -6,7 +6,7 @@
 SOURCE_DIR:=src
 # where is the output folder ?
 OUT_DIR:=out
-# do you want dependency on the makefile itself ?!?
+# do you want dependency on the makefile itself ?
 DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
@@ -22,18 +22,24 @@ PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.html
 PRIME_HTM_FOLDER:=$(OUT_DIR)/$(PRIME)
 # where is the web folder?
 WEB:=/var/www
+# do you want to do PDF ?
+DO_PDF:=1
+# do you want to do HTML ?
+DO_HTML:=0
+# do you want to do SWF ?
+DO_SWF:=0
 # do you want to generate dependencies ?
-DO_DEPS:=1
-# do you want to include the deps ?
-DO_INCLUDE:=0
+DO_DEP:=0
+# do you want to actually include the deps ? (must enable DO_DEP)
+DO_INCLUDE:=1
 
 # tools
-TOOL_LATEX2HTML=latex2html
-TOOL_LACHECK=lacheck
-TOOL_SKETCH=sketch
-TOOL_PDFLATEX=pdflatex
-#USE_LATEX2PDF=scripts/latex2pdf.pl
-USE_LATEX2PDF=scripts/pdflatex_wrap.pl
+TOOL_LATEX2HTML:=latex2html
+TOOL_LACHECK:=lacheck
+TOOL_SKETCH:=sketch
+TOOL_PDFLATEX:=pdflatex
+#USE_LATEX2PDF:=scripts/latex2pdf.pl
+USE_LATEX2PDF:=scripts/pdflatex_wrap.pl
 
 #############
 # variables #
@@ -41,7 +47,7 @@ USE_LATEX2PDF=scripts/pdflatex_wrap.pl
 
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
-# web stuff... 
+# web stuff...
 WEB_PRIME:=$(WEB)/$(PRIME)
 WEB_PDF:=$(WEB_PRIME)/$(PRIME).pdf
 WEB_ZIP:=$(WEB_PRIME)/$(PRIME).zip
@@ -61,24 +67,28 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-# silent stuff
-#SOURCES_GIT:=$(shell git ls-tree HEAD -r --full-name --name-only)
 SOURCES_GIT:=$(shell git ls-files)
 SOURCES_TEX:=$(filter %.tex,$(SOURCES_GIT))
 SOURCES_SK:=$(filter %.sk,$(SOURCES_GIT))
-#SOURCES_TEX:=$(shell find $(SOURCE_DIR) -name "*.tex")
-#OBJECTS_PDF:=$(addsuffix .pdf,$(basename $(SOURCES_TEX)))
 OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
-#OBJECTS_HTM:=$(addsuffix .out/index.html,$(basename $(SOURCES_TEX)))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_TEX:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_SK)))))
 OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 
-ALL:=$(OBJECTS_PDF) $(OBJECTS_HTM) $(OBJECTS_SWF)
-ifeq ($(DO_DEPS),1)
-ALL:=$(OBJECTS_DEP) $(ALL)
-endif # DO_DEPS
+ALL:=
+ifeq ($(DO_PDF),1)
+ALL:=$(ALL) $(OBJECTS_PDF)
+endif # DO_PDF
+ifeq ($(DO_HTML),1)
+ALL:=$(ALL) $(OBJECTS_HTM)
+endif # DO_HTML
+ifeq ($(DO_SWF),1)
+ALL:=$(ALL) $(OBJECTS_SWF)
+endif # DO_SWF
+ifeq ($(DO_DEP),1)
+ALL:=$(ALL) $(OBJECTS_DEP)
+endif # DO_DEP
 
 .PHONY: all
 all: $(ALL)
@@ -103,29 +113,18 @@ debug:
 	$(info TAG is $(TAG))
 	$(info ALL is $(ALL))
 
+# cleaning using git. Watch out! always add files or they will be erased...
 # -x: remove everything not known to git (not only ignore rules).
 # -d: remove directories also.
 # -f: force.
+# -X: keep manually created files and remove ignored files
 .PHONY: clean
 clean:
 	$(info doing [$@])
-	$(Q)git clean -xdf > /dev/null
+	$(Q)git clean -fXd > /dev/null
 
 # RULES
 
-# rule about how to create .pdf files out of tex files
-#$(OBJECTS_PDF): %.pdf: %.tex $(ALL_DEPS)
-#	$(info doing [$@])
-#	$(Q)pdflatex -output-directory $(dir $@) $<
-#	$(Q)pdflatex -output-directory $(dir $@) $<
-#	$(Q)cd $(dir $@); thumbpdf $(notdir $@)
-#	$(Q)pdflatex -output-directory $(dir $@) $<
-
-# old rule about generating pdf from tex, without thumbnails
-# the -rf for rm is in order to make rm not return an error
-# code to make if the file is not there (which causes make
-# to print an annoying on screen message about disregarding
-# the error)
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $< 2> /dev/null > /dev/null
@@ -137,7 +136,7 @@ $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJEC
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
 	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
-$(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) scripts/latex2dep.pl
+$(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2dep.pl
 	$(info doing [$@])
 	$(Q)scripts/latex2dep.pl $< $@
 
@@ -151,6 +150,10 @@ $(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
 	$(Q)pdf2swf -T 9 -f $< $@ 2> /dev/null > /dev/null
 	$(Q)chmod 444 $@
 
+# short cut to see meta data about the produced pdf
+.PHONY: pdfinfo
+pdfinfo: $(PRIME_PDF)
+	pdfinfo $(PRIME_PDF)
 # short cut to show the riddles pdf output fast...
 .PHONY: view_pdf
 view_pdf: $(PRIME_PDF)
@@ -158,45 +161,43 @@ view_pdf: $(PRIME_PDF)
 # short cut to show the html output fast...
 .PHONY: view_htm
 view_htm: $(PRIME_HTM)
-	gnome-open $(PRIME_HTM)
+	gnome-open $(PRIME_HTM) > /dev/null 2> /dev/null &
 # short cut to show the swf using flex paper fast...
 .PHONY: view_swf
 view_swf: $(PRIME_SWF)
-	gnome-open http://www.veltzer.net/riddles/flexpaper/index.html
+	gnome-open http://www.veltzer.net/riddles/flexpaper/index.html > /dev/null 2> /dev/null &
 # make the riddles public on a web folder...
 .PHONY: install
-install: $(PRIME_HTM) $(PRIME_PDF) $(PRIME_SWF) web/htaccess
+install: $(ALL) web/htaccess
 	-sudo rm -rf $(WEB_PRIME)
-	-sudo rm -rf $(WEB)/usr
-	sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
-	sudo mkdir -p $(WEB)/usr/share/latex2html
-	sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html 
+	sudo mkdir $(WEB_PRIME)
 	sudo cp $(PRIME_PDF) $(WEB_PRIME)
-	sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
 	sudo cp web/htaccess $(WEB_PRIME)/.htaccess
-	sudo cp -r flexpaper $(WEB_PRIME) 
-	sudo cp $(PRIME_SWF) $(WEB_PRIME)/flexpaper
-
-ifeq ($(DO_INCLUDE),1)
-# include the deps files (no warnings)
--include $(ALL_DEPS)
-endif # DO_INCLUDE
+	#-sudo rm -rf $(WEB)/usr
+	#sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
+	#sudo mkdir -p $(WEB)/usr/share/latex2html
+	#sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html
+	#sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
+	#sudo cp -r flexpaper $(WEB_PRIME)
+	#sudo cp $(PRIME_SWF) $(WEB_PRIME)/flexpaper
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
-	gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null
+	gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null 2> /dev/null &
 .PHONY: view_sketch_doc_pdf
 view_sketch_doc_pdf:
-	gnome-open /usr/share/doc/sketch-doc/sketch.pdf.gz
+	gnome-open /usr/share/doc/sketch-doc/sketch.pdf.gz > /dev/null 2> /dev/null &
 .PHONY: view_pdftex_doc_pdf
 view_pdftex_doc_pdf:
-	gnome-open /usr/share/doc/texlive-doc/pdftex/manual/pdftex-s.pdf
-.PHONY: pdfinfo
-pdfinfo:
-	pdfinfo $(PRIME_PDF)
+	gnome-open /usr/share/doc/texlive-doc/pdftex/manual/pdftex-s.pdf > /dev/null 2> /dev/null &
 .PHONY: view_luatex_doc_pdf
 view_luatex_doc_pdf:
 	gnome-open /usr/share/doc/texmf/luatex/base/luatexref-t.pdf
 .PHONY: view_pgf_doc_pdf
 view_pgf_doc_pdf:
-	gnome-open  /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
+	gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
+
+ifeq ($(DO_INCLUDE),1)
+# include the deps files (no warnings)
+-include $(OBJECTS_DEP)
+endif # DO_INCLUDE
