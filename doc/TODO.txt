@@ -31,6 +31,7 @@ direct pdf viewing on web:
 ==========================
 - when using the google API to see the pdf directly in an iframe in my web page links like the table
 of content (intra-document PDF links) do not work. Links to the outside do work. Check if we can fix this.
+- stop using the google API for pdf publishing - it is shit. It requires login to google.
 
 misc:
 =====

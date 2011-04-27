@@ -67,9 +67,9 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-SOURCES_GIT:=$(shell git ls-files)
-SOURCES_TEX:=$(filter %.tex,$(SOURCES_GIT))
-SOURCES_SK:=$(filter %.sk,$(SOURCES_GIT))
+SOURCES_ALL:=$(shell git ls-files)
+SOURCES_TEX:=$(filter %.tex,$(SOURCES_ALL))
+SOURCES_SK:=$(filter %.sk,$(SOURCES_ALL))
 OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
@@ -103,7 +103,7 @@ deps: $(OBJECTS_DEP)
 
 .PHONY: debug
 debug:
-	$(info SOURCES_GIT is $(SOURCES_GIT))
+	$(info SOURCES_ALL is $(SOURCES_ALL))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info SOURCES_SK is $(SOURCES_SK))
 	$(info OBJECTS_TEX is $(OBJECTS_TEX))
