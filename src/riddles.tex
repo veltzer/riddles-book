@@ -141,7 +141,7 @@ Lets use the following diagram:
 \end{center}
 
 What we are trying to find is $d$ as a function of $h$. Since $H$, $d/2$ and $d$ create a right angeled triangle, it follows
-that $H^2+(d/2)^2=d^2$ and so $H=\sqrt{3}/2d$. Since the size of the inner triangle could be computed two ways then $hH=dH'$ and
+thae $H^2+(d/2)^2=d^2$ and so $H=\sqrt{3}/2d$. Since the size of the inner triangle could be computed two ways then $hH=dH'$ and
 since $H'=\sqrt{H^2-(d/2)^2}$ it follows after some math that $d=\sqrt{3/2}h$ which makes $d$ about $1.224h$.
 
 The solution built on this analysis will look like this:
@@ -157,5 +157,33 @@ constrained by the table and so the heights at which the caps are will be either
 examples under this constraint. Minor variations on the above two solutions could be produced by making the bottles whose caps are at table
 level lay instead of stand on their heads. The first solution is more attractive than the second because it could be performed in practice
 without relying on measurement tools in order to place the bottles at the calculated distance from each other as per the second solution.
+
+\section{Strange Trip (Geometry)}
+
+You travel 100 miles north, 100 miles east, and then 100 miles south. You are at the same point that you started from. Describe all the places on earth this could be, if any.
+
+\subsection{Solution}
+
+At the south pole. Or, 100 miles south of any point on the circle around the north pole that is 100 miles in circumference. Or, 100 miles south of any such circle whose circumference is an integral fraction of 100 miles.
+
+\section{Three Cards (Probability)}
+
+There are 3 cards: one is all red, one is all blue, and the third is blue on one side and red on the other. The cards are shuffled. You pick one at random and it is blue on the side facing you. What are the chances that it is also blue on the other side?
+
+\subsection{Solution}
+
+2/3. 2 of the 3 blue sides have blue on the other side. You might think the odds are 50/50 because you could have one of two cards, but you actually get a side at random, not a card, so you are more likely to have the blue/blue card than the red/blue card.
+
+Here is another way to think of it: When you pick a card at random, the chances of it being the same on both sides (either all red or all blue) are 2 out of 3, and this doesn't change just because you see one of the sides. If they did, they'd change no matter which color you saw, and it wouldn't even matter if you looked. So when you do see the blue side, the red/red card is eliminated, but the blue/blue card still has a 2/3 probability.
+
+\section{Monty Hall Problem (Probability)}
+
+Behind 1 of 3 closed doors is a prize. You pick one of the doors. Monty opens one of the other doors and it is empty. You are given the choice of sticking with your choice or switching to the other unopened door. Should you switch? What are your chances of winning if you do?
+
+\subsection{Solution}
+
+You should switch. Your chances are 2/3 if you do. The initial chances of your first choice were 1/3, and opening another door without the prize doesn't actually change that, so the remaining door now has a 2/3 chance because the chances of all possibilities must sum to 1.
+
+Many people think the chances are 50/50 because there are two doors left, but that is not correct. If you're not convinced 2/3 is correct, consider a 100 door version: you pick 1 door and Monty opens 98 other doors avoiding the one with the prize. Now you have a 99\% chance if you switch.
 
 \label{end}\end{document}
