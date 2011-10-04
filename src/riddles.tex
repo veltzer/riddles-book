@@ -186,6 +186,13 @@ You should switch. Your chances are 2/3 if you do. The initial chances of your f
 
 Many people think the chances are 50/50 because there are two doors left, but that is not correct. If you're not convinced 2/3 is correct, consider a 100 door version: you pick 1 door and Monty opens 98 other doors avoiding the one with the prize. Now you have a 99\% chance if you switch.
 
+\section{4 Door Monty Hall Problem (Probability)}
+
+Behind 1 of 4 closed doors is a prize. You pick door 1. Monty opens the 4th door and it is empty. You switch your choice to door 2. Now monty opens door 3 and it is also empty. Given the choice, should you switch back to door 1, and what are your chances of winning if you do?
+
+\subsection{Solution}
+Yes, your chances are 5/8 if you switch. The initial chances of your first choice were 1/4, and opening another door without the prize doesn't change that, so the remaining 2 doors now have a 3/8 chance because the chances of all possibilities must sum to 1. But then when Monty opens door 3, using the same reasoning, door 2 stays at 3/8 chance and so the remaining door changes to 5/8.
+
 \section{Two Envelopes, Also known as the exchange paradox (Probability)}
 
 There are two envelopes, one contains twice as much money as the other. You pick one at random and find \$100 inside. What is the "expected value" of the amount in the other envelope? Given the option, should you switch? Does it matter how much you found in that first envelope? Does it matter if you open the envelope?
@@ -197,5 +204,18 @@ This is a strange paradox because it appears that the expected value is the aver
 The fault in this reasoning is that you are not actually given enough information to know that double and half are equally probable. You would need to know more about the process by which the amounts in the envelopes were determined or what the probability distribution of possible amounts is. For example, if there was a known limit for the amounts, you would switch if and only if 2X was within that limit. Note that it is impossible to have an even distribution of all possible values without also having an upper bound. If the amounts can go to infinity, there would have to be some uneven probability distribution, and you would need to know what that was to solve the problem properly.
 
 Given the lack of any information like this, I believe the correct answer is: It does not matter if you switch.
+
+\section{100 urns (Mathematics)}
+
+There's a room with 100 urns, 2 people standing outside, while they decide on what to do 100 balls are randomly placed inside the urns. one of the people from outside will enter the room, be given the placement of all the balls, look at it and switch two balls from among the 100 balls, then he will be whisked away to a vacation in Mali. The other one will then enter, be given a random number for a ball to be found. He needs to find it while breaking (checking) as few urns as possible. What is the strategy?
+Hint: this can be done with 50 urns broken or less.
+
+\subsection{Solution}
+Lets give a solution which is not good, analyze it and then improve it.
+Here is the bad solution. Whenever the second person comes in he is given the task of finding the ball marked $x$. He will proceed to break urn $x$. If $x$ is there he is done. If not, then some other ball $y$ is there. He will process to do the same for $y$.
+
+Analysis: Can the second person get stuck in an infinite loop? No. There are only 100 urns so in the worst case scenario he will break all 100 urns and find the ball $x$ in the last one. Now lets take this further. Lets define an equivalence relation on the urns: two urns $x$ and $y$ are equivalent if there exists a route from $x$ to $y$. This is indeed an equivalence relation since there is always a route from $x$ to $x$. If there is a route from $x$ to $y$ then there is also a route from $y$ to $x$ since in our case there is only one route to each urn (only one urn carries the ball with it's number). Since starting a route from $y$ must eventually lead back to $y$ (routes do not just end), it must pass through $x$. All this means is that our 100 urns are divided into cycles of equivalence.
+
+Now for the first players job. When the first played comes along he will either see all cycles with $size<=50$ in which case he need not do anything (unless he wants to break up the largest cycle to reduce the expected value of urns broken by the second player) or will contend with utmost a single cycle with $size > 50$ which means he needs to break just this one cycle.
 
 \label{end}\end{document}
