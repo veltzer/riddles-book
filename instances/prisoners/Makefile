@@ -1,7 +1,7 @@
 ALL:=program.exe
-OBJECTS:=main.o prisonerfull.o
-#CXXFLAGS:=-g3
-CXXFLAGS:=-s -O3
+OBJECTS:=main.o prisonerfull.o prisonersimple.o
+CXXFLAGS:=-g3
+#CXXFLAGS:=-s -O3
 
 .PHONY: all
 all: $(ALL)

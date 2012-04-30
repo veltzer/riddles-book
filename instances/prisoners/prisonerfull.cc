@@ -1,5 +1,10 @@
 #include "prisonerfull.hh"
 
+PrisonerFull::PrisonerFull() {
+}
+PrisonerFull::~PrisonerFull() {
+	delete bits;
+}
 void PrisonerFull::init(int imynum,int iprisnum) {
 	mynum=imynum;
 	prisnum=iprisnum;
@@ -12,13 +17,18 @@ void PrisonerFull::nullit(void) {
 	}
 	updateBit(mynum);
 }
-PrisonerFull::PrisonerFull() {
-}
-PrisonerFull::~PrisonerFull() {
-	delete bits;
-}
 bool PrisonerFull::wantToEnd(void) {
 	return numBits==prisnum;
+}
+bool PrisonerFull::doYourThing(bool light) {
+	return light;
+}
+void PrisonerFull::output(std::ostream& out) const {
+	out << "prisoner #" << mynum << " " << numBits << std::endl;
+	for(unsigned int i=0;i<prisnum;i++) {
+		out << bits[i];
+	}
+	out << std::endl;
 }
 bool PrisonerFull::hasBit(unsigned int bit) {
 	return bits[bit];
@@ -31,15 +41,4 @@ void PrisonerFull::updateBit(unsigned int bit) {
 		bits[bit]=true;
 		numBits++;
 	}
-}
-std::ostream& PrisonerFull::operator<<(std::ostream& out) {
-	out << "prisoner #" << mynum << " " << numBits << std::endl;
-	for(unsigned int i=0;i<prisnum;i++) {
-		out << bits[i];
-	}
-	out << std::endl;
-	return out;
-}
-bool PrisonerFull::doYourThing(bool light) {
-	return light;
 }

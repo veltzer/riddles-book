@@ -31,7 +31,7 @@ template<class PrisonerType> class Experiment {
 		}
 		inline ~Experiment() {
 			delete bits;
-			delete prisoners;
+			delete[] prisoners;
 		}
 		inline void incDay(void) {
 			day++;
@@ -40,7 +40,7 @@ template<class PrisonerType> class Experiment {
 			return day;
 		}
 
-		inline std::ostream& operator<<(std::ostream& out) {
+		inline void output(std::ostream& out) const {
 			out << "day is " << day << std::endl;
 			out << "numBits is " << numBits << std::endl;
 			out << "numpris is " << numpris << std::endl;
@@ -49,9 +49,8 @@ template<class PrisonerType> class Experiment {
 			}
 			out << std::endl;
 			for(unsigned int i=0;i<numpris;i++) {
-				out << prisoners[i];
+				prisoners[i].output(out);
 			}
-			return out;
 		}
 		inline void updateBit(unsigned int bit) {
 			if(bits[bit]==false) {
@@ -91,7 +90,7 @@ template<class PrisonerType> class Experiment {
 					over=true;
 				}
 				if(do_debug) {
-					std::cout << this;
+					this->output(std::cout);
 				}
 				incDay();
 			}
