@@ -9,7 +9,7 @@ class Prisoner {
 		virtual void nullit()=0;
 		virtual bool wantToEnd()=0;
 		virtual bool doYourThing(bool)=0;
-		virtual std::ostream& operator<<(std::ostream& out)=0;
+		virtual void output(std::ostream& out) const=0;
 };
 
 #endif // __prisoner_hh
