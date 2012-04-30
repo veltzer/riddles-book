@@ -7,3 +7,5 @@
 
 # ignore everything in out but don't ignore other things (good policy)...
 out/*
+*.o
+*.exe

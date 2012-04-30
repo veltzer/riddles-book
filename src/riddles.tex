@@ -49,13 +49,9 @@
 \tableofcontents
 
 \section{Rational points on a circle (Calculus)}
-
-%\subsection{Question}
-
 Could there be a circle on the plane where only one point has rational co-ordinates? A point $p=(x,y)$ has rational co-ordinates iff $x,y\in\mathbb{Q}$. What about a sphere? Are there circles with more than one rational point? Are there circles with infinite rational points? Can you find a circle with exactly $n$ rational points on it for each $n\in\mathbb{N}$?
 
 \subsection{Solution}
-
 Yes, there could. Consider the circle: $(x-r)^2+y^2=r^2$ for some irrational $r$.
 $(0,0)$ is a point on this circle and is rational. But from the equation it follows
 that: $x^2-2xr+r^2+y^2=r^2$ or $x^2+y^2=2xr$ or $r=(x^2+y^2)/2x$. If there
@@ -78,17 +74,11 @@ Yes, there are circles with infinite rational points (TODO).
 What about for each $n\in\mathbb{N}$? (TODO).
 
 \section{Always lead in election (Combinatorics)}
-
-%\subsection{Question}
-
-%id=elections (for out of source references to this riddle)
-
 An election was voted a perfect tie (even number of electors) and was decided by way of putting
 all the votes into a hat, mixing them uniformly and counting them one by one. What is the chance
 that one of the candidates was leading during the entire counting process?
 
 \subsection{Solution}
-
 The question could be rephrased as how many graphs that go either one step up or one step down (lets call those binary graphs) do not go down below zero out of the set of all graphs that go from zero to zero. At first lets note that in the following solution $n$ is even and so there is no problem with $n/2$. A first observation is that the set of all graphs going from 0 to 0 in $n$ steps is ${n \choose n/2}$.
 
 Let's try to count the graphs that tip below 0. Every graph that tips below 0 will reach -1 at one or more points. Lets find the first place where the graph reaches -1. From that point on the graph climbs one more than it descends since it finally reaches 0. Lets flip it from that point on - meaning switch every climb with descent and every descent with a climb. Now the graph descends one more than it climbs and since it starts from that point at height -1 then it now reaches a height -2 at $n$ instead of the original 0.
@@ -114,13 +104,11 @@ is the argument stated above but a more direct number theory based argument may 
 relating to ${n \choose k}$ for any $k$ may also be obtained (TODO).
 
 \section{Four Coke bottles on a table (Geometry)}
-
 Arrange four Coke bottles on a table so that the distances between each pair of caps will be the same. Assume that
 you can make a Coke bottle stand on it's head (this is a pretty strong hint!, maybe I should remove it ?!?). The length
 or height of each bottle is ${h}$.
 
 \subsection{Solution}
-
 There are two solutions:
 
 The first solution is to put the bottles in a square where the side of the square is the length of the bottle. Bottles
@@ -159,46 +147,37 @@ level lay instead of stand on their heads. The first solution is more attractive
 without relying on measurement tools in order to place the bottles at the calculated distance from each other as per the second solution.
 
 \section{Strange Trip (Geometry)}
-
 You travel 100 miles north, 100 miles east, and then 100 miles south. You are at the same point that you started from. Describe all the places on earth this could be, if any.
 
 \subsection{Solution}
-
 At the south pole. Or, 100 miles south of any point on the circle around the north pole that is 100 miles in circumference. Or, 100 miles south of any such circle whose circumference is an integral fraction of 100 miles.
 
 \section{Three Cards (Probability)}
-
 There are 3 cards: one is all red, one is all blue, and the third is blue on one side and red on the other. The cards are shuffled. You pick one at random and it is blue on the side facing you. What are the chances that it is also blue on the other side?
 
 \subsection{Solution}
-
 2/3. 2 of the 3 blue sides have blue on the other side. You might think the odds are 50/50 because you could have one of two cards, but you actually get a side at random, not a card, so you are more likely to have the blue/blue card than the red/blue card.
 
 Here is another way to think of it: When you pick a card at random, the chances of it being the same on both sides (either all red or all blue) are 2 out of 3, and this doesn't change just because you see one of the sides. If they did, they'd change no matter which color you saw, and it wouldn't even matter if you looked. So when you do see the blue side, the red/red card is eliminated, but the blue/blue card still has a 2/3 probability.
 
 \section{Monty Hall Problem (Probability)}
-
 Behind 1 of 3 closed doors is a prize. You pick one of the doors. Monty opens one of the other doors and it is empty. You are given the choice of sticking with your choice or switching to the other unopened door. Should you switch? What are your chances of winning if you do?
 
 \subsection{Solution}
-
 You should switch. Your chances are 2/3 if you do. The initial chances of your first choice were 1/3, and opening another door without the prize doesn't actually change that, so the remaining door now has a 2/3 chance because the chances of all possibilities must sum to 1.
 
 Many people think the chances are 50/50 because there are two doors left, but that is not correct. If you're not convinced 2/3 is correct, consider a 100 door version: you pick 1 door and Monty opens 98 other doors avoiding the one with the prize. Now you have a 99\% chance if you switch.
 
 \section{4 Door Monty Hall Problem (Probability)}
-
 Behind 1 of 4 closed doors is a prize. You pick door 1. Monty opens the 4th door and it is empty. You switch your choice to door 2. Now monty opens door 3 and it is also empty. Given the choice, should you switch back to door 1, and what are your chances of winning if you do?
 
 \subsection{Solution}
 Yes, your chances are 5/8 if you switch. The initial chances of your first choice were 1/4, and opening another door without the prize doesn't change that, so the remaining 2 doors now have a 3/8 chance because the chances of all possibilities must sum to 1. But then when Monty opens door 3, using the same reasoning, door 2 stays at 3/8 chance and so the remaining door changes to 5/8.
 
 \section{Two Envelopes, Also known as the exchange paradox (Probability)}
-
 There are two envelopes, one contains twice as much money as the other. You pick one at random and find \$100 inside. What is the "expected value" of the amount in the other envelope? Given the option, should you switch? Does it matter how much you found in that first envelope? Does it matter if you open the envelope?
 
 \subsection{Solution}
-
 This is a strange paradox because it appears that the expected value is the average of double and half which is 1.25 X so you should switch. However, this would be true for any value of X you find, so it wouldn't even matter if you open the envelope. This same logic suggests that you should also immediately switch back to the original envelope again, which doesn't make sense at all.
 
 The fault in this reasoning is that you are not actually given enough information to know that double and half are equally probable. You would need to know more about the process by which the amounts in the envelopes were determined or what the probability distribution of possible amounts is. For example, if there was a known limit for the amounts, you would switch if and only if 2X was within that limit. Note that it is impossible to have an even distribution of all possible values without also having an upper bound. If the amounts can go to infinity, there would have to be some uneven probability distribution, and you would need to know what that was to solve the problem properly.
@@ -206,7 +185,6 @@ The fault in this reasoning is that you are not actually given enough informatio
 Given the lack of any information like this, I believe the correct answer is: It does not matter if you switch.
 
 \section{100 urns (Mathematics)}
-
 There's a room with 100 urns, 2 people standing outside, while they decide on what to do 100 balls are randomly placed inside the urns. one of the people from outside will enter the room, be given the placement of all the balls, look at it and switch two balls from among the 100 balls, then he will be whisked away to a vacation in Mali. The other one will then enter, be given a random number for a ball to be found. He needs to find it while breaking (checking) as few urns as possible. What is the strategy?
 Hint: this can be done with 50 urns broken or less.
 
@@ -221,10 +199,17 @@ Now for the first players job. When the first player comes along he will either 
 How does one go about "breaking" a cycle? A cycle is a list of urns $x_1, x_2, ...,x_{n-1} ,x_n$ that make up a cycle, which means their content is $x_2, x_3,..., x_n, x_1$. In order to break the cycle you need to find the center of the cycle. If the length of the cycle is odd then the center is the middle element if the lengh is even pick any of the central two elements. In our case the longest cycle cannot be of length greater than $100$ which means that breaking it up in the center will  break it up to pieces less or equal to 50. Lets say the center is in urn $k$. Switch the content of urns $k$ and $n$. This will create two cycles: $x_1, x_2, ... , x_k$ with content $x_2, x_3, ... , x_1$ and another cycle $x_{k+1}, x_{k+2}, ... , x_n$ with content $x_{k+2}, x_{k+3}, ... , x_{k+1}$.
 
 \section{Blue and red martians (Distributed algorithms)}
-
 On mars live two types of aliens: ones with blue dots on their head and ones with blue dots. No martian knows what color dot he/she has on their head and they do not have verbal skills. One day they get told that a new virus is out there that only kills the blue kind and therefor all the blue martians must leave the planet to space where the virus cannot survive. Red martians, however, must not leave the planet since they cannot survive in outer space. Each day a ship, large enough to hold all the martians, will leave at noon carrying martians to outer space. Can just the blue martians leave? if so how? p.s. there is at least one martian with a blue dot on his head and everyone knows so.
 
 \subsection{Solution}
 Since the martians are very smart, if there are $N$ martians then all of them will leave on day $N$. How is that? The proof is by induction. Imagine that there is only one martian with a blue dot. He sees everyone with red dots on their head and since he knows that there is at least one martian with a blue dot on his/her head he deduces that it is he. He therefor leaves in the first possible occasion, meaning the first day. Now imagine that the proposition is true for $N$. Now imagine that there are $N+1$ martians. Each of them sees only $N$ blue dots in the crowd. The deduce that there are either $N$ martians with blue dots (excluding themselves) or $N+1$ blue dotted martians (including themselves). They don't know which. So they wait for day $N$. If there were indeed $N$ martians all of them would have left on day $N$. They do not leave. From this each one of the $N+1$ deduces that the other $N$ martians see $N$ blue dots in the crowd which means that they themselves are blue dotted which means that there are $N+1$ blue dotted martians which include themselves. This prompts them to leave on the first possible occasion, which is day $N+1$.
+
+\section{The Wardens challenge (Distributed algorithms)}
+A warden summons all of his prisoners to a talk. "From this day on you will not see each other. I will select, by random and with possible repetitions, one of you each day and will place him or her in a special holding chamber. The holding chamber has a light bulb with a switch. When the day is done I will lead the prisoner back to his or her cell. At any time, any one of who understands that all of you have been in the special holding cell may callout and stop the experiment. If that person is right the you will all go free and if he is wrong you will stay here for life". The prisoners then have time to confer and plan a strategy before they are taken to their cells and are prevented from speaking to one another for the remainder of the experiment. Plan the prisoners strategy.
+
+\subsection{Solution}
+A first solution would be to use a special designated person to act as counter. The counter never flips the light switch on. Every time the counter is called into the holding cell and sees the light he/she adds $1$ to a sum he/she is storing in memory as to the number of people that have been in the holding cell and flips the light off. Every other prisoner will follow the following rules: If you have never flipped the switch on and the switch is off when you enter the room then switch it on. Otherwise do nothing. The counter is the only person to proclaim that everyone has been to the holding cell and obviously has to count himself/herself as well.
+
+The problem with this solution is that it's efficiency is quite low. Time is also wasted when a prisoner that has never been to the cell enters it and sees the light on which prevents him from turning the light on himself and makes him wait for the next time he/she is called to the holding cell.
 
 \label{end}\end{document}

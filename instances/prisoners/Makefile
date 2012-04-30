@@ -1,12 +1,14 @@
-ALL=prisoners.opt prisoners.debug
+ALL:=program.exe
+OBJECTS:=main.o prisonerfull.o
+#CXXFLAGS:=-g3
+CXXFLAGS:=-s -O3
 
+.PHONY: all
 all: $(ALL)
 
-prisoners.opt: prisoners.cc
-	g++ -s -O3 -o $@ $<
-prisoners.debug: prisoners.cc
-	g++ -g3 -o $@ $<
+program.exe: $(OBJECTS)
+	g++ -o $@ $(OBJECTS)
 
 .PHONY: clean
 clean:
-	-rm -f $(ALL)
+	-rm -f $(ALL) $(OBJECTS)
