@@ -3,6 +3,12 @@
 use strict;
 use diagnostics;
 
+# WARNING: this script takes some time to run (about 20 mins).
+# real    19m31.106s
+# user    19m13.572s
+# sys     0m5.872s
+# (and this is on quite a good machine)
+
 # This program tries to find a series of 7 distinct numbers for which the sum is minimal
 # and where no 3 of the 7 sum up the same.
 # examples of such a series are:
