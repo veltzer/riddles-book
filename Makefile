@@ -11,7 +11,7 @@ DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
 # the prime file
-PRIME:=riddles
+PRIME:=riddling
 # the primary pdf file name
 PRIME_PDF:=$(OUT_DIR)/$(PRIME).pdf
 # the primary swf file name
@@ -51,7 +51,7 @@ TAG:=$(shell git tag | tail -1)
 WEB_DIR:=$(WEB)/$(PRIME)
 WEB_PDF:=$(WEB_DIR)/$(PRIME).pdf
 WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
-WEB_FILES:=$(shell find web -type f)
+WEB_FILES:=$(shell find web -maxdepth 1)
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
 ALL_DEPS:=Makefile
@@ -179,7 +179,7 @@ install: all $(WEB_FILES)
 	$(info doing [$@])
 	-@sudo rm -rf $(WEB_DIR)
 	@sudo mkdir -p $(WEB_DIR)
-	@sudo cp $(WEB_FILES) $(PRIME_PDF) $(WEB_DIR)
+	@sudo cp -r $(WEB_FILES) $(PRIME_PDF) $(WEB_DIR)
 	@#-sudo rm -rf $(WEB)/usr
 	@#sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
 	@#sudo mkdir -p $(WEB)/usr/share/latex2html
