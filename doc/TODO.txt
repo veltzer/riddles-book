@@ -1,6 +1,6 @@
 Now:
 ====
-- improve the riddling website: show pdf in browser if possible.
+- do a better favicon for this project.
 - remove the ugly colors from the pdf output.
 	(red and blue). Try to controll them.
 
