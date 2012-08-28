@@ -48,9 +48,9 @@ USE_LATEX2PDF:=scripts/pdflatex_wrap.pl
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
 # web stuff...
-WEB_PRIME:=$(WEB)/$(PRIME)
-WEB_PDF:=$(WEB_PRIME)/$(PRIME).pdf
-WEB_ZIP:=$(WEB_PRIME)/$(PRIME).zip
+WEB_DIR:=$(WEB)/$(PRIME)
+WEB_PDF:=$(WEB_DIR)/$(PRIME).pdf
+WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
 ALL_DEPS:=Makefile
@@ -173,18 +173,18 @@ view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddles/flexpaper/index.html > /dev/null 2> /dev/null &
 # make the riddles public on a web folder...
 .PHONY: install
-install: $(ALL) web/htaccess
-	-sudo rm -rf $(WEB_PRIME)
-	sudo mkdir $(WEB_PRIME)
-	sudo cp $(PRIME_PDF) $(WEB_PRIME)
-	sudo cp web/htaccess $(WEB_PRIME)/.htaccess
+install: all
+	$(info doing [$@])
+	-@sudo rm -rf $(WEB_DIR)
+	@sudo mkdir -p $(WEB_DIR)
+	@sudo cp web/* web/.htaccess $(PRIME_PDF) $(WEB_DIR)
 	#-sudo rm -rf $(WEB)/usr
 	#sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
 	#sudo mkdir -p $(WEB)/usr/share/latex2html
 	#sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html
 	#sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
-	#sudo cp -r flexpaper $(WEB_PRIME)
-	#sudo cp $(PRIME_SWF) $(WEB_PRIME)/flexpaper
+	#sudo cp -r flexpaper $(WEB_DIR)
+	#sudo cp $(PRIME_SWF) $(WEB_DIR)/flexpaper
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:

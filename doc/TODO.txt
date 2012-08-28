@@ -1,3 +1,6 @@
+caching:
+========
+
 Now:
 ====
 - remove the ugly colors from the pdf output.
