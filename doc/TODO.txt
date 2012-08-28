@@ -1,5 +1,6 @@
 Now:
 ====
+- convert the README.txt file in this project to README.md.
 - do a better favicon for this project.
 - remove the ugly colors from the pdf output.
 	(red and blue). Try to controll them.
