@@ -1,5 +1,6 @@
 Now:
 ====
+- do a favicon for this project.
 - remove the ugly colors from the pdf output.
 - make google links work right (try scribd ?!?).
 
