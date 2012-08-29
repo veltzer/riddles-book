@@ -212,4 +212,10 @@ A first solution would be to use a special designated person to act as counter. 
 
 The problem with this solution is that it's efficiency is quite low. Time is also wasted when a prisoner that has never been to the cell enters it and sees the light on which prevents him from turning the light on himself and makes him wait for the next time he/she is called to the holding cell.
 
+\section{Jumping frogs (Geometric)}
+Four frogs are sitting on the vertices of a square the side of which is of length $1$. In turns, a frog may lep over any other frog jumping twice the distance between them. Could the frogs, after any number of steps, form a square of a size different than $1$? Another version would be: can you prove that if, after any number of jumps, the frogs form a square then the size of the square will be $1$?
+
+\subsection{Solution}
+If we put the frogs on an infinite grid of size $1$ then after each jump all frogs must be located on that grid. So if the frogs can create a square of a size bigger than $1$ then that size must be a whole number which is bigger than $1$. Now lets note that if the frogs can create a square bigger than $1$ then, starting from that square, then can reverse their steps and create a square which is of size $1$. This means that the frogs can make the square they form bigger or smaller by some factor at any time. The problem with this is that this is also true for the original sized $1$ square: the frogs can make it smaller by that same factor but that is a contradiction to the fact that the frogs always remain on the grid.
+
 \label{end}\end{document}

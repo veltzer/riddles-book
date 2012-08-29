@@ -1,8 +1,14 @@
 Now:
 ====
 - do a favicon for this project.
+- convert the README.txt file in this project to README.md.
 - remove the ugly colors from the pdf output.
-- make google links work right (try scribd ?!?).
+	(red and blue). Try to controll them.
+
+caching:
+========
+Move to version on the pdf created and so allow caching.
+	get ridd of the .htaccess file in web. see doc/caching.txt for details.
 
 latex code:
 ===========

@@ -11,7 +11,7 @@ DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
 # the prime file
-PRIME:=riddles
+PRIME:=riddling
 # the primary pdf file name
 PRIME_PDF:=$(OUT_DIR)/$(PRIME).pdf
 # the primary swf file name
@@ -48,9 +48,10 @@ USE_LATEX2PDF:=scripts/pdflatex_wrap.pl
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
 # web stuff...
-WEB_PRIME:=$(WEB)/$(PRIME)
-WEB_PDF:=$(WEB_PRIME)/$(PRIME).pdf
-WEB_ZIP:=$(WEB_PRIME)/$(PRIME).zip
+WEB_DIR:=$(WEB)/$(PRIME)
+WEB_PDF:=$(WEB_DIR)/$(PRIME).pdf
+WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
+WEB_FILES:=$(shell find web -maxdepth 1)
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
 ALL_DEPS:=Makefile
@@ -117,6 +118,7 @@ debug:
 	$(info PRIME_HTM_FOLDER is $(PRIME_HTM_FOLDER))
 	$(info TAG is $(TAG))
 	$(info ALL is $(ALL))
+	$(info WEB_FILES is $(WEB_FILES))
 
 # cleaning using git. Watch out! always add files or they will be erased...
 # -x: remove everything not known to git (not only ignore rules).
@@ -159,7 +161,7 @@ $(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
 .PHONY: pdfinfo
 pdfinfo: $(PRIME_PDF)
 	pdfinfo $(PRIME_PDF)
-# short cut to show the riddles pdf output fast...
+# short cut to show the riddling pdf output fast...
 .PHONY: view_pdf
 view_pdf: $(PRIME_PDF)
 	gnome-open $(PRIME_PDF) > /dev/null 2> /dev/null &
@@ -170,21 +172,21 @@ view_htm: $(PRIME_HTM)
 # short cut to show the swf using flex paper fast...
 .PHONY: view_swf
 view_swf: $(PRIME_SWF)
-	gnome-open http://www.veltzer.net/riddles/flexpaper/index.html > /dev/null 2> /dev/null &
-# make the riddles public on a web folder...
+	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
+# make the riddling public on a web folder...
 .PHONY: install
-install: $(ALL) web/htaccess
-	-sudo rm -rf $(WEB_PRIME)
-	sudo mkdir $(WEB_PRIME)
-	sudo cp $(PRIME_PDF) $(WEB_PRIME)
-	sudo cp web/htaccess $(WEB_PRIME)/.htaccess
-	#-sudo rm -rf $(WEB)/usr
-	#sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
-	#sudo mkdir -p $(WEB)/usr/share/latex2html
-	#sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html
-	#sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
-	#sudo cp -r flexpaper $(WEB_PRIME)
-	#sudo cp $(PRIME_SWF) $(WEB_PRIME)/flexpaper
+install: all $(WEB_FILES)
+	$(info doing [$@])
+	-@sudo rm -rf $(WEB_DIR)
+	@sudo mkdir -p $(WEB_DIR)
+	@sudo cp -r $(WEB_FILES) $(PRIME_PDF) $(WEB_DIR)
+	@#-sudo rm -rf $(WEB)/usr
+	@#sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
+	@#sudo mkdir -p $(WEB)/usr/share/latex2html
+	@#sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html
+	@#sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
+	@#sudo cp -r flexpaper $(WEB_DIR)
+	@#sudo cp $(PRIME_SWF) $(WEB_DIR)/flexpaper
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
