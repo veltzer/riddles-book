@@ -3,7 +3,7 @@
 
 'use strict';
 
-var kDefaultURL = '../riddling.pdf';
+var kDefaultURL = '../../out/riddling.pdf';
 var kDefaultScale = 'auto';
 var kDefaultScaleDelta = 1.1;
 var kUnknownScale = 0;

@@ -51,7 +51,7 @@ TAG:=$(shell git tag | tail -1)
 WEB_DIR:=$(WEB)/$(PRIME)
 WEB_PDF:=$(WEB_DIR)/$(PRIME).pdf
 WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
-WEB_FILES:=$(shell find web -maxdepth 1)
+WEB_FOLDER:=web
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
 ALL_DEPS:=Makefile
@@ -118,7 +118,7 @@ debug:
 	$(info PRIME_HTM_FOLDER is $(PRIME_HTM_FOLDER))
 	$(info TAG is $(TAG))
 	$(info ALL is $(ALL))
-	$(info WEB_FILES is $(WEB_FILES))
+	$(info WEB_FOLDER is $(WEB_FOLDER))
 
 # cleaning using git. Watch out! always add files or they will be erased...
 # -x: remove everything not known to git (not only ignore rules).
@@ -175,18 +175,11 @@ view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
 # make the riddling public on a web folder...
 .PHONY: install
-install: all $(WEB_FILES)
+install: all $(PRIME_PDF)
 	$(info doing [$@])
-	-@sudo rm -rf $(WEB_DIR)
+	@sudo rm -rf $(WEB_DIR)
 	@sudo mkdir -p $(WEB_DIR)
-	@sudo cp -r $(WEB_FILES) $(PRIME_PDF) $(WEB_DIR)
-	@#-sudo rm -rf $(WEB)/usr
-	@#sudo cp -r $(PRIME_HTM_FOLDER) $(WEB)
-	@#sudo mkdir -p $(WEB)/usr/share/latex2html
-	@#sudo cp -r /usr/share/latex2html/icons $(WEB)/usr/share/latex2html
-	@#sudo zip --quiet -r $(WEB_ZIP) $(PRIME_HTM_FOLDER)
-	@#sudo cp -r flexpaper $(WEB_DIR)
-	@#sudo cp $(PRIME_SWF) $(WEB_DIR)/flexpaper
+	@sudo cp -r index.html $(WEB_FOLDER) $(OUT_DIR) $(WEB_DIR)
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
