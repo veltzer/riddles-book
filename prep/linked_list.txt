@@ -1,0 +1,4 @@
+This is a data-structures riddle
+
+Given a pointer to a linked list which you do not know the size of select a random number out of that list using
+O(1) memory and only a single pass over the list.
