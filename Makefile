@@ -17,7 +17,7 @@ PRIME_PDF:=$(OUT_DIR)/$(PRIME).pdf
 # the primary swf file name
 PRIME_SWF:=$(OUT_DIR)/$(PRIME).swf
 # the primary html file name
-PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.html
+PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.php
 # the primary output folder
 PRIME_HTM_FOLDER:=$(OUT_DIR)/$(PRIME)
 # where is the web folder?
@@ -177,25 +177,25 @@ view_swf: $(PRIME_SWF)
 .PHONY: install
 install: all $(PRIME_PDF)
 	$(info doing [$@])
-	@sudo rm -rf $(WEB_DIR)
-	@sudo mkdir -p $(WEB_DIR)
-	@sudo cp -r index.html $(WEB_FOLDER) $(OUT_DIR) $(WEB_DIR)
+	$(Q)sudo rm -rf $(WEB_DIR)
+	$(Q)sudo mkdir -p $(WEB_DIR)
+	$(Q)sudo cp -r index.html $(WEB_FOLDER) $(OUT_DIR) $(WEB_DIR)
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
-	gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null 2> /dev/null &
+	$(Q)gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null 2> /dev/null &
 .PHONY: view_sketch_doc_pdf
 view_sketch_doc_pdf:
-	gnome-open /usr/share/doc/sketch-doc/sketch.pdf.gz > /dev/null 2> /dev/null &
+	$(Q)gnome-open /usr/share/doc/sketch-doc/sketch.pdf.gz > /dev/null 2> /dev/null &
 .PHONY: view_pdftex_doc_pdf
 view_pdftex_doc_pdf:
-	gnome-open /usr/share/doc/texlive-doc/pdftex/manual/pdftex-s.pdf > /dev/null 2> /dev/null &
+	$(Q)gnome-open /usr/share/doc/texlive-doc/pdftex/manual/pdftex-s.pdf > /dev/null 2> /dev/null &
 .PHONY: view_luatex_doc_pdf
 view_luatex_doc_pdf:
-	gnome-open /usr/share/doc/texmf/luatex/base/luatexref-t.pdf
+	$(Q)gnome-open /usr/share/doc/texmf/luatex/base/luatexref-t.pdf
 .PHONY: view_pgf_doc_pdf
 view_pgf_doc_pdf:
-	gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
+	$(Q)gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
 
 ifeq ($(DO_INCLUDE),1)
 # include the deps files (no warnings)
