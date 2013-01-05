@@ -3,6 +3,8 @@
 		<meta charset="UTF-8">
 		<title>Riddling</title>
 		<link rel="shortcut icon" href="favicon.ico"/>
+		<meta name="Description" content="A riddle collection done with open source tools"/>
+		<meta name="Keywords" content="Mark Veltzer, veltzer, riddles, riddling, collection"/>
 	</head>
 	<body>
 		<h1>Welcome to the riddling project</h1>
