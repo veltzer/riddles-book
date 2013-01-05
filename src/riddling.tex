@@ -218,4 +218,10 @@ Four frogs are sitting on the vertices of a square the side of which is of lengt
 \subsection{Solution}
 If we put the frogs on an infinite grid of size $1$ then after each jump all frogs must be located on that grid. So if the frogs can create a square of a size bigger than $1$ then that size must be a whole number which is bigger than $1$. Now lets note that if the frogs can create a square bigger than $1$ then, starting from that square, then can reverse their steps and create a square which is of size $1$. This means that the frogs can make the square they form bigger or smaller by some factor at any time. The problem with this is that this is also true for the original sized $1$ square: the frogs can make it smaller by that same factor but that is a contradiction to the fact that the frogs always remain on the grid.
 
+\section{Liers and Truth tellers (Logic)}
+In a cicle there be $n$ people, some tall and some short. Tall people always tell the truth while short people always lie. All of them tell you that the two people on their side are of different heights. How many liers and truth tellers are there?
+
+\subsection{Solution}
+Lets see what happens on the circle itself. Pick any spot and look at the two people from that spot onwards. There could be only 4 possibilities: $(t,t) (l,t) (t,l) (l,l)$. If possibility one occurs then the next person must be a lier for the truth teller in the middle to be right, creating $(t,t,l)$. If possibility two occurs then the next person must be a truth teller for the same reaons and we get $(l,t,t)$. If the third option is the one then the next person must be a truth teller so that the lier reports, wrongly, that two people of different height are near him. This will give us $(t,l,t)$. Consider these three options, they all combine to form an endless chain of $(t,t,l,t,t,l,t,t,l,...)$ which means that a third of people are liers. Option 4, $(l,l)$ means that the next person is also a lier and so on forever which gives us all liers. To sum up: either a third of people are liers or all of them.
+
 \label{end}\end{document}
