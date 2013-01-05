@@ -224,4 +224,6 @@ In a cicle there be $n$ people, some tall and some short. Tall people always tel
 \subsection{Solution}
 Lets see what happens on the circle itself. Pick any spot and look at the two people from that spot onwards. There could be only 4 possibilities: $(t,t) (l,t) (t,l) (l,l)$. If possibility one occurs then the next person must be a lier for the truth teller in the middle to be right, creating $(t,t,l)$. If possibility two occurs then the next person must be a truth teller for the same reaons and we get $(l,t,t)$. If the third option is the one then the next person must be a truth teller so that the lier reports, wrongly, that two people of different height are near him. This will give us $(t,l,t)$. Consider these three options, they all combine to form an endless chain of $(t,t,l,t,t,l,t,t,l,...)$ which means that a third of people are liers. Option 4, $(l,l)$ means that the next person is also a lier and so on forever which gives us all liers. To sum up: either a third of people are liers or all of them.
 
+TODO: is there a way to solve this using a formula? I tend to feel that there should be...
+
 \label{end}\end{document}
