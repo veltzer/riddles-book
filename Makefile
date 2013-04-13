@@ -20,8 +20,6 @@ PRIME_SWF:=$(OUT_DIR)/$(PRIME).swf
 PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.php
 # the primary output folder
 PRIME_HTM_FOLDER:=$(OUT_DIR)/$(PRIME)
-# where is the web folder?
-WEB:=/var/www
 # do you want to do PDF ?
 DO_PDF:=1
 # do you want to do HTML ?
@@ -48,7 +46,7 @@ USE_LATEX2PDF:=scripts/pdflatex_wrap.pl
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
 # web stuff...
-WEB_DIR:=$(WEB)/$(PRIME)
+WEB_DIR:=~/public_html/public/$(PRIME)
 WEB_PDF:=$(WEB_DIR)/$(PRIME).pdf
 WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
 WEB_FOLDER:=web
@@ -177,9 +175,10 @@ view_swf: $(PRIME_SWF)
 .PHONY: install
 install: all $(PRIME_PDF)
 	$(info doing [$@])
-	$(Q)sudo rm -rf $(WEB_DIR)
-	$(Q)sudo mkdir -p $(WEB_DIR)
-	$(Q)sudo cp -r index.html $(WEB_FOLDER) $(OUT_DIR) $(WEB_DIR)
+	$(Q)rm -rf $(WEB_DIR)
+	$(Q)mkdir -p $(WEB_DIR)
+	$(Q)cp -r index.html $(WEB_FOLDER) $(OUT_DIR) $(WEB_DIR)
+	$(Q)chmod -R go+rx $(WEB_DIR)
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
