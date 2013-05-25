@@ -1,0 +1,32 @@
+This one is from the internet
+
+You get a letter that states:
+This letter was send to exactly 100 people. On it you will find a return address.
+If I get just one reply then each of the 100 people will get a million dollars.
+If I get no reply or more than one reply non of you will get anything.
+
+How could you maximize your chances of winning?
+
+* The other participants are very smart (at least as smart as yourself...)
+
+Solution
+========
+The idea is to roll a die to decide if to send or not send the letter.
+The other participants will do the same calculation. So we'll assume
+that we all calculated the same p.
+
+The chance of winning is made up of disjoin events which can be summed up:
+	only participant 1 sends + only participant 2 sends + ... + only participant 100 sends =
+	p*pow(1-p,99) + (1-p)*p*pow(1-p,98) + ... + pow(1-p,99)*p =
+	100*p*pow(1-p,99)
+Intuition says that maximum should be gotten when p=0.01 but lets calculate:
+
+	f(p) = 100*p*pow(1-p,99)
+	f'(p) = 100*1*pow(1-p,99)+100*p*99*pow(1-p,98)*-1 =
+		100*pow(1-p,99)-100*99*p*pow(1-p,98)
+
+	maximum is at f'(p)=0 so:
+		100*pow(1-p,99) = 100*99*p*pow(1-p,98)
+		1-p = 99*p
+		100*p=1
+		p=0.01
