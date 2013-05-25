@@ -30,3 +30,6 @@ Intuition says that maximum should be gotten when p=0.01 but lets calculate:
 		1-p = 99*p
 		100*p=1
 		p=0.01
+
+It turns out that for a 100 people this number is about 3.7 (which is pretty high).
+For a million it drops only to 0.367. Surprising.
