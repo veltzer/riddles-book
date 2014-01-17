@@ -224,7 +224,7 @@ In a cicle there be $n$ people, some tall and some short. Tall people always tel
 \subsection{Solution}
 Lets see what happens on the circle itself. Pick any spot and look at the two people from that spot onwards. There could be only 4 possibilities: $(t,t) (l,t) (t,l) (l,l)$. If possibility one occurs then the next person must be a lier for the truth teller in the middle to be right, creating $(t,t,l)$. If possibility two occurs then the next person must be a truth teller for the same reaons and we get $(l,t,t)$. If the third option is the one then the next person must be a truth teller so that the lier reports, wrongly, that two people of different height are near him. This will give us $(t,l,t)$. Consider these three options, they all combine to form an endless chain of $(t,t,l,t,t,l,t,t,l,...)$ which means that a third of people are liers. Option 4, $(l,l)$ means that the next person is also a lier and so on forever which gives us all liers. To sum up: either a third of people are liers or all of them.
 
-TODO: is there a way to solve this using a formula? I tend to feel that there should be...
+TODO: is there a way to solve this using a formula? I feel there should be...
 
 \section{$2^{2n}-1$ (Number theory)}
 Prove that for each $n\in \mathbb{N}>0$, $2^{2n}-1$ is divisible by 3
@@ -236,5 +236,35 @@ For each three consequitive numbers one must be divisible by $3$ and this applie
 three consequitive numbers: $2^n-1,2^n,2^n+1$. Since $2^n$ is not divisible by $3$ then either
 $2^n-1$ or $2^n+1$ must be divisible by three and hence, using the equation above, $2^{2n}-1$ is
 divisible by $3$.
+
+\section{25 horses, 3 best (Sorting)}
+You need to find the 3 fastest horses out of 25. You can only race 5 at a time and you don't have a timer. What's
+the minimum number of races you need and who will you race?
+
+\subsection{Solution}
+Lets mark all horses as $H_1$ - $H_{25}$.
+First race 5 races $H_1$-$H_5$, $H_6$-$H_{10}$, $H_{11}$-$H_{15}$, $H_{16}$-$H_{20}$, $H_{21}$-$H_{25}$.
+Denote the winners as $W_{1,5}$, $W_{6,10}$, $W_{11,15}$, $W_{16,20}$, $W_{21,25}$. 
+Second runners up will be $SRU_{1,5}$, $SRU_{6,10}$, $SRU_{11,15}$, $SRU_{16,20}$, $SRU_{21,25}$.
+Third runners up will be $TRU_{1,5}$, $TRU_{6,10}$, $TRU_{11,15}$, $TRU_{16,20}$, $TRU_{21,25}$.
+We will race all the winners and get $WW_1$ - $WW_5$.
+
+Now lets use some logic.
+
+$WW_1$ is the fastest around so we don't need to race him again and he will be the top in the top 3.
+
+Discard anyone in the group that got won by $WW_4$ and $WW_5$ since they got beat by at least three horses ($WW_1, WW_2, WW_3$) so they, and by inference anyone they beat, cannot be in the top 3.
+
+Discard anyone in the group that got won by $WW_3$ but not $WW_3$ himself. This is because there are at least two horses better than $WW_3$ so anyone that $WW_3$ beat cannot be in the top 3 but $WW_3$ maybe the third in the entire group. So $WW_3$ joins the final race.
+
+In the group of horses won by $WW_2$ we can discard everyone but $WW_2$ and the second runner up. Third runner up and down have at least 3 horses better than them ($SRU_{WW_2}$, $WW_2$ and $WW_1$). So $WW_2$ and $SRU_{WW_2}$ joins the race.
+
+In the group of $WW_1$ we can discard everyone but the second and third runners up. So $SRU_{WW_1}$ and $TRU_{WW_1}$ join the race.
+
+So now we will race $WW_3$, $WW_2$, $SRU_{WW_2}$, $SRU_{WW_1}$, $TRU_{WW_1}$. The first two will join $WW_1$ in being the fastest 3.
+
+Number of races: 7
+
+TODO: how do I prove this is the minimum?
 
 \label{end}\end{document}
