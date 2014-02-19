@@ -2,3 +2,4 @@ Sites with riddles:
 http://domino.research.ibm.com/comm/wwwr_ponder.nsf/solutions/November2004.html
 http://shlomifish.org/MathVentures/
 http://www.karlsims.com/puzzles.html  progress: 5 first riddles registered.
+http://www.ocf.berkeley.edu/~wwu/cgi-bin/yabb/YaBB.cgi?board=riddles_hard
