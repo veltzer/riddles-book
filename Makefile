@@ -30,6 +30,10 @@ DO_SWF:=0
 DO_DEP:=0
 # do you want to actually include the deps ? (must enable DO_DEP)
 DO_INCLUDE:=1
+# what to export out (to grive and dropbox)?
+OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
+# what is the name of the project?
+PROJECT:=$(notdir $(CURDIR))
 
 # tools
 TOOL_LATEX2HTML:=latex2html
@@ -117,6 +121,8 @@ debug:
 	$(info TAG is $(TAG))
 	$(info ALL is $(ALL))
 	$(info WEB_FOLDER is $(WEB_FOLDER))
+	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
+	$(info PROJECT is $(PROJECT))
 
 # cleaning using git. Watch out! always add files or they will be erased...
 # -x: remove everything not known to git (not only ignore rules).
@@ -195,6 +201,21 @@ view_luatex_doc_pdf:
 .PHONY: view_pgf_doc_pdf
 view_pgf_doc_pdf:
 	$(Q)gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
+
+.PHONY: grive
+grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
+	$(info doing [$@])
+	$(Q)-rm -rf ~/grive/outputs/$(PROJECT)
+	$(Q)-mkdir ~/grive/outputs/$(PROJECT)
+	$(Q)cp $(OUTPUTS_TO_EXPORT) ~/grive/outputs/$(PROJECT)
+	$(Q)cd ~/grive; grive
+
+.PHONY: dropbox
+dropbox: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
+	$(info doing [$@])
+	$(Q)-rm -rf ~/Dropbox/outputs/$(PROJECT)
+	$(Q)-mkdir ~/Dropbox/outputs/$(PROJECT)
+	$(Q)cp $(OUTPUTS_TO_EXPORT) ~/Dropbox/outputs/$(PROJECT)
 
 ifeq ($(DO_INCLUDE),1)
 # include the deps files (no warnings)
