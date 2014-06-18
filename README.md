@@ -6,7 +6,7 @@ Tools include: make, pdflatex, lacheck, latex, dvips, ps2pdf, latex2html, perl, 
 	flexpaper, pdf2swf, qpdf, pdfinfo, pdftex, pdftohtml, luatex, xetex and possibly more.
 
 If you want to see the result checkout:
-http://veltzer.net/blog/riddling/
+https://veltzer.net/blog/riddling/
 
 If you want to compile this package then:
 - install all required packages.
@@ -14,4 +14,4 @@ If you want to compile this package then:
 - make
 All the output is in the 'out' folder.
 
-	Mark Veltzer, 2011
+	Mark Veltzer, 2011-2014
