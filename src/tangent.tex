@@ -1,0 +1,11 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\begin{document}
+\begin{tikzpicture}
+\coordinate (a) at (3,2);
+\node [circle,draw] (c) at (1,1) [minimum size=40pt] {};
+\draw[red] (a) -- (tangent cs:node=c,point={(a)},solution=0) --
+	(c.center) -- (tangent cs:node=c,point={(a)},solution=2) -- cycle;
+\end{tikzpicture}
+\end{document}

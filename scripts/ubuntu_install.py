@@ -13,6 +13,7 @@ packs=[
 	'sketch',
 	'texlive-latex-base',
 	'texlive-binaries',
+	'texlive-pictures',
 	'ghostscript',
 	'qpdf',
 	'sketch-doc',
