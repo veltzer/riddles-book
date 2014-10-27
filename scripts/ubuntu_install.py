@@ -21,6 +21,9 @@ packs=[
 	'luatex',
 	'pgf',
 	'tex4ht',
+
+	# my own
+	'templar',
 ]
 
 args=['sudo','apt-get','install','--assume-yes']
