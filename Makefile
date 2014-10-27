@@ -156,6 +156,7 @@ $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJEC
 
 $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2dep.pl
 	$(info doing [$@])
+	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/latex2dep.pl $< $@
 
 $(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS) scripts/sketch_wrap.pl
