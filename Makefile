@@ -41,7 +41,7 @@ TOOL_LACHECK:=lacheck
 TOOL_SKETCH:=sketch
 TOOL_PDFLATEX:=pdflatex
 #USE_LATEX2PDF:=scripts/latex2pdf.pl
-USE_LATEX2PDF:=scripts/pdflatex_wrap.pl
+USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
 
 #############
 # variables #
@@ -159,9 +159,9 @@ $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/latex2dep.pl $< $@
 
-$(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS) scripts/sketch_wrap.pl
+$(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS) scripts/wrapper_sketch.pl
 	$(info doing [$@])
-	$(Q)scripts/sketch_wrap.pl $< $@
+	$(Q)scripts/wrapper_sketch.pl $< $@
 
 $(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
 	$(info doing [$@])
