@@ -104,7 +104,7 @@ all: $(ALL)
 .PHONY: check_veltzer_https
 check_veltzer_https:
 	$(info doing [$@])
-	$(Q)scripts/ok_wrapper.pl git grep "http:\/\/veltzer.net"
+	$(Q)wrapper_ok git grep "http:\/\/veltzer.net"
 .PHONY: check_all
 check_all: check_veltzer_https
 
