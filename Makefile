@@ -36,6 +36,8 @@ DO_INCLUDE:=1
 OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
 # what is the name of the project?
 PROJECT:=$(notdir $(CURDIR))
+# do you want to validate html?
+DO_CHECKHTML:=1
 
 # tools
 TOOL_LATEX2HTML:=latex2html
@@ -45,9 +47,9 @@ TOOL_PDFLATEX:=pdflatex
 #USE_LATEX2PDF:=scripts/latex2pdf.pl
 USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
 
-#############
-# variables #
-#############
+########
+# code #
+########
 
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
@@ -99,6 +101,13 @@ ifeq ($(MAKECMDGOALS),clean)
 DO_INCLUDE:=0
 endif # clean
 
+SOURCES_HTML:=web/index.html
+HTMLCHECK:=html.stamp
+ifeq ($(DO_CHECKHTML),1)
+ALL+=$(HTMLCHECK)
+all: $(ALL)
+endif # DO_CHECKHTML
+
 .PHONY: check_veltzer_https
 check_veltzer_https:
 	$(info doing [$@])
@@ -119,6 +128,7 @@ debug_me:
 	$(info OBJECTS_SWF is $(OBJECTS_SWF))
 	$(info OBJECTS_HTM is $(OBJECTS_HTM))
 	$(info OBJECTS_DEP is $(OBJECTS_DEP))
+	$(info SOURCES_HTML is $(SOURCES_HTML))
 	$(info PRIME is $(PRIME))
 	$(info PRIME_PDF is $(PRIME_PDF))
 	$(info PRIME_HTM is $(PRIME_HTM))
@@ -217,3 +227,10 @@ ifeq ($(DO_INCLUDE),1)
 # include the deps files (no warnings)
 -include $(OBJECTS_DEP)
 endif # DO_INCLUDE
+
+$(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEP)
+	$(info doing [$@])
+	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
+	$(Q)htmlhint $(SOURCES_HTML) > /dev/null
+	$(Q)mkdir -p $(dir $@)
+	$(Q)touch $(HTMLCHECK)

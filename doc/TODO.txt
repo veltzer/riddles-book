@@ -2,7 +2,6 @@ Now:
 ====
 - stop using perl for the scripting and use python instead (will be shorter and easier to read).
 - do a favicon for this project.
-- the README.md file for this project is not really a markdown file - do it right.
 - remove the ugly colors from the pdf output.
 	(red and blue). Try to controll them.
 
