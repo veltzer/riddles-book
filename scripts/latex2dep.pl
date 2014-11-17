@@ -9,7 +9,7 @@ use File::Basename qw();
 
 This script analyzes latex files and produces dependency information for them.
 
-Current it just for lines like:
+Current it just scans for lines like:
 \input{out/sketch-test.tex}
 and outputs dependency information in 'make' like fashion.
 
