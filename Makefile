@@ -39,7 +39,7 @@ PROJECT:=$(notdir $(CURDIR))
 # do you want to validate html?
 DO_CHECKHTML:=1
 # what is the web folder?
-WEB_DIR:=../openbook-gh-pages
+WEB_DIR:=../riddling-gh-pages
 # what folder to copy on web install?
 COPY_FOLDERS:=out web static
 
@@ -58,7 +58,6 @@ USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
 # web stuff...
-WEB_DIR:=~/public_html/public/$(PRIME)
 WEB_PDF:=$(WEB_DIR)/$(PRIME).pdf
 WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
 WEB_FOLDER:=web
