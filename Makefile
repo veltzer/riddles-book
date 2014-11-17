@@ -1,3 +1,5 @@
+include /usr/share/templar/make/Makefile
+
 ##############
 # parameters #
 ##############
@@ -79,27 +81,23 @@ OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename
 OBJECTS_TEX:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_SK)))))
 OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 
-ALL:=
 ifeq ($(DO_PDF),1)
-ALL:=$(ALL) $(OBJECTS_PDF)
+ALL+=$(OBJECTS_PDF)
 endif # DO_PDF
 ifeq ($(DO_HTML),1)
-ALL:=$(ALL) $(OBJECTS_HTM)
+ALL+=$(OBJECTS_HTM)
 endif # DO_HTML
 ifeq ($(DO_SWF),1)
-ALL:=$(ALL) $(OBJECTS_SWF)
+ALL+=$(OBJECTS_SWF)
 endif # DO_SWF
 ifeq ($(DO_DEP),1)
-ALL:=$(ALL) $(OBJECTS_DEP)
+ALL+=$(OBJECTS_DEP)
 endif # DO_DEP
 
 # do not include deps if the target is 'clean'...
 ifeq ($(MAKECMDGOALS),clean)
 DO_INCLUDE:=0
 endif # clean
-
-.PHONY: all
-all: $(ALL)
 
 .PHONY: check_veltzer_https
 check_veltzer_https:
@@ -111,8 +109,8 @@ check_all: check_veltzer_https
 .PHONY: deps
 deps: $(OBJECTS_DEP)
 
-.PHONY: debug
-debug:
+.PHONY: debug_me
+debug_me:
 	$(info SOURCES_ALL is $(SOURCES_ALL))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info SOURCES_SK is $(SOURCES_SK))
@@ -130,16 +128,6 @@ debug:
 	$(info WEB_FOLDER is $(WEB_FOLDER))
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
-
-# cleaning using git. Watch out! always add files or they will be erased...
-# -x: remove everything not known to git (not only ignore rules).
-# -d: remove directories also.
-# -f: force.
-# -X: keep manually created files and remove ignored files
-.PHONY: clean
-clean:
-	$(info doing [$@])
-	$(Q)git clean -fXd > /dev/null
 
 # RULES
 
