@@ -38,6 +38,14 @@ OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
 PROJECT:=$(notdir $(CURDIR))
 # do you want to validate html?
 DO_CHECKHTML:=1
+# what is the web folder?
+WEB_DIR:=../openbook-gh-pages
+# what folder to copy on web install?
+COPY_FOLDERS:=out web static
+
+########
+# code #
+########
 
 # tools
 TOOL_LATEX2HTML:=latex2html
@@ -46,10 +54,6 @@ TOOL_SKETCH:=sketch
 TOOL_PDFLATEX:=pdflatex
 #USE_LATEX2PDF:=scripts/latex2pdf.pl
 USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
-
-########
-# code #
-########
 
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
@@ -183,14 +187,14 @@ view_htm: $(PRIME_HTM)
 .PHONY: view_swf
 view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
-# make the riddling public on a web folder...
+
 .PHONY: install
-install: all $(PRIME_PDF)
+install: $(ALL) $(ALL_DEP)
 	$(info doing [$@])
-	$(Q)rm -rf $(WEB_DIR)
-	$(Q)mkdir -p $(WEB_DIR)
-	$(Q)cp -r index.html $(WEB_FOLDER) $(OUT_DIR) $(WEB_DIR)
-	$(Q)chmod -R go+rx $(WEB_DIR)
+	$(Q)rm -rf $(WEBDIR)/*
+	$(Q)for folder in $(COPY_FOLDERS); do cp -r $$folder $(WEB_DIR); done
+	$(Q)cp support/redirector.html $(WEB_DIR)/index.html
+	cd $(WEB_DIR); git commit -a -m "new version"; git push
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
