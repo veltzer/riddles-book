@@ -39,6 +39,9 @@ All the output is in the 'out' folder.
         Mark Veltzer, 2011-2014
 '''.format(**d)
 
+	# deb
+	d.deb_package=False
+
 def getdeps():
 	return [
 		__file__, # myself
