@@ -1,0 +1,2 @@
+Write a program to give you better and better estimations of PI (3.1415...).
+Do this with resorting to Taylor type series approximation.
