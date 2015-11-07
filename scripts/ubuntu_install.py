@@ -19,7 +19,6 @@ packs=[
 	'sketch-doc',
 	'poppler-utils',
 	'luatex',
-	'pgf',
 	'tex4ht',
 
 	# my own
