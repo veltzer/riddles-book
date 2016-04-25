@@ -1,5 +1,5 @@
 Write a program to give you better and better estimations of PI (3.1415...).
-Do this with resorting to Taylor type series approximation.
+Do this without resorting to Taylor type series approximation.
 
 Your solution should be one which is easy to code and is deterministic in the following
 way: the longer you run it the better approximation of PI you will get.
