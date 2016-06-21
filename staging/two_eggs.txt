@@ -1,0 +1,16 @@
+A tower has 100 floors. You have two eggs. You objective is to
+find the maximal floor from which you can drop an egg without
+breaking it. All eggs are the same. You cannot use an egg once
+it is broken. What is the minimal number of drops of eggs you
+can find this maximum and how would you conduct this experiment?
+
+Solution:
+We would split the tower into sections. We will climb from section
+to section. Once the first egg breaks we know that the sought
+after floor is in the previous section. We will continue to find
+the floor by climbing one floor at a time in that section.
+
+In order to minimize number of attempt we will make each higher
+section be shorter by 1 in length than the preceding section.
+
+Lets calculate the length of the sections.
