@@ -14,3 +14,25 @@ In order to minimize number of attempt we will make each higher
 section be shorter by 1 in length than the preceding section.
 
 Lets calculate the length of the sections.
+First lets note that the last section should be as short as possible.
+There is no advantage to a last section which is more than 1. Why?
+Well the size of the first section is the number of attempts. The smaller
+that size, the better. If the last section is not one we may reach a smaller
+first section by reducing all sections.
+
+OK. The we want:
+
+	n*(n+1)/2 = 100
+	n=13.651
+
+We round up and get n=14 (since 13*14/2=91 and we have not covered the entire
+building but 14*15/2=105. A little waste but what can you do?
+
+So the places to drop the first egg from will be:
+	14, 14+13, 14+13+12, ...
+
+But what if we have 3 eggs?
+We then will solve with recursion.
+
+References:
+http://datagenetics.com/blog/july22012/index.html
