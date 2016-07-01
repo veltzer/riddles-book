@@ -29,8 +29,8 @@ open(OUT,'> '.$output) || die('unable to open output file ['.$output.']');
 my(@list);
 print OUT $input.': ';
 while($line=<FILE>) {
-	if($line=~/^\\input{.+}/) {
-		my($file)=($line=~/^\\input{(.+)}/);
+	if($line=~/^\\input\{.+\}/) {
+		my($file)=($line=~/^\\input\{(.+)\}/);
 		push(@list,$file);
 	}
 }

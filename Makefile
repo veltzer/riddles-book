@@ -42,6 +42,10 @@ DO_CHECKHTML:=1
 WEB_DIR:=../riddling-gh-pages
 # what folder to copy on web install?
 COPY_FOLDERS:=out web static
+# what is the stamp file for the tools?
+TOOLS:=tools.stamp
+
+ALL_DEP+=$(TOOLS)
 
 ########
 # code #
@@ -144,6 +148,10 @@ debug_me:
 
 # RULES
 
+$(TOOLS): scripts/tools.py
+	$(Q)./scripts/tools.py
+	$(Q)make_helper touch-mkdir $@
+
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $< 2> /dev/null > /dev/null
@@ -234,6 +242,6 @@ endif # DO_INCLUDE
 $(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
-	$(Q)htmlhint $(SOURCES_HTML) > /dev/null
+	$(Q)./node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
 	$(Q)mkdir -p $(dir $@)
 	$(Q)touch $(HTMLCHECK)
