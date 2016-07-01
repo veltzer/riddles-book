@@ -9,7 +9,7 @@ def populate(d):
 	d.project_website_source='https://github.com/{project_github_username}/{project_name}'.format(**d)
 	d.project_website_git='git://github.com/{project_github_username}/{project_name}.git'.format(**d)
 	d.project_paypal_donate_button_id='ASPRXR59H2NTQ'
-	d.project_google_analytics_tracking_id='UA-56436979-1'
+	d.project_google_analytics_tracking_id='UA-80195674-1'
 	d.project_long_description='A riddle collection done with open source tools'
 	# keywords to put on html pages or for search, dont put the name of the project or my details
 	# as they will be added automatically...
