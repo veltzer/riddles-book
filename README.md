@@ -1,7 +1,7 @@
 riddling
 ========
 
-version: 3
+version: 4
 
 A riddle collection done with open source tools
 
@@ -20,4 +20,4 @@ If you want to compile this package then:
 All the output is in the 'out' folder.
 
 
-	Mark Veltzer <mark@veltzer.net>, 2011-2014
+	Mark Veltzer <mark@veltzer.net>, 2011-2016
