@@ -1,4 +1,4 @@
-definition: A complete tree is binary tree which is full in all of its level
+definition: A complete tree is binary tree which is full in all of its levels
 with the possible exception of the last level. If the last level is not full
 then all of it's nodes must be to the left side of the tree.
 
