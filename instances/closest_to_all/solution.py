@@ -3,7 +3,13 @@
 ###########
 # imports #
 ###########
-import sys # for maxsize
+import math # for inf
+
+##############
+# parameters #
+##############
+# should we do debugging?
+do_debug=False
 
 ########
 # code #
@@ -60,7 +66,7 @@ class Matrix:
 				if m.get(x,y) is not None and l[x] is not None:
 					l[x]+=m.get(x,y)
 	def minimum(self):
-		val=sys.maxsize
+		val=math.inf
 		for l in self.data:
 			for e in l:
 				if e is not None and e<val:
@@ -72,32 +78,40 @@ class Matrix:
 			for x,e in enumerate(l):
 				m.set(x,y,e)
 		return m
+	def print(self):
+		for l in self.data:
+			for e in l:
+				print(e, end='')
+			print()
 	def __str__(self):
 		res=''
 		for l in self.data:
 			for e in l:
-				res+=str(e)+', ';
+				res+=str(e)+', '
 			res+='\n'
 		return res
+	def from_strings(m):
+		s=Matrix(' ', len(m[0]), len(m))
+		for y,l in enumerate(m):
+			for x,c in enumerate(l):
+				s.set(x, y, c)
+		return s
 
 def create_matrix(v, w, h):
 	return [[0 for x in range(w)] for y in range(h)]
 
 def solve(m):
-	# find the height and width of the matrix
-	h=len(m)
-	w=len(m[0])
 	# first find all the people in the matrix
 	people=[]
-	for y,l in enumerate(m):
-		for x,c in enumerate(l):
-			if c=='P':
+	for y in range(m.h):
+		for x in range(m.w):
+			if m.get(x, y)=='P':
 				people.append(Position(x,y))
 	assert len(people)>0
 	# now calculate shortest distance per person
 	sdms=[]
 	for p in people:
-		sdm=Matrix(None, w, h)
+		sdm=Matrix(math.inf, m.w, m.h)
 		sdm.set_pos(p, 0)
 		positions=[p]
 		while len(positions)>0:
@@ -108,7 +122,7 @@ def solve(m):
 				cpos.add(d)
 				if sdm.illegal_pos(cpos):
 					continue
-				place=m[cpos.y][cpos.x]
+				place=m.get_pos(cpos)
 				if place=='*':
 					continue
 				cval=sdm.get_pos(cpos)
@@ -120,24 +134,29 @@ def solve(m):
 				else:
 					sdm.set_pos(cpos, steps+1)
 				positions.append(cpos)
-		#print(sdm)
+		if do_debug:
+			print(sdm)
 		sdms.append(sdm)
 	# now find the ideal position for the kitchen
 	sums=sdms[0].duplicate()
 	for sdm in sdms[1:]:
 		sums.add(sdm)
-	#print(sums)
+	if do_debug:
+		print(sums)
 	# now find the minimum and convert to a matrix of results...
 	mini=sums.minimum()
-	#print(mini)
+	if do_debug:
+		print(mini)
 	# create a boolean matrix showing the solutions
-	results=Matrix(False, sums.w, sums.h)
+	results=Matrix('_', sums.w, sums.h)
 	for x in range(sums.w):
 		for y in range(sums.h):
-			if sums.get(x, y)==mini:
-				results.set(x, y, True)
-	print(m)
-	print(results)
+			if sums.get(x, y)==mini and mini!=math.inf:
+				results.set(x, y, '*')
+	print('question')
+	m.print()
+	print('answer')
+	results.print()
 
 
 #########
@@ -150,7 +169,7 @@ m1=[
 	'_____',
 	'P___P',
 ]
-solve(m1)
+solve(Matrix.from_strings(m1))
 
 m2=[
 	'P___P',
@@ -159,7 +178,7 @@ m2=[
 	'_***_',
 	'P___P',
 ]
-solve(m2)
+solve(Matrix.from_strings(m2))
 
 m3=[
 	'P*__P',
@@ -168,7 +187,7 @@ m3=[
 	'_*___',
 	'P___P',
 ]
-solve(m3)
+solve(Matrix.from_strings(m3))
 
 m4=[
 	'P*__P',
@@ -177,4 +196,22 @@ m4=[
 	'_*___',
 	'P*__P',
 ]
-solve(m4)
+solve(Matrix.from_strings(m4))
+
+m5=[
+	'P___P',
+	'_____',
+	'_____',
+	'_____',
+	'____P',
+]
+solve(Matrix.from_strings(m5))
+
+m6=[
+	'P___P',
+	'_____',
+	'___**',
+	'_____',
+	'____P',
+]
+solve(Matrix.from_strings(m6))
