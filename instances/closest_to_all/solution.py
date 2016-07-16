@@ -16,14 +16,29 @@ do_debug=False
 ########
 
 '''
+for notation:
+N - number of squares on the board
+P - number of people
+
 efficient solution:
 first calculate the shortest path of each person to each square
 (create matrix per person) and then calculate the square which is
 the best. If several squares have the same value - print them all.
-'''
 
-def add_tup(t1, t2):
-	return tuple(map(lambda x, y: x + y, t1, t2))
+Complexity: P*N (to calculate the minimums for all people) and
+another N*P to find the locations. Which is N*P
+
+A less efficient solution would be one driven from the locations.
+Pass over each location on the map calculating the mininum number
+of steps each person has to get to get to it. Remember the sum
+of all minimums.
+
+Complexity: To calculate the minimum for every location its N.
+We do that for every person P and for every square N. So we get
+N*P*N = N^2*P
+
+We code the more efficient solution here.
+'''
 
 class Position:
 	def __init__(self, x, y):
@@ -41,7 +56,6 @@ directions=[
 	Position(0,-1),
 	Position(-1,0),
 ]
-
 
 class Matrix:
 	def __init__(self, v, w, h):
@@ -96,9 +110,6 @@ class Matrix:
 			for x,c in enumerate(l):
 				s.set(x, y, c)
 		return s
-
-def create_matrix(v, w, h):
-	return [[0 for x in range(w)] for y in range(h)]
 
 def solve(m):
 	# first find all the people in the matrix
@@ -215,3 +226,14 @@ m6=[
 	'____P',
 ]
 solve(Matrix.from_strings(m6))
+
+m7=[
+	'P____________P',
+]
+solve(Matrix.from_strings(m7))
+
+m8=[
+	'P_____________',
+	'________P_____',
+]
+solve(Matrix.from_strings(m8))
