@@ -81,13 +81,14 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-SOURCES_ALL:=$(shell git ls-files)
-SOURCES_TEX:=$(filter %.tex,$(SOURCES_ALL))
-SOURCES_SK:=$(filter %.sk,$(SOURCES_ALL))
+SOURCES_TEX:=$(shell find src -name "*.tex")
+
+SOURCES_SK:=$(shell find src -name "*.sk")
+OBJECTS_SK:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(basename $(SOURCES_SK))))
+
 OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
-OBJECTS_TEX:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_SK)))))
 OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
 
 ifeq ($(DO_PDF),1)
@@ -127,10 +128,9 @@ deps: $(OBJECTS_DEP)
 
 .PHONY: debug_me
 debug_me:
-	$(info SOURCES_ALL is $(SOURCES_ALL))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info SOURCES_SK is $(SOURCES_SK))
-	$(info OBJECTS_TEX is $(OBJECTS_TEX))
+	$(info OBJECTS_SK is $(OBJECTS_SK))
 	$(info OBJECTS_PDF is $(OBJECTS_PDF))
 	$(info OBJECTS_SWF is $(OBJECTS_SWF))
 	$(info OBJECTS_HTM is $(OBJECTS_HTM))
@@ -152,12 +152,12 @@ $(TOOLS): scripts/tools.py
 	$(Q)./scripts/tools.py
 	$(Q)make_helper touch-mkdir $@
 
-$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX) $(USE_LATEX2PDF)
+$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $< 2> /dev/null > /dev/null
 	$(Q)$(USE_LATEX2PDF) $< $@
 
-$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_TEX)
+$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
@@ -168,13 +168,15 @@ $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/latex2dep.pl $< $@
 
-$(OBJECTS_TEX): $(OUT_DIR)/%.tex: $(SOURCE_DIR)/%.sk $(ALL_DEPS) scripts/wrapper_sketch.pl
+$(OBJECTS_SK): $(OUT_DIR)/%.tex: %.sk $(ALL_DEPS) scripts/wrapper_sketch.pl
 	$(info doing [$@])
+	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/wrapper_sketch.pl $< $@
 
 $(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)-rm -f $@
+	$(Q)mkdir -p $(dir $@)
 	$(Q)pdf2swf -T 9 -f $< $@ 2> /dev/null > /dev/null
 	$(Q)chmod 444 $@
 
