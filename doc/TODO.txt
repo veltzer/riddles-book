@@ -1,9 +1,6 @@
 Now:
 ====
-- lacheck running is bogus as it gives good advice which I do not even
-	look at because I redirect it's output.
-	write a python wrapper script to run lacheck and give out
-	good errors it gives.
+- fix all lacheck warnings.
 - get ridd of the ridding-gh-pages repo.
 	make the riddling.pdf be at the right location
 		without the extra files.

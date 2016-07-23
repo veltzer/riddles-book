@@ -14,7 +14,7 @@ import subprocess # for check_call
 # parameters #
 ##############
 packs=[
-	'lacheck',
+	'lacheck', # for lacheck(1)
 	'latex2html',
 	'sketch',
 	'texlive-latex-base',
@@ -32,7 +32,7 @@ packs=[
 ]
 node_packs=[
 	'htmlhint',
-	'gh-pages',
+	'gh-pages', # for gh-pages(1)
 ]
 
 ########

@@ -38,8 +38,6 @@ OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
 PROJECT:=$(notdir $(CURDIR))
 # do you want to validate html?
 DO_CHECKHTML:=1
-# what is the web folder?
-WEB_DIR:=../riddling-gh-pages
 # what folder to copy on web install?
 COPY_FOLDERS:=out web static
 # what is the stamp file for the tools?
@@ -51,7 +49,7 @@ TOOLS:=out/tools.stamp
 
 # tools
 TOOL_LATEX2HTML:=latex2html
-TOOL_LACHECK:=lacheck
+TOOL_LACHECK:=scripts/wrapper_lacheck.py
 TOOL_SKETCH:=sketch
 TOOL_PDFLATEX:=pdflatex
 #USE_LATEX2PDF:=scripts/latex2pdf.pl
@@ -59,10 +57,6 @@ USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
 
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
-# web stuff...
-WEB_PDF:=$(WEB_DIR)/$(PRIME).pdf
-WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
-WEB_FOLDER:=web
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
 ALL_DEPS:=Makefile $(TOOLS)
@@ -141,7 +135,6 @@ debug_me:
 	$(info PRIME_HTM_FOLDER is $(PRIME_HTM_FOLDER))
 	$(info TAG is $(TAG))
 	$(info ALL is $(ALL))
-	$(info WEB_FOLDER is $(WEB_FOLDER))
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
 
@@ -154,13 +147,13 @@ $(TOOLS): scripts/tools.py
 
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])
-	$(Q)$(TOOL_LACHECK) $< 2> /dev/null > /dev/null
+	$(Q)$(TOOL_LACHECK) $<
 	$(Q)$(USE_LATEX2PDF) $< $@
 
 $(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
-	$(Q)mkdir $(dir $@) 2> /dev/null || exit 0
+	$(Q)mkdir -p $(dir $@)
 	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
 $(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2dep.pl
@@ -241,6 +234,6 @@ endif # DO_INCLUDE
 $(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
-	$(Q)./node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
+	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
 	$(Q)mkdir -p $(dir $@)
 	$(Q)touch $(HTMLCHECK)
