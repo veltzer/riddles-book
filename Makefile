@@ -45,8 +45,6 @@ COPY_FOLDERS:=out web static
 # what is the stamp file for the tools?
 TOOLS:=out/tools.stamp
 
-ALL_DEPS+=$(TOOLS)
-
 ########
 # code #
 ########
@@ -67,7 +65,7 @@ WEB_ZIP:=$(WEB_DIR)/$(PRIME).zip
 WEB_FOLDER:=web
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
-ALL_DEPS:=Makefile
+ALL_DEPS:=Makefile $(TOOLS)
 else
 ALL_DEPS:=
 endif
@@ -128,6 +126,7 @@ deps: $(OBJECTS_DEP)
 
 .PHONY: debug_me
 debug_me:
+	$(info ALL_DEPS is $(ALL_DEPS))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info SOURCES_SK is $(SOURCES_SK))
 	$(info OBJECTS_SK is $(OBJECTS_SK))
