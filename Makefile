@@ -108,6 +108,11 @@ ALL+=$(HTMLCHECK)
 all: $(ALL)
 endif # DO_CHECKHTML
 
+ALL+=out/web/riddling.pdf
+
+#########
+# rules #
+#########
 .PHONY: check_veltzer_https
 check_veltzer_https:
 	$(info doing [$@])
@@ -137,8 +142,6 @@ debug_me:
 	$(info ALL is $(ALL))
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
-
-# RULES
 
 $(TOOLS): scripts/tools.py
 	$(info doing [$@])
@@ -236,3 +239,7 @@ $(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEPS)
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
 	$(Q)make_helper touch-mkdir $@
+
+out/web/riddling.pdf: out/riddling.pdf
+	$(info doing [$@])
+	$(Q)cp $< $@
