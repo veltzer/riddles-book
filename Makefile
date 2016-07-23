@@ -194,8 +194,8 @@ view_htm: $(PRIME_HTM)
 view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
 
-.PHONY: install
-install: $(ALL) $(ALL_DEPS)
+.PHONY: gh-pages
+gh-pages: $(ALL) $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web
 
