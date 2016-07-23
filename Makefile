@@ -198,13 +198,17 @@ view_htm: $(PRIME_HTM)
 view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
 
-.PHONY: install
-install: $(ALL) $(ALL_DEP)
+.PHONY: old_install
+old_install: $(ALL) $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)rm -rf $(WEB_DIR)/*
 	$(Q)for folder in $(COPY_FOLDERS); do cp -r $$folder $(WEB_DIR); done
 	$(Q)cp support/redirector.html $(WEB_DIR)/index.html
 	cd $(WEB_DIR); git commit -a -m "new version"; git push
+.PHONY: install
+install: $(ALL) $(ALL_DEP)
+	$(info doing [$@])
+	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:

@@ -1,9 +1,9 @@
 Now:
 ====
 - get ridd of the ridding-gh-pages repo.
-	use the gh-pages push tool instead.
-	collect everything in one folder called out.
-	get ridd of the redirector.
+	make the riddling.pdf be at the right location
+		without the extra files.
+	see that push works.
 
 - when making the pdf lots of extra files get created (aux, log, out, toc).
 	make the generating script remove them.
