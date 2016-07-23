@@ -1,17 +1,10 @@
 # generated stuff
 /out/
-/web/
-
-# ignore everything in out but don't ignore other things (good policy)...
-*.o
-*.exe
-
-# stamps of various kinds
-/*.stamp
 
 # python stuff
 *.pyc
 *.pyo
 __pycache__
 
+# node modules
 /node_modules

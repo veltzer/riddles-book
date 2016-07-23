@@ -43,7 +43,7 @@ WEB_DIR:=../riddling-gh-pages
 # what folder to copy on web install?
 COPY_FOLDERS:=out web static
 # what is the stamp file for the tools?
-TOOLS:=tools.stamp
+TOOLS:=out/tools.stamp
 
 ALL_DEP+=$(TOOLS)
 
@@ -110,7 +110,7 @@ DO_INCLUDE:=0
 endif # clean
 
 SOURCES_HTML:=out/web/index.html
-HTMLCHECK:=html.stamp
+HTMLCHECK:=out/html.stamp
 ifeq ($(DO_CHECKHTML),1)
 ALL+=$(HTMLCHECK)
 all: $(ALL)
@@ -149,6 +149,7 @@ debug_me:
 # RULES
 
 $(TOOLS): scripts/tools.py
+	$(info doing [$@])
 	$(Q)./scripts/tools.py
 	$(Q)make_helper touch-mkdir $@
 
