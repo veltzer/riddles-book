@@ -1,5 +1,7 @@
 Now:
 ====
+- when making the pdf lots of extra files get created (aux, log, out, toc).
+	make the generating script remove them.
 - find a way to install the web pages without holding a separate riddling-gh-pages
 	clone of the repo.
 - make a better favicon for the riddling web-site.
