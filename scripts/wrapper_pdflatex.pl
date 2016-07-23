@@ -123,7 +123,7 @@ my($input)=shift(@ARGV);
 my($output)=shift(@ARGV);
 my($output_dir)=File::Basename::dirname($output);
 # temporary file name to store errors...
-my($volume,$directories,$myscript) = File::Spec->splitpath($0);
+my($volume,$directories,$myscript)=File::Spec->splitpath($0);
 my($tmp_fname_out)='/tmp/'.$myscript.$$.'.out';
 my($tmp_fname_err)='/tmp/'.$myscript.$$.'.err';
 #my($tmp_output)='/tmp/'.$myscript.$$.'.pdf';
@@ -158,6 +158,12 @@ for(my($i)=0;$i<$runs;$i++) {
 		# change the output to be unchangble (but only in the final run!)
 		if($i==$runs-1) {
 			chmod_check($output,1);
+			my($name,$path,$suffix)=File::Basename::fileparse($output, qw(.pdf));
+			my($output_base)=File::Spec->catfile($path,$name);
+			unlink_check($output_base.'.log',1,1);
+			unlink_check($output_base.'.out',1,1);
+			unlink_check($output_base.'.toc',1,1);
+			unlink_check($output_base.'.aux',1,1);
 		}
 	}
 }
