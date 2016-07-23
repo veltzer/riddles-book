@@ -109,7 +109,7 @@ ifeq ($(MAKECMDGOALS),clean)
 DO_INCLUDE:=0
 endif # clean
 
-SOURCES_HTML:=out/index.html
+SOURCES_HTML:=out/web/index.html
 HTMLCHECK:=html.stamp
 ifeq ($(DO_CHECKHTML),1)
 ALL+=$(HTMLCHECK)

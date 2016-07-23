@@ -14,8 +14,8 @@
 		<p>current version is ${tdefs.git_lasttag}</p>
 
 		<h2>A demo for the impatient...</h2>
-		<object data="../out/riddling.pdf" type="application/pdf" width="100%" height="1700"></object>
-		<p>You can download the latest version of <b>${tdefs.project_name}</b> from <a href="../out/riddling.pdf">here</a>.</p>
+		<object data="riddling.pdf" type="application/pdf" width="100%" height="1700"></object>
+		<p>You can download the latest version of <b>${tdefs.project_name}</b> from <a href="riddling.pdf">here</a>.</p>
 
 		<p>
 			<b>${tdefs.project_name}</b> is collection of riddles in tex format.
