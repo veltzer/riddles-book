@@ -142,7 +142,7 @@ debug_me:
 
 $(TOOLS): scripts/tools.py
 	$(info doing [$@])
-	$(Q)./scripts/tools.py
+	$(Q)scripts/tools.py
 	$(Q)make_helper touch-mkdir $@
 
 $(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK) $(USE_LATEX2PDF)
@@ -235,5 +235,4 @@ $(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
-	$(Q)mkdir -p $(dir $@)
-	$(Q)touch $(HTMLCHECK)
+	$(Q)make_helper touch-mkdir $@

@@ -5,6 +5,10 @@ Now:
 		without the extra files.
 	see that push works.
 
+- htmlhint is running with redirection. We are swallowing errors here.
+	write a wrapper for running htmlhint correctly.
+	we are also running htmlhint with no option and with default config
+	which may be wrong. fix this also.
 - make a better favicon for the riddling web-site.
 - stop using perl for the scripting and use python instead (will be shorter and easier to read).
 	integrate with pdmt.
