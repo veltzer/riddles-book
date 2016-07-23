@@ -31,7 +31,7 @@ packs=[
 	'templar',
 ]
 node_packs=[
-	'htmlhint',
+	'htmlhint', # for htmlhint(1)
 	'gh-pages', # for gh-pages(1)
 ]
 
