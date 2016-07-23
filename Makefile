@@ -45,7 +45,7 @@ COPY_FOLDERS:=out web static
 # what is the stamp file for the tools?
 TOOLS:=out/tools.stamp
 
-ALL_DEP+=$(TOOLS)
+ALL_DEPS+=$(TOOLS)
 
 ########
 # code #
@@ -198,15 +198,8 @@ view_htm: $(PRIME_HTM)
 view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
 
-.PHONY: old_install
-old_install: $(ALL) $(ALL_DEP)
-	$(info doing [$@])
-	$(Q)rm -rf $(WEB_DIR)/*
-	$(Q)for folder in $(COPY_FOLDERS); do cp -r $$folder $(WEB_DIR); done
-	$(Q)cp support/redirector.html $(WEB_DIR)/index.html
-	cd $(WEB_DIR); git commit -a -m "new version"; git push
 .PHONY: install
-install: $(ALL) $(ALL_DEP)
+install: $(ALL) $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web
 
@@ -227,7 +220,7 @@ view_pgf_doc_pdf:
 	$(Q)gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
 
 .PHONY: grive
-grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
+grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)-rm -rf ~/grive/outputs/$(PROJECT)
 	$(Q)-mkdir ~/grive/outputs/$(PROJECT)
@@ -235,7 +228,7 @@ grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
 	$(Q)cd ~/grive; grive
 
 .PHONY: dropbox
-dropbox: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
+dropbox: $(OUTPUTS_TO_EXPORT) $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)-rm -rf ~/Dropbox/outputs/$(PROJECT)
 	$(Q)-mkdir ~/Dropbox/outputs/$(PROJECT)
@@ -246,7 +239,7 @@ ifeq ($(DO_INCLUDE),1)
 -include $(OBJECTS_DEP)
 endif # DO_INCLUDE
 
-$(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEP)
+$(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
 	$(Q)./node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
