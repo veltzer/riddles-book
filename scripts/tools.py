@@ -32,6 +32,7 @@ packs=[
 ]
 node_packs=[
 	'htmlhint',
+	'gh-pages',
 ]
 
 ########
