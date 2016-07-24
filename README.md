@@ -20,4 +20,4 @@ If you want to compile this package then:
 All the output is in the 'out' folder.
 
 
-	Mark Veltzer <mark@veltzer.net>, 2011-2016
+	Mark Veltzer <mark.veltzer@gmail.com>, 2011-2016
