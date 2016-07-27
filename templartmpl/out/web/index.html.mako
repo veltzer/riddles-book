@@ -32,6 +32,11 @@
 			The <b>${tdefs.project_name}</b> git clone link is <a title="${tdefs.project_name} git clone link" href="${tdefs.project_website_git}">here</a>
 			</li>
 		</ul>
+		<p>
+			I would appreciate donations so that I could use my time to work on <b>${tdefs.project_name}</b> more.
+			If you do donate and would like me to work on some riddles or features then be sure to mention them
+			in your donation remark on paypal.
+		</p>
 		${tdefs.project_paypal_donate_button_snipplet}
 		<p>
 			Copyright ${tdefs.personal_fullname}, ${tdefs.project_copyright_years}

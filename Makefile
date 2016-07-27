@@ -197,7 +197,7 @@ view_swf: $(PRIME_SWF)
 .PHONY: gh-pages
 gh-pages: $(ALL) $(ALL_DEPS)
 	$(info doing [$@])
-	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web
+	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web 2> /dev/null
 
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
