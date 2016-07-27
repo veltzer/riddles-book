@@ -193,12 +193,6 @@ view_htm: $(PRIME_HTM)
 .PHONY: view_swf
 view_swf: $(PRIME_SWF)
 	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
-
-.PHONY: gh-pages
-gh-pages: $(ALL) $(ALL_DEPS)
-	$(info doing [$@])
-	$(Q)node_modules/gh-pages/bin/gh-pages --dist out/web 2> /dev/null
-
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
 	$(Q)gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null 2> /dev/null &
