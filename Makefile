@@ -7,7 +7,7 @@ include /usr/share/templar/make/Makefile
 # where are the sources ?
 SOURCE_DIR:=src
 # where is the output folder ?
-OUT_DIR:=out
+OUT:=out
 # do you want dependency on the makefile itself ?
 DO_ALL_DEPS:=1
 # do you want to show the commands executed ?
@@ -15,13 +15,13 @@ DO_MKDBG:=0
 # the prime file
 PRIME:=riddling
 # the primary pdf file name
-PRIME_PDF:=$(OUT_DIR)/$(PRIME).pdf
+PRIME_PDF:=$(OUT)/$(PRIME).pdf
 # the primary swf file name
-PRIME_SWF:=$(OUT_DIR)/$(PRIME).swf
+PRIME_SWF:=$(OUT)/$(PRIME).swf
 # the primary html file name
-PRIME_HTM:=$(OUT_DIR)/$(PRIME)/index.php
+PRIME_HTM:=$(OUT)/$(PRIME)/index.php
 # the primary output folder
-PRIME_HTM_FOLDER:=$(OUT_DIR)/$(PRIME)
+PRIME_HTM_FOLDER:=$(OUT)/$(PRIME)
 # do you want to do PDF ?
 DO_PDF:=1
 # do you want to do HTML ?
@@ -38,10 +38,8 @@ OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
 PROJECT:=$(notdir $(CURDIR))
 # do you want to validate html?
 DO_CHECKHTML:=1
-# what folder to copy on web install?
-COPY_FOLDERS:=out web static
 # what is the stamp file for the tools?
-TOOLS:=out/tools.stamp
+TOOLS:=$(OUT)/tools.stamp
 
 ########
 # code #
@@ -57,6 +55,7 @@ USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
 
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
+
 # dependency on the makefile itself
 ifeq ($(DO_ALL_DEPS),1)
 ALL_DEPS:=Makefile $(TOOLS)
@@ -76,12 +75,12 @@ endif # DO_MKDBG
 SOURCES_TEX:=$(shell find src -name "*.tex")
 
 SOURCES_SK:=$(shell find src -name "*.sk")
-OBJECTS_SK:=$(addsuffix .tex,$(addprefix $(OUT_DIR)/,$(basename $(SOURCES_SK))))
+OBJECTS_SK:=$(addsuffix .tex,$(addprefix $(OUT)/,$(basename $(SOURCES_SK))))
 
-OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
-OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
-OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
-OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT_DIR)/,$(notdir $(basename $(SOURCES_TEX)))))
+OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
+OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
+OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
+OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
 
 ifeq ($(DO_PDF),1)
 ALL+=$(OBJECTS_PDF)
@@ -101,13 +100,13 @@ ifeq ($(MAKECMDGOALS),clean)
 DO_INCLUDE:=0
 endif # clean
 
-SOURCES_HTML:=out/web/index.html
-HTMLCHECK:=out/html.stamp
+SOURCES_HTML:=$(OUT)/web/index.html
+HTMLCHECK:=$(OUT)/html.stamp
 ifeq ($(DO_CHECKHTML),1)
 ALL+=$(HTMLCHECK)
 endif # DO_CHECKHTML
 
-ALL+=out/web/riddling.pdf
+ALL+=$(OUT)/web/riddling.pdf
 
 #########
 # rules #
@@ -149,28 +148,28 @@ $(TOOLS): scripts/tools.py
 	$(Q)scripts/tools.py
 	$(Q)make_helper touch-mkdir $@
 
-$(OBJECTS_PDF): $(OUT_DIR)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK) $(USE_LATEX2PDF)
+$(OBJECTS_PDF): $(OUT)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $<
 	$(Q)$(USE_LATEX2PDF) $< $@
 
-$(OBJECTS_HTM): $(OUT_DIR)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK)
+$(OBJECTS_HTM): $(OUT)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
-$(OBJECTS_DEP): $(OUT_DIR)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2dep.pl
+$(OBJECTS_DEP): $(OUT)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2dep.pl
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/latex2dep.pl $< $@
 
-$(OBJECTS_SK): $(OUT_DIR)/%.tex: %.sk $(ALL_DEPS) scripts/wrapper_sketch.pl
+$(OBJECTS_SK): $(OUT)/%.tex: %.sk $(ALL_DEPS) scripts/wrapper_sketch.pl
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/wrapper_sketch.pl $< $@
 
-$(OBJECTS_SWF): $(OUT_DIR)/%.swf: $(OUT_DIR)/%.pdf $(ALL_DEPS)
+$(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf $(ALL_DEPS)
 	$(info doing [$@])
 	$(Q)-rm -f $@
 	$(Q)mkdir -p $(dir $@)
@@ -235,7 +234,7 @@ $(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEPS)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
 	$(Q)make_helper touch-mkdir $@
 
-out/web/riddling.pdf: out/riddling.pdf
+$(OUT)/web/riddling.pdf: $(OUT)/riddling.pdf
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)cp -f $< $@
