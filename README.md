@@ -1,7 +1,7 @@
 riddling
 ========
 
-version: 3
+version: 4
 
 A riddle collection done with open source tools
 
