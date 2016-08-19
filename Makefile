@@ -143,9 +143,9 @@ debug_me:
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
 
-$(TOOLS): scripts/tools.py
+$(TOOLS):
 	$(info doing [$@])
-	$(Q)scripts/tools.py
+	$(Q)templar_cmd install_deps
 	$(Q)make_helper touch-mkdir $@
 
 $(OBJECTS_PDF): $(OUT)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK) $(USE_LATEX2PDF)
