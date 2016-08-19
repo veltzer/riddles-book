@@ -1,0 +1,32 @@
+{
+  "name": "riddling",
+  "version": "1.0.0",
+  "description": "riddling is a templating system written in python",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "gh-pages": "latest",
+    "htmlhint": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veltzer/riddling.git"
+  },
+  "keywords": [
+    "Python",
+    "templating"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/veltzer/riddling/issues"
+  },
+  "homepage": "https://veltzer.github.io/riddling"
+}

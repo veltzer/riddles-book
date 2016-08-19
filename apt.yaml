@@ -1,0 +1,18 @@
+---
+packages:
+        - name: lacheck
+          reason: for lacheck(1)
+        - name: latex2html
+          reason: for latex2html(1)
+        - name: sketch
+          reason: for sketch(1)
+        - name: texlive-latex-base
+        - name: texlive-binaries
+        - name: texlive-pictures
+        - name: ghostscript
+        - name: qpdf
+        - name: sketch-doc
+        - name: poppler-utils
+        - name: luatex
+        - name: tex4ht
+        - name: templar
