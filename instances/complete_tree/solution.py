@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 class Tree(object):
-	def __init__(self):
-		self.left = None
-		self.right = None
+    def __init__(self):
+        self.left = None
+        self.right = None
 
 
 '''
@@ -13,64 +13,64 @@ this one will scan everything.
 returns height, complete, last level full
 '''
 def complete_tree_inter(t):
-	if t is None:
-		return (0, True, True)
-	else:
-		(lh, labl, llll)=complete_tree_inter(t.left) 
-		(rh, rabl, rlll)=complete_tree_inter(t.right) 
-		if lh<rh:
-			return (rh+1, False, False)
-		if lh==rh:
-			if llll:
-				return (rh+1, rabl, rlll)
-			else:
-				return (rh+1, False, False)
-		if lh==rh+1:
-			return (lh+1, rlll, False)
-		if lh>rh+1:
-			return (lh+1, False, False)
+    if t is None:
+        return (0, True, True)
+    else:
+        (lh, labl, llll)=complete_tree_inter(t.left) 
+        (rh, rabl, rlll)=complete_tree_inter(t.right) 
+        if lh<rh:
+            return (rh+1, False, False)
+        if lh==rh:
+            if llll:
+                return (rh+1, rabl, rlll)
+            else:
+                return (rh+1, False, False)
+        if lh==rh+1:
+            return (lh+1, rlll, False)
+        if lh>rh+1:
+            return (lh+1, False, False)
 def complete_tree(t):
-	return complete_tree_inter(t)[1]
+    return complete_tree_inter(t)[1]
 
 '''
 non recursive solution, better performance if implemented with efficient data structures
 input is 
 '''
 def complete_tree_2_inter(s):
-	this_level_full=True
-	saw_none=False
-	saw_something_after_none=False
-	have_next_level=False
-	next_level=[]
-	for x in s:
-		if x is None:
-			this_level_full=False
-			next_level.append(None)
-			next_level.append(None)
-			saw_none=True
-		else:
-			if saw_none:
-				saw_something_after_none=True
-			next_level.append(x.left)
-			next_level.append(x.right)
-			if x.left is not None or x.right is not None:
-				have_next_level=True
-	# this level is not complete
-	if saw_something_after_none:
-		return False
-	if saw_none:
-		return not have_next_level
-	# this level is not full and have next level
-	if this_level_full:
-		if have_next_level:
-			return complete_tree_2_inter(next_level)
-		else:
-			return True
+    this_level_full=True
+    saw_none=False
+    saw_something_after_none=False
+    have_next_level=False
+    next_level=[]
+    for x in s:
+        if x is None:
+            this_level_full=False
+            next_level.append(None)
+            next_level.append(None)
+            saw_none=True
+        else:
+            if saw_none:
+                saw_something_after_none=True
+            next_level.append(x.left)
+            next_level.append(x.right)
+            if x.left is not None or x.right is not None:
+                have_next_level=True
+    # this level is not complete
+    if saw_something_after_none:
+        return False
+    if saw_none:
+        return not have_next_level
+    # this level is not full and have next level
+    if this_level_full:
+        if have_next_level:
+            return complete_tree_2_inter(next_level)
+        else:
+            return True
 
 def complete_tree_2(t):
-	s=[]
-	s.append(t)
-	return complete_tree_2_inter(s)
+    s=[]
+    s.append(t)
+    return complete_tree_2_inter(s)
 
 #########
 # tests #

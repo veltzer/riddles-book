@@ -30,24 +30,24 @@ import tempfile # for NamedTemporaryFile
 # code #
 ########
 out=subprocess.check_output([
-	'lacheck',
-	sys.argv[1],
+    'lacheck',
+    sys.argv[1],
 ]).decode()
 errors=False
 remember=None
 printed_remember=False
 for line in out.split('\n'):
-	if line.startswith('**'):
-		remember=line
-		printed_remember=False
-		continue
-	if line=='':
-		continue
-	# this is a warning or error
-	errors=True
-	if not printed_remember:
-		print(remember)
-		printed_remember=True
-	print(line)
+    if line.startswith('**'):
+        remember=line
+        printed_remember=False
+        continue
+    if line=='':
+        continue
+    # this is a warning or error
+    errors=True
+    if not printed_remember:
+        print(remember)
+        printed_remember=True
+    print(line)
 if errors:
-	sys.exit(1)
+    sys.exit(1)
