@@ -61,23 +61,27 @@ def pointers_going_inward(data):
     s_data=sorted(data)
     n=len(s_data)
     results=[]
-    for i,a in enumerate(s_data[:-3]):
-        start=i+1
-        end=n-1
+    for i in range(n-1,1,-1):
+        a=s_data[i]
+        start=0
+        end=i-1
         while start < end:
             b=s_data[start]
             c=s_data[end]
-            if a+b==c:
+            if b+c==a:
                 results.append((a,b,c))
-                end=end-1
-            elif a+b<c:
-                end=end-1
-            else:
                 start=start+1
+                end=end-1
+            elif b+c<a:
+                start=start+1
+            else:
+                end=end-1
     results.sort()
     return results
 
 data=[22,1,7,2,3,19]
+print(data)
+#print(sorted(data))
 print(three_loops(data))
 print(two_loops_and_binary(data))
 print(using_hash(data))
