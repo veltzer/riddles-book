@@ -1,4 +1,6 @@
 given an integer x and a sorted array a[] of n distinct integers, design a linear-time algorithm to determine if there exists two distinct indices i and j such that a[i]+a[j]==x.
+What happens if the array is not sorted?
+What happens if you need to return all the pairs which add to x?
 
 The idea of the solution is to advance from both the top of the array and the bottom.
 lets assume the higher numbers are at the top.
@@ -31,3 +33,6 @@ given an array of n numbers, can you determine if there are two elements in the 
 	all in all: n*log(n)
 
 - sorting and using the above solution.
+
+References:
+https://web.stanford.edu/class/cs9/lectures/06/TwoSum.pdf
