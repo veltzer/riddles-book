@@ -9,7 +9,7 @@ SOURCE_DIR:=src
 # where is the output folder ?
 OUT:=out
 # do you want dependency on the makefile itself ?
-DO_ALL_DEPS:=1
+DO_ALL_DEP:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
 # the prime file
@@ -57,10 +57,10 @@ USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
 TAG:=$(shell git tag | tail -1)
 
 # dependency on the makefile itself
-ifeq ($(DO_ALL_DEPS),1)
-ALL_DEPS:=Makefile $(TOOLS)
+ifeq ($(DO_ALL_DEP),1)
+ALL_DEP:=Makefile $(TOOLS)
 else
-ALL_DEPS:=
+ALL_DEP:=
 endif
 
 # silent stuff
@@ -125,7 +125,7 @@ deps: $(OBJECTS_DEP)
 
 .PHONY: debug_me
 debug_me:
-	$(info ALL_DEPS is $(ALL_DEPS))
+	$(info ALL_DEP is $(ALL_DEP))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info SOURCES_SK is $(SOURCES_SK))
 	$(info OBJECTS_SK is $(OBJECTS_SK))
@@ -148,28 +148,28 @@ $(TOOLS):
 	$(Q)templar_cmd install_deps
 	$(Q)make_helper touch-mkdir $@
 
-$(OBJECTS_PDF): $(OUT)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK) $(USE_LATEX2PDF)
+$(OBJECTS_PDF): $(OUT)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $<
 	$(Q)$(USE_LATEX2PDF) $< $@
 
-$(OBJECTS_HTM): $(OUT)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEPS) $(OBJECTS_SK)
+$(OBJECTS_HTM): $(OUT)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
-$(OBJECTS_DEP): $(OUT)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEPS) scripts/latex2dep.pl
+$(OBJECTS_DEP): $(OUT)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEP) scripts/latex2dep.pl
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/latex2dep.pl $< $@
 
-$(OBJECTS_SK): $(OUT)/%.tex: %.sk $(ALL_DEPS) scripts/wrapper_sketch.pl
+$(OBJECTS_SK): $(OUT)/%.tex: %.sk $(ALL_DEP) scripts/wrapper_sketch.pl
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/wrapper_sketch.pl $< $@
 
-$(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf $(ALL_DEPS)
+$(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)-rm -f $@
 	$(Q)mkdir -p $(dir $@)
@@ -209,7 +209,7 @@ view_pgf_doc_pdf:
 	$(Q)gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
 
 .PHONY: grive
-grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEPS)
+grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)-rm -rf ~/grive/outputs/$(PROJECT)
 	$(Q)-mkdir ~/grive/outputs/$(PROJECT)
@@ -217,7 +217,7 @@ grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEPS)
 	$(Q)cd ~/grive; grive
 
 .PHONY: dropbox
-dropbox: $(OUTPUTS_TO_EXPORT) $(ALL_DEPS)
+dropbox: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)-rm -rf ~/Dropbox/outputs/$(PROJECT)
 	$(Q)-mkdir ~/Dropbox/outputs/$(PROJECT)
@@ -228,7 +228,7 @@ ifeq ($(DO_INCLUDE),1)
 -include $(OBJECTS_DEP)
 endif # DO_INCLUDE
 
-$(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEPS)
+$(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
