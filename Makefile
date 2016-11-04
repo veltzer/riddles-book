@@ -143,7 +143,7 @@ debug_me:
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
 
-$(TOOLS):
+$(TOOLS): templardefs/deps.py
 	$(info doing [$@])
 	$(Q)templar_cmd install_deps
 	$(Q)make_helper touch-mkdir $@
