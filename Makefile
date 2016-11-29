@@ -145,7 +145,7 @@ debug_me:
 
 $(TOOLS): templardefs/deps.py
 	$(info doing [$@])
-	$(Q)templar_cmd install_deps
+	$(Q)templar install_deps
 	$(Q)make_helper touch-mkdir $@
 
 $(OBJECTS_PDF): $(OUT)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK) $(USE_LATEX2PDF)
