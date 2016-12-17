@@ -1,0 +1,49 @@
+First lets analyze what moves we can make.
+Turning all four glasses is useless. If the state is X then we just get the opposite of it.
+Turning 1 glass is ok.
+Turning 2 glasses is ok too but we need to distinguish between turning 2 glasses which are next to each
+other and turning two glasses which are opposite each other.
+Turning 3 glasses is just like turning 1 glass as it takes up to opposites of turning 1 glass.
+So here are the 3 moves we can make:
+	- A: turn one glass
+	- B: turn two glasses which are near
+	- C: turn two opposite glasses.
+
+Since there are 2^4 possible sitations and we don't distinguish between a state and it's
+opposite we have 8 representative possible situations:
+	0000/1111 (we don't care about this since this is win for us)
+	p1:
+		1000/0111
+		0100/1011
+		0010/1101
+		0001/1110
+	p2:
+		1100/0011
+		1001/0110
+	p3:
+		0101/1010
+
+Note that:
+	p3 -> A -> p1
+	p3 -> B -> p2
+	p3 -> C -> win
+
+	p2 -> A -> p1
+	p2 -> B -> p3
+	p2 -> C -> p2
+
+	p1 -> A -> p2 or p3
+	p1 -> B -> p1
+	p1 -> C -> p1
+
+So the solution is:
+	C B C A C B C
+
+Since:
+	p3 -> C -> win
+	p2 -> C -> p2 -> B -> p3 -> C -> win
+	p1 -> C -> p1 -> B -> p1 -> C -> p1
+					-> A -> p3 -> C -> win
+					-> A -> p2 -> C -> p2 -> B -> p3 -> C -> win
+
+So in six moves we win the game no matter where we start.
