@@ -13,3 +13,13 @@ Your goal is to arrange the glasses so that they are all facing up or all facing
 - At any point, if all four glasses are of the same orientation a bell will ring and you win.
 
 Find a solution to ensure that all glasses have the same orientation (either up or down) in a finite number of turns. The algorithm must not depend on luck.
+
+Follow up 1
+What about 5 glasses? 8?
+
+Follow up 2
+You are allowed to touch any two glasses of your choice at everyround before you decide
+which glasses to flip. What is your strategy now and how shorter is it?
+
+Follow up 3
+What if you want all glasses to be up? or down? (not either all up or all down). What is your strategy now?
