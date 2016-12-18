@@ -46,4 +46,4 @@ Since:
 					-> A -> p3 -> C -> win
 					-> A -> p2 -> C -> p2 -> B -> p3 -> C -> win
 
-So in six moves we win the game no matter where we start.
+So in 7 moves we win the game no matter where we start.
