@@ -38,7 +38,7 @@ All the output is in the 'out' folder.
     # deb
     d.deb_package=False
 
-def getdeps():
+def get_deps():
     return [
         __file__, # myself
     ]
