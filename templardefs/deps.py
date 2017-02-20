@@ -22,7 +22,7 @@ def populate(d):
         'templar',
     ]
 
-def getdeps():
+def get_deps():
     return [
         __file__, # myself
     ]
