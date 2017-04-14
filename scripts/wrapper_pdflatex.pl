@@ -172,7 +172,7 @@ if($qpdf) {
 	my($tmp_output)=$output.'.pdf';
 	my_rename($output,$tmp_output,1);
 	# I also had '--force-version=1.5' but it is not needed since I use pdflatex and pdftex with the right version there...
-	my($cmd4)='qpdf --linearize '.$tmp_output.' '.$output.' > '.$tmp_fname_out.' 2> '.$tmp_fname_err;
+	my($cmd4)='qpdf --deterministic-id --linearize '.$tmp_output.' '.$output.' > '.$tmp_fname_out.' 2> '.$tmp_fname_err;
 	my($res)=my_system($cmd4);
 	if($res) {
 		# error path
