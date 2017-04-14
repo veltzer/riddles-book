@@ -181,19 +181,19 @@ $(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf $(ALL_DEP)
 # short cut to see meta data about the produced pdf
 .PHONY: pdfinfo
 pdfinfo: $(PRIME_PDF)
-	pdfinfo $(PRIME_PDF)
+	$(Q)pdfinfo $(PRIME_PDF)
 # short cut to show the riddling pdf output fast...
 .PHONY: view_pdf
 view_pdf: $(PRIME_PDF)
-	gnome-open $(PRIME_PDF) > /dev/null 2> /dev/null &
+	$(Q)gnome-open $(PRIME_PDF) > /dev/null 2> /dev/null &
 # short cut to show the html output fast...
 .PHONY: view_htm
 view_htm: $(PRIME_HTM)
-	gnome-open $(PRIME_HTM) > /dev/null 2> /dev/null &
+	$(Q)gnome-open $(PRIME_HTM) > /dev/null 2> /dev/null &
 # short cut to show the swf using flex paper fast...
 .PHONY: view_swf
 view_swf: $(PRIME_SWF)
-	gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
+	$(Q)gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
 	$(Q)gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null 2> /dev/null &
