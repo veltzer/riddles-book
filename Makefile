@@ -8,6 +8,8 @@ include /usr/share/templar/make/Makefile
 SOURCE_DIR:=src
 # where is the output folder ?
 OUT:=out
+# where is the web folder ?
+DOCS:=docs
 # do you want dependency on the makefile itself ?
 DO_ALL_DEP:=1
 # do you want to show the commands executed ?
@@ -15,7 +17,7 @@ DO_MKDBG:=0
 # the prime file
 PRIME:=riddling
 # the primary pdf file name
-PRIME_PDF:=$(OUT)/$(PRIME).pdf
+PRIME_PDF:=$(DOCS)/$(PRIME).pdf
 # the primary swf file name
 PRIME_SWF:=$(OUT)/$(PRIME).swf
 # the primary html file name
@@ -77,7 +79,7 @@ SOURCES_TEX:=$(shell find src -name "*.tex")
 SOURCES_SK:=$(shell find src -name "*.sk")
 OBJECTS_SK:=$(addsuffix .tex,$(addprefix $(OUT)/,$(basename $(SOURCES_SK))))
 
-OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
+OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(DOCS)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
@@ -100,13 +102,13 @@ ifeq ($(MAKECMDGOALS),clean)
 DO_INCLUDE:=0
 endif # clean
 
-SOURCES_HTML:=$(OUT)/web/index.html
+SOURCES_HTML:=$(DOCS)/index.html
 HTMLCHECK:=$(OUT)/html.stamp
 ifeq ($(DO_CHECKHTML),1)
 ALL+=$(HTMLCHECK)
 endif # DO_CHECKHTML
 
-ALL+=$(OUT)/web/riddling.pdf
+ALL+=$(DOCS)/riddling.pdf
 
 #########
 # rules #
@@ -148,7 +150,7 @@ $(TOOLS): templardefs/deps.py
 	$(Q)templar install_deps
 	$(Q)make_helper touch-mkdir $@
 
-$(OBJECTS_PDF): $(OUT)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK) $(USE_LATEX2PDF)
+$(OBJECTS_PDF): $(DOCS)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $<
 	$(Q)$(USE_LATEX2PDF) $< $@
@@ -233,8 +235,3 @@ $(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEP)
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
 	$(Q)make_helper touch-mkdir $@
-
-$(OUT)/web/riddling.pdf: $(OUT)/riddling.pdf
-	$(info doing [$@])
-	$(Q)mkdir -p $(dir $@)
-	$(Q)cp -f $< $@
