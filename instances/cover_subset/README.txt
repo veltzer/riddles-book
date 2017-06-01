@@ -1,0 +1,3 @@
+This solution tries to answer the question how much of a large
+set of a phenomenons is covered when a smaller set within it
+is already covered...
