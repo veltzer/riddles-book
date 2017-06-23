@@ -8,3 +8,6 @@ http://www.seas.upenn.edu/~cis160/current/resources/Challenge%20Problems.pdf
 tikz api:
 https://en.wikibooks.org/wiki/LaTeX/PGF/TikZ
 http://www.texample.net/tikz/examples
+
+riddles:
+https://www.quora.com/What-is-the-area-of-the-shaded-part
