@@ -1,5 +1,7 @@
 This is a queue of riddles to be written down properly
 =======================================================
+- write eli shalom's riddle about giving out the largest number and index in equal probability.
+
 - why is (n k) (n over k) always a whole number?
 	One way to explain this is to explain what (n k) means and therefore
 	deduce that it's whole. But what about a purely mathematical explanation
