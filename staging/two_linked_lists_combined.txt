@@ -12,7 +12,7 @@ You need to do with with linear running time and O(1) of memory.
 
 Solution:
 - first, find the length of the lists (l1, l2)
-- the find the longest one.
+- find the longest one.
 - p1 = pointer to the start of the short list
 - p2 = pointer to the long list at offset abs(l1-l2)
 - compare the elements, if the are the same you are done
