@@ -1,0 +1,3 @@
+"""
+solve using s sieve
+"""

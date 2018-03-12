@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-
-
 n = 100
 result = n**4/4 + n**3/6 - n**2/4 - n/6
 print(result)

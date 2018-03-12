@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 largest = 2
 num = 600851475143
 

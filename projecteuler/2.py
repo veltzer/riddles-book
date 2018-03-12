@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 (a,b) = 1,1
 sum = 0
 while b<4000000:

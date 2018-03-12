@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 """
 The idea is very simple, take the prime factors of all the numbers from 1 to 20
 and raise each one of them to the power which is the maximum power in which they

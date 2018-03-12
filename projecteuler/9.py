@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 def generate_bi_lt_sum(n: int, start:int=1):
     i = start
     while i < n-i:
