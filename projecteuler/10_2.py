@@ -1,3 +1,3 @@
 """
-solve using s sieve
+solve using a sieve
 """
