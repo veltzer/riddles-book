@@ -1,9 +1,10 @@
-'''
+"""
 dependencies for this project
-'''
+"""
+
 
 def populate(d):
-    d.packs=[
+    d.packs = [
         # for lacheck(1)
         'lacheck',
         # for latex2html(1)
@@ -22,7 +23,8 @@ def populate(d):
         'templar',
     ]
 
+
 def get_deps():
     return [
-        __file__, # myself
+        __file__,  # myself
     ]

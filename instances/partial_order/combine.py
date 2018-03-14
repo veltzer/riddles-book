@@ -1,13 +1,3 @@
-#!/usr/bin/python3
-
-
-def gen_a():
-    yield from [1,2,3,4]
-
-def gen_b():
-    yield from [1,2,3,4]
-
-
 def combine(gen_a, gen_b):
     list_a = []
     list_b = []
@@ -27,13 +17,21 @@ def combine(gen_a, gen_b):
             except StopIteration:
                 gen_b.close()
                 b_active = False
-        start = c-len(list_b)+1
+        start = c - len(list_b) + 1
         end = len(list_a)
-        if start==end:
+        if start == end:
             break
-        yield [(list_a[i], list_b[c-i]) for i in range(start, end)]
+        yield [(list_a[i], list_b[c - i]) for i in range(start, end)]
         c += 1
 
 
-for y in combine(gen_a(), gen_b()):
-    print(y)
+def main():
+
+    def gen_a():
+        yield from [1, 2, 3, 4]
+
+    def gen_b():
+        yield from [1, 2, 3, 4]
+
+    for y in combine(gen_a(), gen_b()):
+        print(y)

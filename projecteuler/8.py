@@ -21,16 +21,16 @@ s = """
 71636269561882670428252483600823257530420752963450
 """
 
-s=s.replace("\n","")
-l = 1000
-assert len(s) == l
+s = s.replace("\n", "")
+my_list = 1000
+assert len(s) == my_list
 adj = 13
 largest = 1
-for i in range(0, l-adj):
+for i in range(0, my_list - adj):
     p = 1
-    for j in range(i, i+adj):
-        v = ord(s[j])-ord('0')
+    for j in range(i, i + adj):
+        v = ord(s[j]) - ord('0')
         p *= v
-    if p>largest:
-        largest=p
+    if p > largest:
+        largest = p
 print(largest)

@@ -3,7 +3,7 @@ def yield_primes():
     primes = []
     while True:
         for p in primes:
-            if n%p==0:
+            if n % p == 0:
                 break
         else:
             primes.append(n)

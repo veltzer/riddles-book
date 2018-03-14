@@ -19,12 +19,11 @@ which is:
 below is a testing program:
 """
 
-
-sum = 0
+total = 0
 for r in range(3, 1002, 3):
-    sum += r
+    total += r
 for r in range(5, 1000, 5):
-    sum += r
+    total += r
 for r in range(15, 1005, 15):
-    sum -= r
-assert sum==233168
+    total -= r
+assert total == 233168

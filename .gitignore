@@ -12,3 +12,4 @@ __pycache__
 /tools
 /tools.stamp
 /.venv
+/.idea/workspace.xml

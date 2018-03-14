@@ -3,7 +3,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>${tdefs.project_name}</title>
-		<link rel="shortcut icon" href="../static/favicon.ico"/>
+		<!--suppress HtmlUnknownTarget -->
+        <link rel="shortcut icon" href="favicon.ico"/>
 		<meta name="Description" content="${tdefs.project_long_description}"/>
 		<meta name="Keywords" content="${tdefs.personal_fullname}, ${tdefs.personal_slug}, ${tdefs.project_name}, ${', '.join(tdefs.project_keywords)}"/>
 		${tdefs.project_google_analytics_snipplet}
@@ -14,8 +15,10 @@
 		<p>current version is ${tdefs.git_lasttag}</p>
 
 		<h2>A demo for the impatient...</h2>
-		<object data="riddling.pdf" type="application/pdf" width="100%" height="1700"></object>
-		<p>You can download the latest version of <b>${tdefs.project_name}</b> from <a href="riddling.pdf">here</a>.</p>
+		<!--suppress HtmlUnknownTarget -->
+        <object data="riddling.pdf" type="application/pdf" width="100%" height="1700"></object>
+		<p>You can download the latest version of <b>${tdefs.project_name}</b> from <!--suppress HtmlUnknownTarget -->
+            <a href="riddling.pdf">here</a>.</p>
 
 		<p>
 			<b>${tdefs.project_name}</b> is collection of riddles in tex format.

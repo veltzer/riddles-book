@@ -1,21 +1,9 @@
-#!/usr/bin/python3
+import math  # for inf
 
-###########
-# imports #
-###########
-import math # for inf
-
-##############
-# parameters #
-##############
 # should we do debugging?
-do_debug=False
+do_debug = False
 
-########
-# code #
-########
-
-'''
+"""
 for notation:
 N - number of squares on the board
 P - number of people
@@ -38,131 +26,151 @@ We do that for every person P and for every square N. So we get
 N*P*N = N^2*P
 
 We code the more efficient solution here.
-'''
+"""
+
 
 class Position:
     def __init__(self, x, y):
-        self.x=x
-        self.y=y
+        self.x = x
+        self.y = y
+
     def add(self, p):
-        self.x+=p.x
-        self.y+=p.y
+        self.x += p.x
+        self.y += p.y
+
     def __str__(self):
         return '({x},{y})'.format(x=self.x, y=self.y)
 
-directions=[
-    Position(0,1),
-    Position(1,0),
-    Position(0,-1),
-    Position(-1,0),
+
+directions = [
+    Position(0, 1),
+    Position(1, 0),
+    Position(0, -1),
+    Position(-1, 0),
 ]
+
 
 class Matrix:
     def __init__(self, v, w, h):
-        self.data=[[v for x in range(w)] for y in range(h)]
-        self.w=w
-        self.h=h
+        self.data = [[v for _ in range(w)] for _ in range(h)]
+        self.w = w
+        self.h = h
+
     def get(self, x, y):
         return self.data[y][x]
+
     def get_pos(self, p):
+        # type: (...) -> int
         return self.data[p.y][p.x]
+
     def set(self, x, y, v):
-        self.data[y][x]=v
+        self.data[y][x] = v
+
     def set_pos(self, p, v):
-        self.data[p.y][p.x]=v
+        self.data[p.y][p.x] = v
+
     def illegal(self, x, y):
-        return x<0 or x>=self.w or y<0 or y>=self.h
+        return x < 0 or x >= self.w or y < 0 or y >= self.h
+
     def illegal_pos(self, p):
-        return p.x<0 or p.x>=self.w or p.y<0 or p.y>=self.h
+        return p.x < 0 or p.x >= self.w or p.y < 0 or p.y >= self.h
+
     def add(self, m):
-        for y,l in enumerate(self.data):
-            for x,e in enumerate(l):
-                if m.get(x,y) is not None and l[x] is not None:
-                    l[x]+=m.get(x,y)
+        for y, l in enumerate(self.data):
+            for x, e in enumerate(l):
+                if m.get(x, y) is not None and l[x] is not None:
+                    l[x] += m.get(x, y)
+
     def minimum(self):
-        val=math.inf
+        val = math.inf
         for l in self.data:
             for e in l:
-                if e is not None and e<val:
-                    val=e
+                if e is not None and e < val:
+                    val = e
         return val
+
     def duplicate(self):
-        m=Matrix(None, self.w, self.h)
-        for y,l in enumerate(self.data):
-            for x,e in enumerate(l):
-                m.set(x,y,e)
+        m = Matrix(None, self.w, self.h)
+        for y, l in enumerate(self.data):
+            for x, e in enumerate(l):
+                m.set(x, y, e)
         return m
+
     def print(self):
         for l in self.data:
             for e in l:
                 print(e, end='')
             print()
+
     def __str__(self):
-        res=''
+        res = ''
         for l in self.data:
             for e in l:
-                res+=str(e)+', '
-            res+='\n'
+                res += str(e) + ', '
+            res += '\n'
         return res
+
+    @staticmethod
     def from_strings(m):
-        s=Matrix(' ', len(m[0]), len(m))
-        for y,l in enumerate(m):
-            for x,c in enumerate(l):
+        s = Matrix(' ', len(m[0]), len(m))
+        for y, l in enumerate(m):
+            for x, c in enumerate(l):
                 s.set(x, y, c)
         return s
 
+
 def solve(m):
     # first find all the people in the matrix
-    people=[]
+    people = []
     for y in range(m.h):
         for x in range(m.w):
-            if m.get(x, y)=='P':
-                people.append(Position(x,y))
-    assert len(people)>0
+            if m.get(x, y) == 'P':
+                people.append(Position(x, y))
+    assert len(people) > 0
     # now calculate shortest distance per person
-    sdms=[]
+    sdms = []
     for p in people:
-        sdm=Matrix(math.inf, m.w, m.h)
+        sdm = Matrix(math.inf, m.w, m.h)
         sdm.set_pos(p, 0)
-        positions=[p]
-        while len(positions)>0:
-            pos=positions.pop()
-            steps=sdm.get_pos(pos)
+        positions = [p]
+        while len(positions) > 0:
+            pos = positions.pop()
+            steps = sdm.get_pos(pos)
             for d in directions:
-                cpos=Position(pos.x, pos.y)
+                cpos = Position(pos.x, pos.y)
                 cpos.add(d)
                 if sdm.illegal_pos(cpos):
                     continue
-                place=m.get_pos(cpos)
-                if place=='*':
+                place = m.get_pos(cpos)
+                if place == '*':
                     continue
-                cval=sdm.get_pos(cpos)
+                cval = sdm.get_pos(cpos)
                 if cval is not None:
-                    if steps+1<cval:
-                        sdm.set_pos(cpos, steps+1)
+                    if steps + 1 < cval:
+                        sdm.set_pos(cpos, steps + 1)
                     else:
                         continue
                 else:
-                    sdm.set_pos(cpos, steps+1)
+                    sdm.set_pos(cpos, steps + 1)
                 positions.append(cpos)
         if do_debug:
             print(sdm)
         sdms.append(sdm)
     # now find the ideal position for the kitchen
-    sums=sdms[0].duplicate()
+    sums = sdms[0].duplicate()
     for sdm in sdms[1:]:
         sums.add(sdm)
     if do_debug:
         print(sums)
     # now find the minimum and convert to a matrix of results...
-    mini=sums.minimum()
+    mini = sums.minimum()
     if do_debug:
         print(mini)
     # create a boolean matrix showing the solutions
-    results=Matrix('_', sums.w, sums.h)
+    results = Matrix('_', sums.w, sums.h)
     for x in range(sums.w):
         for y in range(sums.h):
-            if sums.get(x, y)==mini and mini!=math.inf:
+            if sums.get(x, y) == mini and mini != math.inf:
                 results.set(x, y, '*')
     print('question')
     m.print()
@@ -173,7 +181,7 @@ def solve(m):
 #########
 # tests #
 #########
-m1=[
+m1 = [
     'P___P',
     '_____',
     '_____',
@@ -182,7 +190,7 @@ m1=[
 ]
 solve(Matrix.from_strings(m1))
 
-m2=[
+m2 = [
     'P___P',
     '_*_*_',
     '_*_*_',
@@ -191,7 +199,7 @@ m2=[
 ]
 solve(Matrix.from_strings(m2))
 
-m3=[
+m3 = [
     'P*__P',
     '_*___',
     '_*___',
@@ -200,7 +208,7 @@ m3=[
 ]
 solve(Matrix.from_strings(m3))
 
-m4=[
+m4 = [
     'P*__P',
     '_*___',
     '_*___',
@@ -209,7 +217,7 @@ m4=[
 ]
 solve(Matrix.from_strings(m4))
 
-m5=[
+m5 = [
     'P___P',
     '_____',
     '_____',
@@ -218,7 +226,7 @@ m5=[
 ]
 solve(Matrix.from_strings(m5))
 
-m6=[
+m6 = [
     'P___P',
     '_____',
     '___**',
@@ -227,12 +235,12 @@ m6=[
 ]
 solve(Matrix.from_strings(m6))
 
-m7=[
+m7 = [
     'P____________P',
 ]
 solve(Matrix.from_strings(m7))
 
-m8=[
+m8 = [
     'P_____________',
     '________P_____',
 ]
