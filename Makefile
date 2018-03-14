@@ -1,5 +1,3 @@
-include /usr/share/templar/make/Makefile
-
 ##############
 # parameters #
 ##############
@@ -144,11 +142,6 @@ debug_me:
 	$(info ALL is $(ALL))
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
-
-$(TOOLS): templardefs/deps.py
-	$(info doing [$@])
-	$(Q)templar install_deps
-	$(Q)make_helper touch-mkdir $@
 
 $(OBJECTS_PDF): $(DOCS)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])

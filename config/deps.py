@@ -20,7 +20,6 @@ def populate(d):
         'poppler-utils',
         'luatex',
         'tex4ht',
-        'templar',
     ]
 
 
