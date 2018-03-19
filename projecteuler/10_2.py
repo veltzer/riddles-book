@@ -13,15 +13,15 @@ from math import sqrt
 limit = 2000000
 # limit = 100
 to = int(sqrt(limit))
-b=BitVector(size=limit)
+b = BitVector(size=limit)
 
 n = 2
 while n < to:
     if b[n] == 0:
         k = n*n
         while k < limit:
-            b[k]=1
-            k+=n
+            b[k] = 1
+            k += n
     n += 1
 """
 for x in range(limit):

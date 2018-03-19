@@ -16,7 +16,7 @@ def main():
     out = subprocess.check_output([
         'lacheck',
         sys.argv[1],
-    ]).decode()
+    ])
     errors = False
     remember = None
     printed_remember = False

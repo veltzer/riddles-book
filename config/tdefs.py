@@ -73,7 +73,7 @@ def populate(d):
     d.general_homedir = os.path.expanduser('~')
     # d.general_hostname=subprocess.check_output(['hostname']).decode().rstrip()
     d.general_hostname = socket.gethostname()
-    d.general_domainname = subprocess.check_output(['hostname', '--domain']).decode().rstrip()
+    d.general_domainname = subprocess.check_output(['hostname', '--domain']).rstrip()
 
     # messages
     d.messages_dne = 'THIS FILE IS AUTO GENERATED. DO NOT EDIT!!!'
@@ -113,7 +113,7 @@ alt="PayPal - The safer, easier way to pay online!">
     # git
     # noinspection PyBroadException,PyPep8
     try:
-        d.git_describe = subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).decode().rstrip()
+        d.git_describe = subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).rstrip()
     except:
         d.git_describe = 'no git repository'
 
@@ -128,8 +128,8 @@ alt="PayPal - The safer, easier way to pay online!">
     # noinspection PyBroadException,PyPep8
     try:
         d.git_lasttag = subprocess.check_output(['git', 'describe', '--abbrev=0', '--tags'],
-                                                stderr=subprocess.DEVNULL).decode().rstrip()
-        d.git_describe = subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).decode().rstrip()
+                                                stderr=subprocess.DEVNULL).rstrip()
+        d.git_describe = subprocess.check_output(['git', 'describe'], stderr=subprocess.DEVNULL).rstrip()
         d.git_version = '.'.join(d.git_describe.split('-'))
     except:
         d.git_lasttag = '0'
@@ -144,9 +144,9 @@ alt="PayPal - The safer, easier way to pay online!">
 
     # apt
     d.apt_protocol = 'https'
-    d.apt_codename = subprocess.check_output(['lsb_release', '--codename', '--short']).decode().rstrip()
+    d.apt_codename = subprocess.check_output(['lsb_release', '--codename', '--short']).rstrip()
     d.apt_arch = subprocess.check_output('dpkg-architecture | grep -e ^DEB_BUILD_ARCH= | cut -d = -f 2',
-                                         shell=True).decode().rstrip()
+                                         shell=True).rstrip()
     d.apt_archs = '{0} source'.format(d.apt_arch)
     d.apt_component = 'main'
     d.apt_folder = 'apt'
@@ -154,7 +154,7 @@ alt="PayPal - The safer, easier way to pay online!">
     d.apt_except = '50{0}'.format(d.personal_slug)
     d.apt_pack_list = glob.glob(os.path.join(d.general_homedir, 'packages', '*.deb'))
     d.apt_packlist = ' '.join(d.apt_pack_list)
-    d.apt_id = subprocess.check_output(['lsb_release', '--id', '--short']).decode().rstrip()
+    d.apt_id = subprocess.check_output(['lsb_release', '--id', '--short']).rstrip()
     d.apt_keyfile = 'public_key.gpg'
     d.apt_apache_site_file = '{0}.apt'.format(d.personal_slug)
 
