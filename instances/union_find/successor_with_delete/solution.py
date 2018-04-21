@@ -1,3 +1,6 @@
+from typing import Optional, List
+
+
 class Algo:
     def __init__(self, n):
         self.n = n
@@ -5,7 +8,7 @@ class Algo:
         self.root = [i for i in range(n)]
         # extra data for this exercise
         self.inset = [True] * n
-        self.succ = [i for i in range(n)]
+        self.succ = [i for i in range(n)]  # type: List[Optional[int]]
 
     # standard union-find methods
     def find_root(self, i):
