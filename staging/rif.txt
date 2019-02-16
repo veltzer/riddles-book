@@ -47,4 +47,3 @@ And so, #1 has a 50% chance of keeping her job, while every employee from #2 to
 #100 can calculate exactly what they have on their head by "adding" the colors
 in front of them and those declared behind them such that the total sum remains
 0 modulo-2.
-
