@@ -5,7 +5,7 @@ project definitions for riddling
 
 def populate(d):
     d.project_github_username = 'veltzer'
-    d.project_name = 'riddling'
+    d.project_name = 'riddles-book'
     d.project_website = 'https://{project_github_username}.github.io/{project_name}'.format(**d)
     d.project_website_source = 'https://github.com/{project_github_username}/{project_name}'.format(**d)
     d.project_website_git = 'git://github.com/{project_github_username}/{project_name}.git'.format(**d)
