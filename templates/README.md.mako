@@ -1,7 +1,7 @@
 <%!
     import config.project
-    import config.personal
     import config.git
+    import config.personal
     line = "=" * len(config.project.project_name)
 %>${config.project.project_name}
 ${line}

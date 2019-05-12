@@ -1,7 +1,7 @@
-riddling
-========
+riddles-book
+============
 
-version: 6
+version: 7
 
 A riddle collection done with open source tools
 
@@ -11,7 +11,7 @@ Tools include: make, pdflatex, lacheck, latex, dvips, ps2pdf, latex2html, perl, 
         flexpaper, pdf2swf, qpdf, pdfinfo, pdftex, pdftohtml, luatex, xetex and possibly more.
 
 If you want to see the result checkout:
-https://veltzer.github.io/riddling
+https://veltzer.github.io/riddles-book
 
 If you want to compile this package then:
 * install all required packages.
@@ -20,4 +20,4 @@ If you want to compile this package then:
 All the output is in the 'out' folder.
 
 
-	Mark Veltzer <mark.veltzer@gmail.com>, 2011-2017
+	Mark Veltzer <mark.veltzer@gmail.com>, 2011-2019
