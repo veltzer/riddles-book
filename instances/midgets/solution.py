@@ -1,5 +1,5 @@
 """
-Solution to the midgets riddle in python3
+Solution to the midgets riddle in python
 
     Mark Veltzer <mark@veltzer.net>
 """

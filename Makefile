@@ -227,4 +227,5 @@ $(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEP)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
-	$(Q)make_helper touch-mkdir $@
+	$(Q)mkdir -p $(dir $@)
+	$(Q)touch $@
