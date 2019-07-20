@@ -18,9 +18,9 @@
 		
 		<p>current version is ${config.git.git_last_tag}</p>
 
-		<h2>A demo for the impatient...</h2>
-		<!--suppress HtmlUnknownTarget -->
-        <object data="riddling.pdf" type="application/pdf" width="100%" height="1700"></object>
+		<h2>A demo for the impatient is
+			<a href="web/viewer.html?file=../riddling.pdf">here</a>
+		</h2>
 		<p>You can download the latest version of <b>${config.project.project_name}</b> from <!--suppress HtmlUnknownTarget -->
             <a href="riddling.pdf">here</a>.</p>
 
