@@ -12,7 +12,7 @@ DOCS:=docs
 DO_ALL_DEP:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
-# the prime file
+# the primary file
 PRIME:=riddling
 # the primary pdf file name
 PRIME_PDF:=$(DOCS)/$(PRIME).pdf
