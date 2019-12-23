@@ -10,15 +10,23 @@ make all operations O(1)
 
 solution
 we store a version number with every element.
-First the version is 0.
+First we have
+
+construct_array()
+	global_version=1
+	gloval_value=0
+	allocate the array with each element having both a value
+	and a version
+	(no need to initialize the array unless of course some cells
+	have version=1 as a random value)
 
 set(i,v)
-	version[i]=global_version
 	val[i]=v
+	version[i]=global_version
 
 get(i)
 	if version[i]==global_version:
-		return version[i]
+		return value[i]
 	else:
 		return global_value
 
