@@ -5,7 +5,7 @@ set(i, v) -> sets the i'th element to the value v
 get(i) -> return the value of the i'th element
 set_all(v) -> sets all values to v
 
-size of the array is know.
+size of the array is known.
 make all operations O(1)
 
 solution
