@@ -31,19 +31,15 @@ int int_to_bits_alt(int value) {
 }
 
 int main(int argc, char** argv, char** envp) {
-	int table[256];
-	for(int i=0;i<256;i++) {
+	char table[256*256];
+	for(int i=0;i<256*256;i++) {
 		table[i]=int_to_bits_alt(i);
 		//printf("table at point %d is %d\n", i, table[i]);
 	}
 	int max=1000000;
 	int bits=0;
 	for(int i=0;i<max;i++) {
-		unsigned char* p=(unsigned char*)&i;
-		bits+=table[(int)*p];
-		p++;
-		bits+=table[(int)*p];
-		p++;
+		unsigned short* p=(unsigned short*)&i;
 		bits+=table[(int)*p];
 		p++;
 		bits+=table[(int)*p];
