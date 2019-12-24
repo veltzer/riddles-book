@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-size=100000
+size=1000000
 
 max_value=-1
 max_position=-1
