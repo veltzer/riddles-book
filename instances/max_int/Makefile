@@ -7,3 +7,7 @@ solution: solution.c
 .PHONY: timing
 timing: solution
 	@bash -c "time ./solution"
+
+.PHONY: clean
+clean:
+	rm -f solution
