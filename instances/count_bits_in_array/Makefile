@@ -10,6 +10,6 @@ memoize2: memoize2.c
 
 .PHONY: timing
 timing: brute_force memoize memoize2
-	@bash -c "time ./brute_force"
-	@bash -c "time ./memoize"
-	@bash -c "time ./memoize2"
+	bash -c "time ./brute_force"
+	bash -c "time ./memoize"
+	bash -c "time ./memoize2"
