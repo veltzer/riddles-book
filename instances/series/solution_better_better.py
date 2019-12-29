@@ -6,8 +6,6 @@ cache_dict = dict()
 max_value=-1
 max_position=-1
 for i in range(1, size):
-	if i%1000==0:
-		print "got to", i
 	count = 0
 	series=[]
 	n = i

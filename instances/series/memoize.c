@@ -7,7 +7,7 @@ int main(int argc, char** argv, char** envp) {
 	long max=1000000;
 	long current = 1;
 	long max_value=-1;
-	long max_memoize=500000;
+	long max_memoize=1000000;
 	int* array_count=(int*)malloc(max_memoize*sizeof(int));
 	for(int i=0;i<max_memoize;i++) {
 		array_count[i]=-1;
