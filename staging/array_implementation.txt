@@ -37,12 +37,17 @@ set_all(v):
 The problem with this solution is that global_version will wrap around after 2^{32,31,64,63} operations.
 To solve this we will, on every operation, execute this correction code:
 
-	for(i=0;i<count;i++) {
-		if(version[global_counter]<global_version-1 || version[global_counter]>>global_version) {
-			version[global_counter]=global_version-1
+	on start:
+		global_counter=0
+		count=10
+
+	on every operation:
+		for(i=0;i<count;i++) {
+			if(version[global_counter]<global_version-1 || version[global_counter]>>global_version) {
+				version[global_counter]=global_version-1
+			}
+			global_counter+=1
+			global_counter%=array_size
 		}
-		global_counter+=1
-		global_counter%=array_size
-	}
 
 	where 'count' is some small number.
