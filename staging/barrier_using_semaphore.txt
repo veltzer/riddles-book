@@ -20,5 +20,6 @@ def barrier(self):
 		sem_up(self.sem_sleep, self.n-1)
 		sem_up(self.sem_mutex, 1)
 	else:
+		# pay attention! order matters!
 		sem_up(self.sem_mutex, 1)
 		sem_down(self.sem_sleep, 1)
