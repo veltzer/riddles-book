@@ -1,6 +1,5 @@
 A certain prison has 100 prisoners. The warden offers the following deal:
 
-
 In a room, 100 boxes stand in a row. Scraps of paper with the number 1..100 were randomly shuffled into those boxes.
 
 Each prisoner has a unique number from 1 to 100. Each prisoner will be allowed to enter the room one at a time, and open up to 50 boxes one at a time. He may only look in the box to see what number is there, and may not move the scraps of paper or the boxes. All boxes will be closed after a prisoner leaves the room, before the next prisoner is brought in. If any prisoner fails to open the box containing their own number, all the prisoners will be put to death. If all prisoners find their own number, then all prisoners will go free. Once the process begins, prisoners will not be allowed to communicate with each other in any fashion. Clearly if each prisoner opens 50 boxes at random, the probability that everyone will go free is (1/2)^100, which is not very good. By what strategy can the prisoners improve their chances? What is the chance? Is it good?
