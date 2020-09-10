@@ -6,6 +6,7 @@ http://www.ocf.berkeley.edu/~wwu/cgi-bin/yabb/YaBB.cgi?board=riddles_hard
 http://www.seas.upenn.edu/~cis160/current/resources/Challenge%20Problems.pdf
 http://www.geeksforgeeks.org/write-a-function-to-get-the-intersection-point-of-two-linked-lists/
 http://www.mytechinterviews.com/
+https://adventofcode.com/
 
 haaretz:
 http://www.haaretz.co.il/riddles/numbers/1.2821271
