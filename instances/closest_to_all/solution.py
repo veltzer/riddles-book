@@ -59,8 +59,7 @@ class Matrix:
     def get(self, x, y):
         return self.data[y][x]
 
-    def get_pos(self, p):
-        # type: (...) -> int
+    def get_pos(self, p) -> int:
         return self.data[p.y][p.x]
 
     def set(self, x, y, v):

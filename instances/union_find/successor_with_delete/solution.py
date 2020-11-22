@@ -8,7 +8,7 @@ class Algo:
         self.root = [i for i in range(n)]
         # extra data for this exercise
         self.inset = [True] * n
-        self.succ = [i for i in range(n)]  # type: List[Optional[int]]
+        self.succ: List[Optional[int]] = [i for i in range(n)]
 
     # standard union-find methods
     def find_root(self, i):
