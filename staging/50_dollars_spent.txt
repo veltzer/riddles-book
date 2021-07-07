@@ -18,3 +18,4 @@ It doesn't matter what the second column sums up to!
 Imagine that I would spend all the 50 at once then the second column would sum to 0.
 Imagine that I spent the 50 one dollar at a time so the second column would sum up to:
 	49+48+...+1 = 50*49/2 = 1225
+The sum of balances has nothing to do with the orignal sum...:)
