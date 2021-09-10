@@ -1,7 +1,7 @@
 riddles-book
 ============
 
-version: 6
+version: 7
 
 A riddle collection done with open source tools
 
@@ -15,9 +15,9 @@ https://veltzer.github.io/riddles-book
 
 If you want to compile this package then:
 * install all required packages.
-        Ubuntu users you are in luck: just run 'scripts/ubuntu_install.sh'...
+        Ubuntu users you are in luck: just run "scripts/ubuntu_install.sh"...
 * make
-All the output is in the 'out' folder.
+All the output is in the "out" folder.
 
 
-	Mark Veltzer <mark.veltzer@gmail.com>, 2011-2020
+	Mark Veltzer <mark.veltzer@gmail.com>, 2011-2021
