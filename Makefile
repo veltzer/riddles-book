@@ -1,7 +1,6 @@
 ##############
 # parameters #
 ##############
-
 # where are the sources ?
 SOURCE_DIR:=src
 # where is the output folder ?
@@ -9,7 +8,7 @@ OUT:=out
 # where is the web folder ?
 DOCS:=docs
 # do you want dependency on the makefile itself ?
-DO_ALL_DEP:=1
+DO_ALLDEP:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
 # the primary file
@@ -57,10 +56,8 @@ USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
 TAG:=$(shell git tag | tail -1)
 
 # dependency on the makefile itself
-ifeq ($(DO_ALL_DEP),1)
-ALL_DEP:=Makefile $(TOOLS)
-else
-ALL_DEP:=
+ifeq ($(DO_ALLDEP),1)
+.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
 endif
 
 # silent stuff
@@ -125,7 +122,6 @@ deps: $(OBJECTS_DEP)
 
 .PHONY: debug_me
 debug_me:
-	$(info ALL_DEP is $(ALL_DEP))
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info SOURCES_SK is $(SOURCES_SK))
 	$(info OBJECTS_SK is $(OBJECTS_SK))
@@ -143,28 +139,28 @@ debug_me:
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
 
-$(OBJECTS_PDF): $(DOCS)/%.pdf: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK) $(USE_LATEX2PDF)
+$(OBJECTS_PDF): $(DOCS)/%.pdf: $(SOURCE_DIR)/%.tex $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])
 	$(Q)$(TOOL_LACHECK) $<
 	$(Q)$(USE_LATEX2PDF) $< $@
 
-$(OBJECTS_HTM): $(OUT)/%/index.html: $(SOURCE_DIR)/%.tex $(ALL_DEP) $(OBJECTS_SK)
+$(OBJECTS_HTM): $(OUT)/%/index.html: $(SOURCE_DIR)/%.tex $(OBJECTS_SK)
 	$(info doing [$@])
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
 
-$(OBJECTS_DEP): $(OUT)/%.dep: $(SOURCE_DIR)/%.tex $(ALL_DEP) scripts/latex2dep.pl
+$(OBJECTS_DEP): $(OUT)/%.dep: $(SOURCE_DIR)/%.tex scripts/latex2dep.pl
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/latex2dep.pl $< $@
 
-$(OBJECTS_SK): $(OUT)/%.tex: %.sk $(ALL_DEP) scripts/wrapper_sketch.pl
+$(OBJECTS_SK): $(OUT)/%.tex: %.sk scripts/wrapper_sketch.pl
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/wrapper_sketch.pl $< $@
 
-$(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf $(ALL_DEP)
+$(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf
 	$(info doing [$@])
 	$(Q)-rm -f $@
 	$(Q)mkdir -p $(dir $@)
@@ -204,7 +200,7 @@ view_pgf_doc_pdf:
 	$(Q)gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
 
 .PHONY: grive
-grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
+grive: $(OUTPUTS_TO_EXPORT)
 	$(info doing [$@])
 	$(Q)-rm -rf ~/grive/outputs/$(PROJECT)
 	$(Q)-mkdir ~/grive/outputs/$(PROJECT)
@@ -212,7 +208,7 @@ grive: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
 	$(Q)cd ~/grive; grive
 
 .PHONY: dropbox
-dropbox: $(OUTPUTS_TO_EXPORT) $(ALL_DEP)
+dropbox: $(OUTPUTS_TO_EXPORT)
 	$(info doing [$@])
 	$(Q)-rm -rf ~/Dropbox/outputs/$(PROJECT)
 	$(Q)-mkdir ~/Dropbox/outputs/$(PROJECT)
@@ -223,7 +219,7 @@ ifeq ($(DO_INCLUDE),1)
 -include $(OBJECTS_DEP)
 endif # DO_INCLUDE
 
-$(HTMLCHECK): $(SOURCES_HTML) $(ALL_DEP)
+$(HTMLCHECK): $(SOURCES_HTML)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
