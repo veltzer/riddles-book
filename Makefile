@@ -134,8 +134,8 @@ check_all: check_veltzer_https
 .PHONY: deps
 deps: $(OBJECTS_DEP)
 
-.PHONY: debug_me
-debug_me:
+.PHONY: debug
+debug:
 	$(info SOURCES_TEX is $(SOURCES_TEX))
 	$(info SOURCES_SK is $(SOURCES_SK))
 	$(info OBJECTS_SK is $(OBJECTS_SK))
