@@ -118,6 +118,7 @@ ALL+=$(DOCS)/riddling.pdf
 # do not touch this rule (see demos-make for explanation of order in makefile)
 all: $(ALL)
 	@true
+
 $(TOOLS): package.json
 	$(info doing [$@])
 	$(Q)npm install htmlhint
