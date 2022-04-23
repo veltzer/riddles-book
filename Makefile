@@ -110,6 +110,7 @@ ALL+=$(DOCS)/riddling.pdf
 #########
 # do not touch this rule (see demos-make for explanation of order in makefile)
 all: $(ALL)
+	@true
 .PHONY: check_veltzer_https
 check_veltzer_https:
 	$(info doing [$@])
