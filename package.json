@@ -6,11 +6,9 @@
   "directories": {
     "doc": "doc"
   },
-  "dependencies": {
-  },
   "devDependencies": {
     "gh-pages": "latest",
-    "htmlhint": "latest"
+    "htmlhint": "^1.1.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

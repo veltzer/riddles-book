@@ -1,26 +1,12 @@
 ##############
 # parameters #
 ##############
-# where are the sources ?
-SOURCE_DIR:=src
-# where is the output folder ?
-OUT:=out
-# where is the web folder ?
-DOCS:=docs
 # do you want dependency on the makefile itself ?
 DO_ALLDEP:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
-# the primary file
-PRIME:=riddling
-# the primary pdf file name
-PRIME_PDF:=$(DOCS)/$(PRIME).pdf
-# the primary swf file name
-PRIME_SWF:=$(OUT)/$(PRIME).swf
-# the primary html file name
-PRIME_HTM:=$(OUT)/$(PRIME)/index.php
-# the primary output folder
-PRIME_HTM_FOLDER:=$(OUT)/$(PRIME)
+# do you want to do the tools?
+DO_TOOLS:=1
 # do you want to do PDF ?
 DO_PDF:=1
 # do you want to do HTML ?
@@ -31,18 +17,34 @@ DO_SWF:=0
 DO_DEP:=0
 # do you want to actually include the deps ? (must enable DO_DEP)
 DO_INCLUDE:=1
-# what to export out (to grive and dropbox)?
-OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
-# what is the name of the project?
-PROJECT:=$(notdir $(CURDIR))
 # do you want to validate html?
 DO_CHECKHTML:=1
-# what is the stamp file for the tools?
-TOOLS:=$(OUT)/tools.stamp
 
 ########
 # code #
 ########
+# where are the sources ?
+SOURCE_DIR:=src
+# where is the output folder ?
+OUT:=out
+# where is the web folder ?
+DOCS:=docs
+# the primary file
+PRIME:=riddling
+# the primary pdf file name
+PRIME_PDF:=$(DOCS)/$(PRIME).pdf
+# the primary swf file name
+PRIME_SWF:=$(OUT)/$(PRIME).swf
+# the primary html file name
+PRIME_HTM:=$(OUT)/$(PRIME)/index.php
+# the primary output folder
+PRIME_HTM_FOLDER:=$(OUT)/$(PRIME)
+# what to export out (to grive and dropbox)?
+OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
+# what is the name of the project?
+PROJECT:=$(notdir $(CURDIR))
+# what is the stamp file for the tools?
+TOOLS:=$(OUT)/tools.stamp
 
 # tools
 TOOL_LATEX2HTML:=latex2html
@@ -51,14 +53,8 @@ TOOL_SKETCH:=sketch
 TOOL_PDFLATEX:=pdflatex
 #USE_LATEX2PDF:=scripts/latex2pdf.pl
 USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
-
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
-
-# dependency on the makefile itself
-ifeq ($(DO_ALLDEP),1)
-.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
-endif
 
 # silent stuff
 ifeq ($(DO_MKDBG),1)
@@ -68,6 +64,14 @@ else # DO_MKDBG
 Q:=@
 #.SILENT:
 endif # DO_MKDBG
+
+ifeq ($(DO_ALLDEP),1)
+.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
+endif
+
+ifeq ($(DO_TOOLS),1)
+.EXTRA_PREREQS+=$(TOOLS)
+endif
 
 SOURCES_TEX:=$(shell find src -name "*.tex")
 
@@ -82,12 +86,15 @@ OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_
 ifeq ($(DO_PDF),1)
 ALL+=$(OBJECTS_PDF)
 endif # DO_PDF
+
 ifeq ($(DO_HTML),1)
 ALL+=$(OBJECTS_HTM)
 endif # DO_HTML
+
 ifeq ($(DO_SWF),1)
 ALL+=$(OBJECTS_SWF)
 endif # DO_SWF
+
 ifeq ($(DO_DEP),1)
 ALL+=$(OBJECTS_DEP)
 endif # DO_DEP
@@ -111,6 +118,11 @@ ALL+=$(DOCS)/riddling.pdf
 # do not touch this rule (see demos-make for explanation of order in makefile)
 all: $(ALL)
 	@true
+$(TOOLS): package.json
+	$(info doing [$@])
+	$(Q)npm install htmlhint
+	$(Q)pymakehelper touch_mkdir $@
+
 .PHONY: check_veltzer_https
 check_veltzer_https:
 	$(info doing [$@])

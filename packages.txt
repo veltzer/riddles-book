@@ -1,3 +1,4 @@
 sketch
 lacheck
 texlive-pstricks
+tidy
