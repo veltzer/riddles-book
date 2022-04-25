@@ -119,7 +119,7 @@ ALL+=$(DOCS)/riddling.pdf
 all: $(ALL)
 	@true
 
-$(TOOLS): package.json
+$(TOOLS): packages.txt config/deps.py package.json
 	$(info doing [$@])
 	$(Q)npm install htmlhint
 	$(Q)pymakehelper touch_mkdir $@
