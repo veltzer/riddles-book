@@ -1,4 +1,4 @@
-packs = [
+packages = [
     # for lacheck(1)
     'lacheck',
     # for latex2html(1)
