@@ -23,6 +23,7 @@ DO_CHECKHTML:=1
 ########
 # code #
 ########
+ALL:=
 # where are the sources ?
 SOURCE_DIR:=src
 # where is the output folder ?
@@ -46,6 +47,12 @@ PROJECT:=$(notdir $(CURDIR))
 # what is the stamp file for the tools?
 TOOLS:=$(OUT)/tools.stamp
 
+ifeq ($(DO_TOOLS),1)
+.EXTRA_PREREQS+=$(TOOLS)
+ALL+=$(TOOLS)
+endif # DO_TOOLS
+
+
 # tools
 TOOL_LATEX2HTML:=latex2html
 TOOL_LACHECK:=scripts/wrapper_lacheck.py
@@ -68,10 +75,6 @@ endif # DO_MKDBG
 ifeq ($(DO_ALLDEP),1)
 .EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
 endif # DO_ALLDEP
-
-ifeq ($(DO_TOOLS),1)
-.EXTRA_PREREQS+=$(TOOLS)
-endif # DO_TOOLS
 
 SOURCES_TEX:=$(shell find src -name "*.tex")
 
@@ -122,6 +125,7 @@ all: $(ALL)
 $(TOOLS): packages.txt config/deps.py package.json
 	$(info doing [$@])
 	$(Q)npm install htmlhint
+	$(Q)xargs -a packages.txt sudo apt-get -y install
 	$(Q)pymakehelper touch_mkdir $@
 
 .PHONY: check_veltzer_https
