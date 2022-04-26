@@ -16,7 +16,7 @@ DO_SWF:=0
 # do you want to generate dependencies ?
 DO_DEP:=0
 # do you want to actually include the deps ? (must enable DO_DEP)
-DO_INCLUDE:=1
+DO_INCLUDE:=0
 # do you want to validate html?
 DO_CHECKHTML:=1
 
