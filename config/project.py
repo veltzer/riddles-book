@@ -17,7 +17,7 @@ project_keywords = [
     "collection",
 ]
 project_license = "GPLV3"
-project_year_started = "2011"
+project_year_started = 2011
 project_description = f"""The idea is to create a collection of many riddles for your enjoyment.
 
 Tools include: make, pdflatex, lacheck, latex, dvips, ps2pdf, latex2html, perl, sketch, git,
