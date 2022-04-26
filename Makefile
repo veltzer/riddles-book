@@ -243,3 +243,13 @@ $(HTMLCHECK): $(SOURCES_HTML)
 	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
 	$(Q)mkdir -p $(dir $@)
 	$(Q)touch $@
+
+.PHONY: clean
+clean:
+	$(info doing [$@])
+	$(Q)rm -f $(ALL)
+
+.PHONY: clean_hard
+clean_hard:
+	$(info doing [$@])
+	$(Q)git clean -qffxd
