@@ -1,4 +1,6 @@
 sketch
 lacheck
+texlive
+texlive-latex-extra
 texlive-pstricks
 tidy
