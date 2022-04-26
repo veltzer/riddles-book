@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 """
 This is a wrapper to run the 'lacheck(1)' tool from the 'lacheck' package.
