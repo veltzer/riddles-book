@@ -124,8 +124,8 @@ all: $(ALL)
 
 $(TOOLS): packages.txt config/deps.py package.json
 	$(info doing [$@])
-	$(Q)npm install htmlhint > /dev/null
-	$(Q)xargs -a packages.txt sudo apt-get -y install
+	$(Q)npm install --quiet --silent htmlhint > /dev/null
+	$(Q)xargs -a packages.txt sudo apt-get -y install > /dev/null
 	$(Q)pymakehelper touch_mkdir $@
 
 .PHONY: check_veltzer_https
