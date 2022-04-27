@@ -1,16 +1,15 @@
 sketch
 lacheck
 texlive
-luatex
 texlive-latex-base
 texlive-latex-extra
 texlive-pstricks
 texlive-luatex
 texlive-binaries
 texlive-pictures
+texlive-plain-generic
 tidy
 latex2html
 ghostscript
 poppler-utils
 qpdf
-tex4ht

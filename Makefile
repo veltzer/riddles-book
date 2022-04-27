@@ -124,7 +124,7 @@ all: $(ALL)
 
 $(TOOLS): packages.txt config/deps.py package.json
 	$(info doing [$@])
-	$(Q)npm install htmlhint
+	$(Q)npm install htmlhint > /dev/null
 	$(Q)xargs -a packages.txt sudo apt-get -y install
 	$(Q)pymakehelper touch_mkdir $@
 
