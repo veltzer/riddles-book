@@ -42,9 +42,16 @@
 %\usepackage{pstricks} % for sketch with pstricks support (default for sketch)
 \usepackage{tikz} % for sketch with tikz (does not pdftex option)
 
+\usepackage{datetime}
+\newdateformat{monthyeardate}{%
+	\monthname[\THEMONTH], \THEYEAR}
+
 \title{Riddling}
 \author{Mark Veltzer}
-\date{\today}
+
+% we use only month and year so that the PDF will not be different on each build
+%\date{\today}
+\monthyeardate
 
 \begin{document}
 
