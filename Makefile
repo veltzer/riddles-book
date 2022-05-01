@@ -58,8 +58,7 @@ TOOL_LATEX2HTML:=latex2html
 TOOL_LACHECK:=scripts/wrapper_lacheck.py
 TOOL_SKETCH:=sketch
 TOOL_PDFLATEX:=pdflatex
-#USE_LATEX2PDF:=scripts/latex2pdf.pl
-USE_LATEX2PDF:=scripts/wrapper_pdflatex.pl
+USE_LATEX2PDF:=scripts/wrapper_pdflatex.py
 # the tag name of the project ?
 TAG:=$(shell git tag | tail -1)
 
