@@ -1,15 +1,8 @@
-# generated stuff
 /out/
-
-# python stuff
 *.pyc
 *.pyo
 __pycache__
-
-# node modules
 /node_modules
-# tools
-/tools
-/tools.stamp
+*.stamp
 /.venv
 /.pydmt
