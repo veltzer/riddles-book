@@ -5,8 +5,6 @@
 DO_ALLDEP:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
-# do you want to do the tools?
-DO_TOOLS:=1
 # do you want to do PDF ?
 DO_PDF:=1
 # do you want to do HTML ?
@@ -45,13 +43,6 @@ OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
 # what is the name of the project?
 PROJECT:=$(notdir $(CURDIR))
 # what is the stamp file for the tools?
-TOOLS:=$(OUT)/tools.stamp
-
-ifeq ($(DO_TOOLS),1)
-.EXTRA_PREREQS+=$(TOOLS)
-ALL+=$(TOOLS)
-endif # DO_TOOLS
-
 
 # tools
 TOOL_LATEX2HTML:=latex2html
@@ -120,12 +111,6 @@ ALL+=$(DOCS)/riddling.pdf
 # do not touch this rule (see demos-make for explanation of order in makefile)
 all: $(ALL)
 	@true
-
-$(TOOLS): packages.txt config/deps.py package.json
-	$(info doing [$@])
-	$(Q)npm install --quiet --silent htmlhint > /dev/null
-	$(Q)xargs -a packages.txt sudo apt-get -y install > /dev/null
-	$(Q)pymakehelper touch_mkdir $@
 
 .PHONY: check_veltzer_https
 check_veltzer_https:
