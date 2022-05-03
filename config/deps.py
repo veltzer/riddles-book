@@ -1,9 +1,6 @@
 packages = [
-    # for lacheck(1)
     'lacheck',
-    # for latex2html(1)
     'latex2html',
-    # for sketch(1)
     'sketch',
     'tidy',
     'texlive',
