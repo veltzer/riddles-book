@@ -1,6 +1,6 @@
 <%!
     import config.project
-    import config.git
+    import config.version
     import user.personal
 %><!DOCTYPE html>
 <html>
@@ -16,7 +16,7 @@
 	<body>
 		<h1>Welcome to the <i>${config.project.project_name}</i> web site</h1>
 		
-		<p>current version is ${config.git.git_last_tag}</p>
+		<p>current version is ${config.version.version_str}</p>
 
 		<h2>A demo for the impatient is
 			<a href="web/viewer.html?file=../riddling.pdf">here</a>

@@ -35,13 +35,6 @@ All the output is in the "out" folder.
 
 deb_package = False
 
-project_copyright_years = ", ".join(
-    map(str, range(int(project_year_started), datetime.datetime.now().year + 1)))
-if str(config.general.general_current_year) == project_year_started:
-    project_copyright_years = config.general.general_current_year
-else:
-    project_copyright_years = f"{project_year_started} - {config.general.general_current_year}"
-
 project_google_analytics_tracking_id = "0"
 project_google_analytics_snipplet = f"""<script type="text/javascript">
 (function(i,s,o,g,r,a,m){{i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){{
@@ -63,3 +56,10 @@ project_paypal_donate_button_snipplet = f"""<form action="https://www.paypal.com
 alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>"""
+
+project_copyright_years = ", ".join(
+    map(str, range(int(project_year_started), datetime.datetime.now().year + 1)))
+if str(config.general.general_current_year) == project_year_started:
+    project_copyright_years = config.general.general_current_year
+else:
+    project_copyright_years = f"{project_year_started} - {config.general.general_current_year}"
