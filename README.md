@@ -1,7 +1,7 @@
 riddles-book
 ============
 
-version: 7
+version: 0.0.1
 
 A riddle collection done with open source tools
 

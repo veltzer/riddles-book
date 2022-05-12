@@ -1,12 +1,12 @@
 <%!
     import config.project
-    import config.git
+    import config.version
     import user.personal
     line = "=" * len(config.project.project_name)
 %>${config.project.project_name}
 ${line}
 
-version: ${config.git.git_last_tag}
+version: ${config.version.version_str}
 
 ${config.project.project_long_description}
 
