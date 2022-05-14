@@ -2,10 +2,13 @@ import config.project
 
 package_name = config.project.project_name
 
-dev_requires = [
-    "pymakehelper",
-    "pydmt",
+config_requires = [
     "pyclassifiers",
+]
+make_requires = [
+    "pymakehelper",
+]
+install_requires = [
     "numpy",
     "BitVector",
 ]
