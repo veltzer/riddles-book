@@ -1,10 +1,3 @@
-import config.project
-
-package_name = config.project.project_name
-
-config_requires = [
-    "pyclassifiers",
-]
 make_requires = [
     "pymakehelper",
 ]
