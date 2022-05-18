@@ -18,4 +18,4 @@ keywords = [
     "riddling",
     "collection",
 ]
-license = "GPLV3"
+license_type = "GPLV3"
