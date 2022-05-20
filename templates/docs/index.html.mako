@@ -11,8 +11,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>${pydmt.helpers.project.get_name()}</title>
 		<!--suppress HtmlUnknownTarget -->
-        <link rel="shortcut icon" href="favicon.ico"/>
-		<meta name="Description" content="${config.project.description_long}"/>
+		<link rel="shortcut icon" href="favicon.ico"/>
+		<meta name="Description" content="${config.project.description_short}"/>
 		<meta name="Keywords" content="${user.personal.fullname}, ${user.personal.slug}, ${pydmt.helpers.project.get_name()}, ${', '.join(config.project.keywords)}"/>
 	</head>
 	<body>
