@@ -1,53 +1,49 @@
 <%!
+    import pydmt.helpers.project
+    import pydmt.helpers.urls
+    import pydmt.helpers.signature
+    import pydmt.helpers.misc
     import config.project
-    import config.version
     import user.personal
 %><!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>${config.project.project_name}</title>
+		<title>${pydmt.helpers.project.get_name()}</title>
 		<!--suppress HtmlUnknownTarget -->
         <link rel="shortcut icon" href="favicon.ico"/>
-		<meta name="Description" content="${config.project.project_long_description}"/>
-		<meta name="Keywords" content="${user.personal.personal_fullname}, ${user.personal.personal_slug}, ${config.project.project_name}, ${', '.join(config.project.project_keywords)}"/>
-		${config.project.project_google_analytics_snipplet}
+		<meta name="Description" content="${config.project.description_long}"/>
+		<meta name="Keywords" content="${user.personal.fullname}, ${user.personal.slug}, ${pydmt.helpers.project.get_name()}, ${', '.join(config.project.keywords)}"/>
 	</head>
 	<body>
-		<h1>Welcome to the <i>${config.project.project_name}</i> web site</h1>
+		<h1>Welcome to the <i>${pydmt.helpers.project.get_name()}</i> web site</h1>
 		
-		<p>current version is ${config.version.version_str}</p>
+		<p>current version is ${pydmt.helpers.misc.get_version_str()}</p>
 
 		<h2>A demo for the impatient is
 			<a href="web/viewer.html?file=../riddling.pdf">here</a>
 		</h2>
-		<p>You can download the latest version of <b>${config.project.project_name}</b> from <!--suppress HtmlUnknownTarget -->
+		<p>You can download the latest version of <b>${pydmt.helpers.project.get_name()}</b> from <!--suppress HtmlUnknownTarget -->
             <a href="riddling.pdf">here</a>.</p>
 
 		<p>
-			<b>${config.project.project_name}</b> is collection of riddles in tex format.
+			<b>${pydmt.helpers.project.get_name()}</b> is collection of riddles in tex format.
 		</p>
-		<p>Some related <b>${config.project.project_name}</b> project links:</p>
+		<p>Some related <b>${pydmt.helpers.project.get_name()}</b> project links:</p>
 		<ul>
 			<li>
-			The <b>${config.project.project_name}</b> github project is <a title="${config.project.project_name} github project" href="${config.project.project_website_source}">here</a>
+			The <b>${pydmt.helpers.project.get_name()}</b> github project is <a title="${pydmt.helpers.project.get_name()} github project" href="${pydmt.helpers.urls.get_website_source()}">here</a>
 			</li>
 			<li>
-			The <b>${config.project.project_name}</b> web site for the project is <a title="${config.project.project_name} web site" href="${config.project.project_website}">here</a>
+			The <b>${pydmt.helpers.project.get_name()}</b> web site for the project is <a title="${pydmt.helpers.project.get_name()} web site" href="${pydmt.helpers.urls.get_website()}">here</a>
 			</li>
 			<li>
-			The <b>${config.project.project_name}</b> git clone link is <a title="${config.project.project_name} git clone link" href="${config.project.project_website_git}">here</a>
+			The <b>${pydmt.helpers.project.get_name()}</b> git clone link is <a title="${pydmt.helpers.project.get_name()} git clone link" href="${pydmt.helpers.urls.get_website_git()}">here</a>
 			</li>
 		</ul>
 		<p>
-			I would appreciate donations so that I could use my time to work on <b>${config.project.project_name}</b> more.
-			If you do donate and would like me to work on some riddles or features then be sure to mention them
-			in your donation remark on paypal.
-		</p>
-		${config.project.project_paypal_donate_button_snipplet}
-		<p>
-			Copyright ${user.personal.personal_fullname}, ${config.project.project_copyright_years}
-			<a href="mailto:${user.personal.personal_email}">${user.personal.personal_email}</a>
+			Copyright ${user.personal.fullname} © ${pydmt.helpers.signature.get_copyright_years_long()}
+			<a href="mailto:${user.personal.email}">${user.personal.email}</a>
 		</p>
 	</body>
 </html>

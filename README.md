@@ -1,17 +1,19 @@
-riddles-book
-============
+## riddles-book
 
 version: 0.0.1
 
-A riddle collection done with open source tools
+description: A riddle collection done with open source tools
+
+website: https://veltzer.github.io/riddles-book
+
+## build
+
+![build](https://github.com/veltzer/riddles-book/workflows/build/badge.svg)
 
 The idea is to create a collection of many riddles for your enjoyment.
 
 Tools include: make, pdflatex, lacheck, latex, dvips, ps2pdf, latex2html, perl, sketch, git,
         flexpaper, pdf2swf, qpdf, pdfinfo, pdftex, pdftohtml, luatex, xetex and possibly more.
-
-If you want to see the result checkout:
-https://veltzer.github.io/riddles-book
 
 If you want to compile this package then:
 * install all required packages.
@@ -19,5 +21,6 @@ If you want to compile this package then:
 * make
 All the output is in the "out" folder.
 
+chat with me at [![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/veltzer/mark.veltzer)
 
-	Mark Veltzer <mark.veltzer@gmail.com>, 2011 - 2022
+Mark Veltzer, Copyright © 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021
