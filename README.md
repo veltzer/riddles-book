@@ -22,7 +22,7 @@ If you want to compile this package then:
 All the output is in the "out" folder.
 
 
-## contact 
+## contact
 
 chat with me at [![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/veltzer/mark.veltzer)
 
