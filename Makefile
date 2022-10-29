@@ -17,6 +17,8 @@ DO_DEP:=0
 DO_INCLUDE:=0
 # do you want to validate html?
 DO_CHECKHTML:=1
+# do you want to check python scripts?
+DO_PYLINT:=1
 
 ########
 # code #
@@ -76,6 +78,8 @@ OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
 
+ALL_PY:=$(shell find config scripts -type f -not -path "./.venv/*" -name "*.py")
+
 ifeq ($(DO_PDF),1)
 ALL+=$(OBJECTS_PDF)
 endif # DO_PDF
@@ -96,6 +100,10 @@ endif # DO_DEP
 ifeq ($(MAKECMDGOALS),clean)
 DO_INCLUDE:=0
 endif # clean
+
+ifeq ($(DO_PYLINT),1)
+ALL:=$(ALL) out/pylint.stamp
+endif # DO_PYLINT
 
 SOURCES_HTML:=$(DOCS)/index.html
 HTMLCHECK:=$(OUT)/html.stamp
@@ -140,6 +148,7 @@ debug:
 	$(info ALL is $(ALL))
 	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
 	$(info PROJECT is $(PROJECT))
+	$(info ALL_PY is $(ALL_PY))
 
 $(OBJECTS_PDF): $(DOCS)/%.pdf: $(SOURCE_DIR)/%.tex $(OBJECTS_SK) $(USE_LATEX2PDF)
 	$(info doing [$@])
@@ -237,3 +246,10 @@ clean:
 clean_hard:
 	$(info doing [$@])
 	$(Q)git clean -qffxd
+
+.PHONY: pylint
+pylint: out/pylint.stamp
+out/pylint.stamp: $(ALL_PY)
+	$(Q)pylint --reports=n --score=n $(ALL_PY)
+	$(Q)pymakehelper touch_mkdir $@
+

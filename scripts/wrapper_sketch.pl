@@ -13,6 +13,8 @@ Why?
 - too noisy on the command line when everything is right.
 - does not cleanly separate warning and errors (stdout vs stderr).
 
+TODO: rewrite this script in python3.
+
 =cut
 
 #parameters

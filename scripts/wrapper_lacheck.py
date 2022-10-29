@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
 """
-This is a wrapper to run the 'lacheck(1)' tool from the 'lacheck' package.
+This is a wrapper to run the lacheck(1) tool from the 'lacheck' package.
 
 Why do we need this wrapper?
 - lacheck does NOT report in its exit status whether it had warnings or not.
 - it is too verbose when there are no warnings.
 """
 
-import sys  # for argv, exit, stderr
-import subprocess  # for Popen
+import sys
+import subprocess
 
 
 def main():

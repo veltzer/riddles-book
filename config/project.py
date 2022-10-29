@@ -1,5 +1,5 @@
 description_short = "A riddle collection done with open source tools"
-description_long = f"""The idea is to create a collection of many riddles for your enjoyment.
+description_long = """The idea is to create a collection of many riddles for your enjoyment.
 
 Tools include: make, pdflatex, lacheck, latex, dvips, ps2pdf, latex2html, perl, sketch, git,
         flexpaper, pdf2swf, qpdf, pdfinfo, pdftex, pdftohtml, luatex, xetex and possibly more.

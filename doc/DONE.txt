@@ -1,0 +1,4 @@
+- got ridd of the ridding-gh-pages repo.
+	make the riddling.pdf be at the right location
+		without the extra files.
+	see that push works.
