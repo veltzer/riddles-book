@@ -233,7 +233,7 @@ endif # DO_INCLUDE
 $(HTMLCHECK): $(SOURCES_HTML)
 	$(info doing [$@])
 	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
-	$(Q)node_modules/htmlhint/bin/htmlhint $(SOURCES_HTML) > /dev/null
+	$(Q)node_modules/.bin/htmlhint $(SOURCES_HTML) > /dev/null
 	$(Q)mkdir -p $(dir $@)
 	$(Q)touch $@
 
