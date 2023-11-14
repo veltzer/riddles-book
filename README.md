@@ -6,7 +6,7 @@ description: A riddle collection done with open source tools
 
 website: https://veltzer.github.io/riddles-book
 
-## build
+## Build
 
 ![build](https://github.com/veltzer/riddles-book/workflows/build/badge.svg)
 
@@ -22,7 +22,7 @@ If you want to compile this package then:
 All the output is in the "out" folder.
 
 
-## contact
+## Contact
 
 chat with me at [![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/veltzer/mark.veltzer)
 
