@@ -1,0 +1,7 @@
+# THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
+numpy
+BitVector
+pymakehelper
+pyclassifiers
+pydmt
+pylint
