@@ -1,7 +1,5 @@
 """
 Solution to the midgets riddle in python
-
-    Mark Veltzer <mark@veltzer.net>
 """
 
 import random

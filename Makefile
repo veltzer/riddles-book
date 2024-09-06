@@ -120,13 +120,6 @@ ALL+=$(DOCS)/riddling.pdf
 all: $(ALL)
 	@true
 
-.PHONY: check_veltzer_https
-check_veltzer_https:
-	$(info doing [$@])
-	$(Q)wrapper_ok git grep "http:\/\/veltzer.net"
-.PHONY: check_all
-check_all: check_veltzer_https
-
 .PHONY: deps
 deps: $(OBJECTS_DEP)
 
@@ -191,9 +184,6 @@ view_pdf: $(PRIME_PDF)
 view_htm: $(PRIME_HTM)
 	$(Q)gnome-open $(PRIME_HTM) > /dev/null 2> /dev/null &
 # short cut to show the swf using flex paper fast...
-.PHONY: view_swf
-view_swf: $(PRIME_SWF)
-	$(Q)gnome-open http://www.veltzer.net/riddling/flexpaper/index.html > /dev/null 2> /dev/null &
 .PHONY: view_sketch_doc_htm
 view_sketch_doc_htm:
 	$(Q)gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null 2> /dev/null &
