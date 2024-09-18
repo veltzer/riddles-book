@@ -64,10 +64,6 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-ifeq ($(DO_ALLDEP),1)
-.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
-endif # DO_ALLDEP
-
 SOURCES_TEX:=$(shell find src -name "*.tex")
 
 SOURCES_SK:=$(shell find src -name "*.sk")
@@ -243,3 +239,9 @@ out/pylint.stamp: $(ALL_PY)
 	$(Q)pylint --reports=n --score=n $(ALL_PY)
 	$(Q)pymakehelper touch_mkdir $@
 
+##########
+# alldep #
+##########
+ifeq ($(DO_ALLDEP),1)
+.EXTRA_PREREQS+=$(foreach mk, ${MAKEFILE_LIST},$(abspath ${mk}))
+endif # DO_ALLDEP
