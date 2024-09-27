@@ -1,7 +1,5 @@
 Now:
 ====
-- rewrite all the scripts in "scripts" in python3
-
 - htmlhint is running with redirection. We are swallowing errors here.
 	write a wrapper for running htmlhint correctly.
 	we are also running htmlhint with no option and with default config
