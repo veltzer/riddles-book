@@ -11,10 +11,6 @@ DO_PDF:=1
 DO_HTML:=0
 # do you want to do SWF ?
 DO_SWF:=0
-# do you want to generate dependencies ?
-DO_DEP:=0
-# do you want to actually include the deps ? (must enable DO_DEP)
-DO_INCLUDE:=0
 # do you want to validate html?
 DO_CHECKHTML:=1
 # do you want to check python scripts?
@@ -72,7 +68,6 @@ OBJECTS_SK:=$(addsuffix .tex,$(addprefix $(OUT)/,$(basename $(SOURCES_SK))))
 OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(DOCS)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
 OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
-OBJECTS_DEP:=$(addsuffix .dep,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
 
 ALL_PY:=$(shell find config scripts -type f -not -path "./.venv/*" -name "*.py")
 
@@ -87,10 +82,6 @@ endif # DO_HTML
 ifeq ($(DO_SWF),1)
 ALL+=$(OBJECTS_SWF)
 endif # DO_SWF
-
-ifeq ($(DO_DEP),1)
-ALL+=$(OBJECTS_DEP)
-endif # DO_DEP
 
 # do not include deps if the target is 'clean'...
 ifeq ($(MAKECMDGOALS),clean)
@@ -116,9 +107,6 @@ ALL+=$(DOCS)/riddling.pdf
 all: $(ALL)
 	@true
 
-.PHONY: deps
-deps: $(OBJECTS_DEP)
-
 .PHONY: debug
 debug:
 	$(info SOURCES_TEX is $(SOURCES_TEX))
@@ -127,7 +115,6 @@ debug:
 	$(info OBJECTS_PDF is $(OBJECTS_PDF))
 	$(info OBJECTS_SWF is $(OBJECTS_SWF))
 	$(info OBJECTS_HTM is $(OBJECTS_HTM))
-	$(info OBJECTS_DEP is $(OBJECTS_DEP))
 	$(info SOURCES_HTML is $(SOURCES_HTML))
 	$(info PRIME is $(PRIME))
 	$(info PRIME_PDF is $(PRIME_PDF))
@@ -149,11 +136,6 @@ $(OBJECTS_HTM): $(OUT)/%/index.html: $(SOURCE_DIR)/%.tex $(OBJECTS_SK)
 	$(Q)-rm -rf $(dir $@)
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
-
-$(OBJECTS_DEP): $(OUT)/%.dep: $(SOURCE_DIR)/%.tex scripts/latex2dep.pl
-	$(info doing [$@])
-	$(Q)mkdir -p $(dir $@)
-	$(Q)scripts/latex2dep.pl $< $@
 
 $(OBJECTS_SK): $(OUT)/%.tex: %.sk scripts/wrapper_sketch.py
 	$(info doing [$@])
@@ -210,11 +192,6 @@ dropbox: $(OUTPUTS_TO_EXPORT)
 	$(Q)-rm -rf ~/Dropbox/outputs/$(PROJECT)
 	$(Q)-mkdir ~/Dropbox/outputs/$(PROJECT)
 	$(Q)cp $(OUTPUTS_TO_EXPORT) ~/Dropbox/outputs/$(PROJECT)
-
-ifeq ($(DO_INCLUDE),1)
-# include the deps files (no warnings)
--include $(OBJECTS_DEP)
-endif # DO_INCLUDE
 
 $(HTMLCHECK): $(SOURCES_HTML)
 	$(info doing [$@])
