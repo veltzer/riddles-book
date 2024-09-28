@@ -155,10 +155,10 @@ $(OBJECTS_DEP): $(OUT)/%.dep: $(SOURCE_DIR)/%.tex scripts/latex2dep.pl
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/latex2dep.pl $< $@
 
-$(OBJECTS_SK): $(OUT)/%.tex: %.sk scripts/wrapper_sketch.pl
+$(OBJECTS_SK): $(OUT)/%.tex: %.sk scripts/wrapper_sketch.py
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
-	$(Q)scripts/wrapper_sketch.pl $< $@
+	$(Q)scripts/wrapper_sketch.py $< $@
 
 $(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf
 	$(info doing [$@])
