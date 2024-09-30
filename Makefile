@@ -60,9 +60,9 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-SOURCES_TEX:=$(shell find src -name "*.tex")
+SOURCES_TEX:=$(shell find src -type f -and -name "*.tex")
 
-SOURCES_SK:=$(shell find src -name "*.sk")
+SOURCES_SK:=$(shell find src -type f -and -name "*.sk")
 OBJECTS_SK:=$(addsuffix .tex,$(addprefix $(OUT)/,$(basename $(SOURCES_SK))))
 
 OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(DOCS)/,$(notdir $(basename $(SOURCES_TEX)))))
