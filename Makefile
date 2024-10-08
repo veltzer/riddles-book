@@ -86,7 +86,7 @@ debug:
 ############
 # patterns #
 ############
-$(TEX_PDF): docs/%.pdf: src/%.tex $(SK_TEX) scripts/wrapper_pdflatex.py
+$(TEX_PDF): docs/%.pdf: src/%.tex $(SK_TEX) scripts/wrapper_pdflatex.py scripts/wrapper_lacheck.py
 	$(info doing [$@])
 	$(Q)scripts/wrapper_lacheck.py $<
 	$(Q)scripts/wrapper_pdflatex.py $< $@
