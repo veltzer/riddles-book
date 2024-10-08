@@ -210,8 +210,6 @@ clean_hard:
 	$(info doing [$@])
 	$(Q)git clean -qffxd
 
-.PHONY: pylint
-pylint: out/pylint.stamp
 out/pylint.stamp: $(ALL_PY)
 	$(Q)pylint --reports=n --score=n $(ALL_PY)
 	$(Q)pymakehelper touch_mkdir $@

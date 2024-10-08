@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-This is a wrapper to run the lacheck(1) tool from the 'lacheck' package.
+This is a wrapper to run the lacheck(1) tool from the "lacheck" package.
 
 Why do we need this wrapper?
 - lacheck does NOT report in its exit status whether it had warnings or not.
@@ -14,18 +14,18 @@ import subprocess
 
 def main():
     out = subprocess.check_output([
-        'lacheck',
+        "lacheck",
         sys.argv[1],
     ]).decode()
     errors = False
     remember = None
     printed_remember = False
-    for line in out.split('\n'):
-        if line.startswith('**'):
+    for line in out.split("\n"):
+        if line.startswith("**"):
             remember = line
             printed_remember = False
             continue
-        if line == '':
+        if line == "":
             continue
         # this is a warning or error
         errors = True
@@ -37,5 +37,5 @@ def main():
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

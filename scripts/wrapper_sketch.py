@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-This is a script that wraps the execution of 'sketch'.
+This is a script that wraps the execution of "sketch".
 
 Why?
 - too noisy on the command line when everything is right.
@@ -63,7 +63,7 @@ def main():
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
         tmp_fname = tmp_file.name
 
-    cmd = ['sketch', input_file, '-o', output_file]
+    cmd = ["sketch", input_file, "-o", output_file]
 
     if DEBUG:
         print(f"cmd is {cmd}")
@@ -77,7 +77,7 @@ def main():
         subprocess.run(cmd, check=True, stderr=subprocess.PIPE, stdout=subprocess.DEVNULL)
     except subprocess.CalledProcessError as e:
         # Error path
-        with open(tmp_fname, 'wb') as f:
+        with open(tmp_fname, "wb") as f:
             f.write(e.stderr)
         printout(tmp_fname)
         if REMOVE_TMP:

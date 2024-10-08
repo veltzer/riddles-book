@@ -125,6 +125,7 @@ def main():
 
     args = [
         "pdflatex",
+        "--shell-escape"
         "-interaction=nonstopmode",
         "-halt-on-error",
         "-output-directory",
