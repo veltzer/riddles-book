@@ -5,51 +5,22 @@
 DO_ALLDEP:=1
 # do you want to show the commands executed ?
 DO_MKDBG:=0
-# do you want to do PDF ?
-DO_PDF:=1
-# do you want to do HTML ?
-DO_HTML:=0
-# do you want to do SWF ?
-DO_SWF:=0
+# do you want to do PDF?
+DO_TEX_PDF:=1
+# do you want to convert sk to tex?
+DO_SK_TEX:=0
 # do you want to validate html?
-DO_CHECKHTML:=1
+DO_HTML_CHECK:=1
 # do you want to check python scripts?
-DO_PYLINT:=1
+DO_PY_LINT:=1
 
 ########
 # code #
 ########
 ALL:=
-# where are the sources ?
-SOURCE_DIR:=src
-# where is the output folder ?
-OUT:=out
-# where is the web folder ?
-DOCS:=docs
-# the primary file
-PRIME:=riddling
-# the primary pdf file name
-PRIME_PDF:=$(DOCS)/$(PRIME).pdf
-# the primary swf file name
-PRIME_SWF:=$(OUT)/$(PRIME).swf
-# the primary html file name
-PRIME_HTM:=$(OUT)/$(PRIME)/index.php
-# the primary output folder
-PRIME_HTM_FOLDER:=$(OUT)/$(PRIME)
-# what to export out (to grive and dropbox)?
-OUTPUTS_TO_EXPORT:=$(PRIME_PDF)
-# what is the name of the project?
-PROJECT:=$(notdir $(CURDIR))
-# what is the stamp file for the tools?
 
 # tools
-TOOL_LATEX2HTML:=latex2html
 TOOL_LACHECK:=scripts/wrapper_lacheck.py
-TOOL_SKETCH:=sketch
-TOOL_PDFLATEX:=pdflatex
-USE_LATEX2PDF:=scripts/wrapper_pdflatex.py
-# the tag name of the project ?
-TAG:=$(shell git tag | tail -1)
 
 # silent stuff
 ifeq ($(DO_MKDBG),1)
@@ -60,45 +31,33 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-SOURCES_TEX:=$(shell find src -type f -and -name "*.tex")
+TEX_SRC:=$(shell find src -type f -and -name "*.tex")
+TEX_PDF:=$(addsuffix .pdf,$(addprefix docs/,$(notdir $(basename $(TEX_SRC)))))
 
-SOURCES_SK:=$(shell find src -type f -and -name "*.sk")
-OBJECTS_SK:=$(addsuffix .tex,$(addprefix $(OUT)/,$(basename $(SOURCES_SK))))
+SK_SRC:=$(shell find src -type f -and -name "*.sk")
+SK_TEX:=$(addsuffix .tex,$(addprefix out/,$(basename $(SK_SRC))))
 
-OBJECTS_PDF:=$(addsuffix .pdf,$(addprefix $(DOCS)/,$(notdir $(basename $(SOURCES_TEX)))))
-OBJECTS_SWF:=$(addsuffix .swf,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
-OBJECTS_HTM:=$(addsuffix /index.html,$(addprefix $(OUT)/,$(notdir $(basename $(SOURCES_TEX)))))
+HTML_SRC:=$(shell find docs -type f -and -name "*.html")
+HTML_CHECK=$(addsuffix .check,$(addprefix out/,$(basename $(HTML_SRC))))
 
-ALL_PY:=$(shell find config scripts -type f -not -path "./.venv/*" -name "*.py")
+PY_SRC:=$(shell find config scripts -type f -and -name "*.py")
+PY_LINT:=$(addsuffix .lint,$(addprefix out/,$(basename $(PY_SRC))))
 
-ifeq ($(DO_PDF),1)
-ALL+=$(OBJECTS_PDF)
-endif # DO_PDF
+ifeq ($(DO_TEX_PDF),1)
+ALL+=$(TEX_PDF)
+endif # DO_TEX_PDF
 
-ifeq ($(DO_HTML),1)
-ALL+=$(OBJECTS_HTM)
-endif # DO_HTML
+ifeq ($(DO_SK_TEX),1)
+ALL+=$(SK_TEX)
+endif # DO_SK_TEX
 
-ifeq ($(DO_SWF),1)
-ALL+=$(OBJECTS_SWF)
-endif # DO_SWF
+ifeq ($(DO_HTML_CHECK),1)
+ALL+=$(HTML_CHECK)
+endif # DO_HTML_CHECK
 
-# do not include deps if the target is 'clean'...
-ifeq ($(MAKECMDGOALS),clean)
-DO_INCLUDE:=0
-endif # clean
-
-ifeq ($(DO_PYLINT),1)
-ALL:=$(ALL) out/pylint.stamp
-endif # DO_PYLINT
-
-SOURCES_HTML:=$(DOCS)/index.html
-HTMLCHECK:=$(OUT)/html.stamp
-ifeq ($(DO_CHECKHTML),1)
-ALL+=$(HTMLCHECK)
-endif # DO_CHECKHTML
-
-ALL+=$(DOCS)/riddling.pdf
+ifeq ($(DO_PY_LINT),1)
+ALL+=$(PY_LINT)
+endif # DO_PY_LINT
 
 #########
 # rules #
@@ -106,99 +65,6 @@ ALL+=$(DOCS)/riddling.pdf
 # do not touch this rule (see demos-make for explanation of order in makefile)
 all: $(ALL)
 	@true
-
-.PHONY: debug
-debug:
-	$(info SOURCES_TEX is $(SOURCES_TEX))
-	$(info SOURCES_SK is $(SOURCES_SK))
-	$(info OBJECTS_SK is $(OBJECTS_SK))
-	$(info OBJECTS_PDF is $(OBJECTS_PDF))
-	$(info OBJECTS_SWF is $(OBJECTS_SWF))
-	$(info OBJECTS_HTM is $(OBJECTS_HTM))
-	$(info SOURCES_HTML is $(SOURCES_HTML))
-	$(info PRIME is $(PRIME))
-	$(info PRIME_PDF is $(PRIME_PDF))
-	$(info PRIME_HTM is $(PRIME_HTM))
-	$(info PRIME_HTM_FOLDER is $(PRIME_HTM_FOLDER))
-	$(info TAG is $(TAG))
-	$(info ALL is $(ALL))
-	$(info OUTPUTS_TO_EXPORT is $(OUTPUTS_TO_EXPORT))
-	$(info PROJECT is $(PROJECT))
-	$(info ALL_PY is $(ALL_PY))
-
-$(OBJECTS_PDF): $(DOCS)/%.pdf: $(SOURCE_DIR)/%.tex $(OBJECTS_SK) $(USE_LATEX2PDF)
-	$(info doing [$@])
-	$(Q)$(TOOL_LACHECK) $<
-	$(Q)$(USE_LATEX2PDF) $< $@
-
-$(OBJECTS_HTM): $(OUT)/%/index.html: $(SOURCE_DIR)/%.tex $(OBJECTS_SK)
-	$(info doing [$@])
-	$(Q)-rm -rf $(dir $@)
-	$(Q)mkdir -p $(dir $@)
-	$(Q)$(TOOL_LATEX2HTML) $< --dir=$(dir $@) > /dev/null 2> /dev/null
-
-$(OBJECTS_SK): $(OUT)/%.tex: %.sk scripts/wrapper_sketch.py
-	$(info doing [$@])
-	$(Q)mkdir -p $(dir $@)
-	$(Q)scripts/wrapper_sketch.py $< $@
-
-$(OBJECTS_SWF): $(OUT)/%.swf: $(OUT)/%.pdf
-	$(info doing [$@])
-	$(Q)-rm -f $@
-	$(Q)mkdir -p $(dir $@)
-	$(Q)pdf2swf -T 9 -f $< $@ 2> /dev/null > /dev/null
-	$(Q)chmod 444 $@
-
-# short cut to see meta data about the produced pdf
-.PHONY: pdfinfo
-pdfinfo: $(PRIME_PDF)
-	$(Q)pdfinfo $(PRIME_PDF)
-# short cut to show the riddling pdf output fast...
-.PHONY: view_pdf
-view_pdf: $(PRIME_PDF)
-	$(Q)gnome-open $(PRIME_PDF) > /dev/null 2> /dev/null &
-# short cut to show the html output fast...
-.PHONY: view_htm
-view_htm: $(PRIME_HTM)
-	$(Q)gnome-open $(PRIME_HTM) > /dev/null 2> /dev/null &
-# short cut to show the swf using flex paper fast...
-.PHONY: view_sketch_doc_htm
-view_sketch_doc_htm:
-	$(Q)gnome-open /usr/share/doc/sketch-doc/sketch/index.html > /dev/null 2> /dev/null &
-.PHONY: view_sketch_doc_pdf
-view_sketch_doc_pdf:
-	$(Q)gnome-open /usr/share/doc/sketch-doc/sketch.pdf.gz > /dev/null 2> /dev/null &
-.PHONY: view_pdftex_doc_pdf
-view_pdftex_doc_pdf:
-	$(Q)gnome-open /usr/share/doc/texlive-doc/pdftex/manual/pdftex-s.pdf > /dev/null 2> /dev/null &
-.PHONY: view_luatex_doc_pdf
-view_luatex_doc_pdf:
-	$(Q)gnome-open /usr/share/doc/texmf/luatex/base/luatexref-t.pdf
-.PHONY: view_pgf_doc_pdf
-view_pgf_doc_pdf:
-	$(Q)gnome-open /usr/share/doc/texmf/pgf/pgfmanual.pdf.gz
-
-.PHONY: grive
-grive: $(OUTPUTS_TO_EXPORT)
-	$(info doing [$@])
-	$(Q)-rm -rf ~/grive/outputs/$(PROJECT)
-	$(Q)-mkdir ~/grive/outputs/$(PROJECT)
-	$(Q)cp $(OUTPUTS_TO_EXPORT) ~/grive/outputs/$(PROJECT)
-	$(Q)cd ~/grive; grive
-
-.PHONY: dropbox
-dropbox: $(OUTPUTS_TO_EXPORT)
-	$(info doing [$@])
-	$(Q)-rm -rf ~/Dropbox/outputs/$(PROJECT)
-	$(Q)-mkdir ~/Dropbox/outputs/$(PROJECT)
-	$(Q)cp $(OUTPUTS_TO_EXPORT) ~/Dropbox/outputs/$(PROJECT)
-
-$(HTMLCHECK): $(SOURCES_HTML)
-	$(info doing [$@])
-	$(Q)tidy -errors -q -utf8 $(SOURCES_HTML)
-	$(Q)pymakehelper only_print_on_error node_modules/.bin/htmlhint $(SOURCES_HTML)
-	$(Q)mkdir -p $(dir $@)
-	$(Q)touch $@
 
 .PHONY: clean
 clean:
@@ -210,8 +76,35 @@ clean_hard:
 	$(info doing [$@])
 	$(Q)git clean -qffxd
 
-out/pylint.stamp: $(ALL_PY)
-	$(Q)pylint --reports=n --score=n $(ALL_PY)
+.PHONY: debug
+debug:
+	$(info TEX_SRC is $(TEX_SRC))
+	$(info TEX_PDF is $(TEX_PDF))
+	$(info SK_SRC is $(SK_SRC))
+	$(info SK_TEX is $(SK_TEX))
+	$(info PY_SRC is $(PY_SRC))
+	$(info PY_LINT is $(PY_LINT))
+	$(info ALL is $(ALL))
+
+############
+# patterns #
+############
+$(TEX_PDF): docs/%.pdf: src/%.tex $(SK_TEX) scripts/wrapper_pdflatex.py
+	$(info doing [$@])
+	$(Q)$(TOOL_LACHECK) $<
+	$(Q)scripts/wrapper_pdflatex.py $< $@
+$(SK_TEX): out/%.tex: %.sk scripts/wrapper_sketch.py
+	$(info doing [$@])
+	$(Q)mkdir -p $(dir $@)
+	$(Q)scripts/wrapper_sketch.py $< $@
+$(HTML_CHECK): out/%.check: %.html
+	$(info doing [$@])
+	$(Q)tidy -errors -q -utf8 $<
+	$(Q)pymakehelper only_print_on_error node_modules/.bin/htmlhint $<
+	$(Q)pymakehelper touch_mkdir $@
+$(PY_LINT): out/%.lint: %.py
+	$(info doing [$@])
+	$(Q)pylint $<
 	$(Q)pymakehelper touch_mkdir $@
 
 ##########
