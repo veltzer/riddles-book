@@ -19,9 +19,6 @@ DO_PY_LINT:=1
 ########
 ALL:=
 
-# tools
-TOOL_LACHECK:=scripts/wrapper_lacheck.py
-
 # silent stuff
 ifeq ($(DO_MKDBG),1)
 Q:=
@@ -91,7 +88,7 @@ debug:
 ############
 $(TEX_PDF): docs/%.pdf: src/%.tex $(SK_TEX) scripts/wrapper_pdflatex.py
 	$(info doing [$@])
-	$(Q)$(TOOL_LACHECK) $<
+	$(Q)scripts/wrapper_lacheck.py $<
 	$(Q)scripts/wrapper_pdflatex.py $< $@
 $(SK_TEX): out/%.tex: %.sk scripts/wrapper_sketch.py
 	$(info doing [$@])
@@ -104,7 +101,7 @@ $(HTML_CHECK): out/%.check: %.html
 	$(Q)pymakehelper touch_mkdir $@
 $(PY_LINT): out/%.lint: %.py
 	$(info doing [$@])
-	$(Q)pylint $<
+	$(Q)pylint --reports=n --score=n $<
 	$(Q)pymakehelper touch_mkdir $@
 
 ##########
