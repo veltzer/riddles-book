@@ -13,6 +13,7 @@ import subprocess
 
 
 def main():
+    """ main entry point """
     out = subprocess.check_output([
         "lacheck",
         sys.argv[1],

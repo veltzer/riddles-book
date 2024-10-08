@@ -36,7 +36,7 @@ def printout(filename: str, debug: bool):
     """
     if debug:
         print(f"printing [{filename}]", file=sys.stderr)
-    with open(filename) as stream:
+    with open(filename, encoding="utf8") as stream:
         inerr = False
         for line in stream:
             if inerr:
@@ -80,13 +80,19 @@ def chmod_check(filename:str, check: bool, debug: bool):
 
 
 def my_call(args, debug: bool):
+    """ subprocess.check_call in my own style """
     if debug:
         print(f"my_call args are [{args}]", file=sys.stderr)
-    res = subprocess.check_call(
-        args,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
+    if debug:
+        res = subprocess.check_call(
+                args,
+        )
+    else:
+        res = subprocess.check_call(
+            args,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
     if debug:
         print(f"my_call res is [{res}]", file=sys.stderr)
     return res
@@ -108,6 +114,7 @@ def my_rename(old_filename: str, new_filename: str, check: bool, debug: bool):
 
 
 def main():
+    """ main entry point """
     # do you want debugging...
     debug = False
     # remove the tmp file for output at the end of the run? (this should be yes
@@ -125,7 +132,7 @@ def main():
 
     args = [
         "pdflatex",
-        "--shell-escape"
+        # "--shell-escape"
         "-interaction=nonstopmode",
         "-halt-on-error",
         "-output-directory",
@@ -147,8 +154,8 @@ def main():
     for _ in range(runs):
         my_call(args, debug)
         unlink_check(output_base+".log", True, True, debug)
-        unlink_check(output_base+".out", True, True, debug)
-        unlink_check(output_base+".toc", True, True, debug)
+        unlink_check(output_base+".out", False, True, debug)
+        unlink_check(output_base+".toc", False, True, debug)
         unlink_check(output_base+".aux", True, True, debug)
         unlink_check(output_base+".nav", False, True, debug)
         unlink_check(output_base+".snm", False, True, debug)
