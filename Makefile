@@ -8,7 +8,7 @@ DO_MKDBG:=0
 # do you want to do PDF?
 DO_TEX_PDF:=1
 # do you want to convert sk to tex?
-DO_SK_TEX:=0
+DO_SK_TEX:=1
 # do you want to validate html?
 DO_HTML_CHECK:=1
 # do you want to check python scripts?
