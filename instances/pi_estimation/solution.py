@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 This is an example of how to estimate pi according to the statistical solution
 of the PI estimation riddle

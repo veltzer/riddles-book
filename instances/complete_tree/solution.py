@@ -1,47 +1,46 @@
-class Tree(object):
+#!/usr/bin/env python
+
+"""
+recursive solution, not very efficient since it always scans the entire tree
+its better to scan top to bottom to stop if one of the levels is not full but
+this one will scan everything.
+returns height, complete, last level full
+"""
+
+
+class Tree:
     def __init__(self):
         self.left = None
         self.right = None
 
 
-'''
-recursive solution, not very efficient since it always scans the entire tree
-it's better to scan top to bottom to stop if one of the levels is not full but
-this one will scan everything.
-returns height, complete, last level full
-'''
-
-
 def complete_tree_inter(t):
     if t is None:
         return 0, True, True
-    else:
-        (lh, labl, llll) = complete_tree_inter(t.left)
-        (rh, rabl, rlll) = complete_tree_inter(t.right)
-        if lh < rh:
-            return rh + 1, False, False
-        if lh == rh:
-            if llll:
-                return rh + 1, rabl, rlll
-            else:
-                return rh + 1, False, False
-        if lh == rh + 1:
-            return lh + 1, rlll, False
-        if lh > rh + 1:
-            return lh + 1, False, False
+    (lh, _labl, llll) = complete_tree_inter(t.left)
+    (rh, rabl, rlll) = complete_tree_inter(t.right)
+    if lh < rh:
+        return rh + 1, False, False
+    if lh == rh:
+        if llll:
+            return rh + 1, rabl, rlll
+        return rh + 1, False, False
+    if lh == rh + 1:
+        return lh + 1, rlll, False
+    if lh > rh + 1:
+        return lh + 1, False, False
+    raise ValueError("shouldnt be here")
 
 
 def complete_tree(t):
     return complete_tree_inter(t)[1]
 
 
-'''
-non recursive solution, better performance if implemented with efficient data structures
-input is 
-'''
-
-
 def complete_tree_2_inter(s):
+    """
+    non recursive solution, better performance if implemented with efficient data structures
+    input is 
+    """
     this_level_full = True
     saw_none = False
     saw_something_after_none = False
@@ -69,8 +68,8 @@ def complete_tree_2_inter(s):
     if this_level_full:
         if have_next_level:
             return complete_tree_2_inter(next_level)
-        else:
-            return True
+        return True
+    raise ValueError("shouldnt be here")
 
 
 def complete_tree_2(t):

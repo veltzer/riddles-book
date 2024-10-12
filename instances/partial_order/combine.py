@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def combine(gen_a, gen_b):
     list_a = []
     list_b = []

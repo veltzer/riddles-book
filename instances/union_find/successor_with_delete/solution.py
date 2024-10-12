@@ -5,10 +5,10 @@ class Algo:
     def __init__(self, n):
         self.n = n
         # standard union-find stuff
-        self.root = [i for i in range(n)]
+        self.root = list(range(n))
         # extra data for this exercise
         self.inset = [True] * n
-        self.succ: List[Optional[int]] = [i for i in range(n)]
+        self.succ: List[Optional[int]] = list(range(n))
 
     # standard union-find methods
     def find_root(self, i):

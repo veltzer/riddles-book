@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def sums_to_target(data, k):
     data.sort()
     lhs = 0
@@ -6,7 +8,7 @@ def sums_to_target(data, k):
         current_sum = data[lhs] + data[rhs]
         if current_sum == k:
             return True
-        elif current_sum < k:
+        if current_sum < k:
             lhs += 1
         else:
             rhs -= 1
@@ -37,11 +39,11 @@ def main():
     for i in range(10):
         print(i, sums_to_target(data, i))
 
-    data = [x for x in range(10)]
+    data = list(range(10))
     print(data)
     for i in range(10):
         print(i, all_pairs(data, i))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

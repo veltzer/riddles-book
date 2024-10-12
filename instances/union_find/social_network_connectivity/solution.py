@@ -2,7 +2,7 @@ class Algo:
     def __init__(self, n):
         self.n = n
         # standard union-find stuff
-        self.root = [i for i in range(n)]
+        self.root = list(range(n))
         # extra data for this exercise
         self.size = [1] * n
 
@@ -18,11 +18,11 @@ class Algo:
         ri = self.find_root(i)
         rj = self.find_root(j)
         if ri == rj:
-            return
+            return ri
         self.root[ri] = rj
         self.size[rj] = self.size[ri] + self.size[rj]
         if self.size[rj] == self.n:
-            print('stop at {0},{1}', i, j)
+            print(f"stop at {i},{j}")
         return rj
 
 

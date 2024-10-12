@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+
+
 def count_zeroes_right_of(s):
     c = 0
     p = len(s) - 1
-    while s[p] == '0':
+    while s[p] == "0":
         c += 1
         p -= 1
     return c

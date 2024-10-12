@@ -1,6 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
-# https://en.wikipedia.org/wiki/Birthday_problem
+"""
+https://en.wikipedia.org/wiki/Birthday_problem
+"""
 
 import random
 

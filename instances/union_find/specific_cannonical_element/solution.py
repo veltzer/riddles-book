@@ -2,9 +2,9 @@ class Algo:
     def __init__(self, n):
         self.n = n
         # standard union-find stuff
-        self.root = [i for i in range(n)]
+        self.root = list(range(n))
         # extra data for this exercise
-        self.largest = [i for i in range(n)]
+        self.largest = list(range(n))
 
     # standard union-find methods
     def find_root(self, i):

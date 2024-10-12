@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def gen(*data):
     yield from data
 
@@ -26,5 +28,5 @@ def main():
         print(data)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 This program tests the solution for the riddle
 """
@@ -31,6 +33,7 @@ def apply_mod(state, mod):
         return not state[0], not state[1], state[2], state[3]
     if mod == "a":
         return not state[0], state[1], state[2], state[3]
+    raise ValueError("shouldnt get here")
 
 
 def check_win(state):
@@ -49,8 +52,8 @@ def main():
                 break
             state = apply_turn(state, get_turn_angle())
         else:
-            raise ValueError("we didn't win?!?")
+            raise ValueError("we didnt win?!?")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

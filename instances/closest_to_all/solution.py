@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import math  # for inf
 
 # should we do debugging?
@@ -39,7 +41,7 @@ class Position:
         self.y += p.y
 
     def __str__(self):
-        return '({x},{y})'.format(x=self.x, y=self.y)
+        return f"({self.x},{self.y})"
 
 
 directions = [
@@ -76,7 +78,7 @@ class Matrix:
 
     def add(self, m):
         for y, l in enumerate(self.data):
-            for x, e in enumerate(l):
+            for x, _e in enumerate(l):
                 if m.get(x, y) is not None and l[x] is not None:
                     l[x] += m.get(x, y)
 
@@ -98,20 +100,20 @@ class Matrix:
     def print(self):
         for l in self.data:
             for e in l:
-                print(e, end='')
+                print(e, end="")
             print()
 
     def __str__(self):
-        res = ''
+        res = ""
         for l in self.data:
             for e in l:
-                res += str(e) + ', '
-            res += '\n'
+                res += str(e) + ", "
+            res += "\n"
         return res
 
     @staticmethod
     def from_strings(m):
-        s = Matrix(' ', len(m[0]), len(m))
+        s = Matrix(" ", len(m[0]), len(m))
         for y, l in enumerate(m):
             for x, c in enumerate(l):
                 s.set(x, y, c)
@@ -123,7 +125,7 @@ def solve(m):
     people = []
     for y in range(m.h):
         for x in range(m.w):
-            if m.get(x, y) == 'P':
+            if m.get(x, y) == "P":
                 people.append(Position(x, y))
     assert len(people) > 0
     # now calculate shortest distance per person
@@ -141,7 +143,7 @@ def solve(m):
                 if sdm.illegal_pos(cpos):
                     continue
                 place = m.get_pos(cpos)
-                if place == '*':
+                if place == "*":
                     continue
                 cval = sdm.get_pos(cpos)
                 if cval is not None:
@@ -166,14 +168,14 @@ def solve(m):
     if do_debug:
         print(mini)
     # create a boolean matrix showing the solutions
-    results = Matrix('_', sums.w, sums.h)
+    results = Matrix("_", sums.w, sums.h)
     for x in range(sums.w):
         for y in range(sums.h):
             if sums.get(x, y) == mini and mini != math.inf:
-                results.set(x, y, '*')
-    print('question')
+                results.set(x, y, "*")
+    print("question")
     m.print()
-    print('answer')
+    print("answer")
     results.print()
 
 
@@ -181,66 +183,66 @@ def solve(m):
 # tests #
 #########
 m1 = [
-    'P___P',
-    '_____',
-    '_____',
-    '_____',
-    'P___P',
+    "P___P",
+    "_____",
+    "_____",
+    "_____",
+    "P___P",
 ]
 solve(Matrix.from_strings(m1))
 
 m2 = [
-    'P___P',
-    '_*_*_',
-    '_*_*_',
-    '_***_',
-    'P___P',
+    "P___P",
+    "_*_*_",
+    "_*_*_",
+    "_***_",
+    "P___P",
 ]
 solve(Matrix.from_strings(m2))
 
 m3 = [
-    'P*__P',
-    '_*___',
-    '_*___',
-    '_*___',
-    'P___P',
+    "P*__P",
+    "_*___",
+    "_*___",
+    "_*___",
+    "P___P",
 ]
 solve(Matrix.from_strings(m3))
 
 m4 = [
-    'P*__P',
-    '_*___',
-    '_*___',
-    '_*___',
-    'P*__P',
+    "P*__P",
+    "_*___",
+    "_*___",
+    "_*___",
+    "P*__P",
 ]
 solve(Matrix.from_strings(m4))
 
 m5 = [
-    'P___P',
-    '_____',
-    '_____',
-    '_____',
-    '____P',
+    "P___P",
+    "_____",
+    "_____",
+    "_____",
+    "____P",
 ]
 solve(Matrix.from_strings(m5))
 
 m6 = [
-    'P___P',
-    '_____',
-    '___**',
-    '_____',
-    '____P',
+    "P___P",
+    "_____",
+    "___**",
+    "_____",
+    "____P",
 ]
 solve(Matrix.from_strings(m6))
 
 m7 = [
-    'P____________P',
+    "P____________P",
 ]
 solve(Matrix.from_strings(m7))
 
 m8 = [
-    'P_____________',
-    '________P_____',
+    "P_____________",
+    "________P_____",
 ]
 solve(Matrix.from_strings(m8))

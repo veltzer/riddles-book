@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Solution to the midgets riddle in python
 """

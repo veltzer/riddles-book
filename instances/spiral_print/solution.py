@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 data1 = [[ 1,2,3], [4,5,6], [7,8,9]]
 data2 = [[ 1,2,3], [4,5,6], [7,8,9]]
@@ -27,7 +27,7 @@ def spiral_non_recursive(d):
     direction = directions[direction_pos]
     x,y = 0,0
     num_printed = 0
-    while(num_printed<num_elements):
+    while num_printed<num_elements:
         # print(x,y)
         print(d[x][y])
         d[x][y]=None

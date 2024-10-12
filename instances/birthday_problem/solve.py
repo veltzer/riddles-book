@@ -1,11 +1,13 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
-# https://en.wikipedia.org/wiki/Birthday_problem
+"""
+https://en.wikipedia.org/wiki/Birthday_problem
+"""
 
 import random
+import tqdm
 
 num = 1000000000
-import tqdm
 
 stat = 0
 for i in range(1):

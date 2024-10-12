@@ -39,7 +39,7 @@ SK_TEX:=$(addsuffix .tex,$(addprefix out/,$(basename $(SK_SRC))))
 HTML_SRC:=$(shell find docs -type f -and -name "*.html")
 HTML_CHECK=$(addsuffix .check,$(addprefix out/,$(basename $(HTML_SRC))))
 
-PY_SRC:=$(shell find config scripts -type f -and -name "*.py")
+PY_SRC:=$(shell find instances config scripts -type f -and -name "*.py")
 PY_LINT:=$(addsuffix .lint,$(addprefix out/,$(basename $(PY_SRC))))
 
 ifeq ($(DO_TEX_PDF),1)

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def three_loops(data):
     """ this is n^3 complexity """
     results = []
@@ -22,12 +24,13 @@ def binary_search(array, target):
         val = array[x]
         if target == val:
             return x
-        elif target > val:
+        if target > val:
             if lower == x:  # this two are the actual lines
-                break  # you're looking for
+                break  # youre looking for
             lower = x
-        elif target < val:
+        if target < val:
             upper = x
+    raise ValueError("shouldnt be here")
 
 
 def two_loops_and_binary(data):
@@ -48,7 +51,7 @@ def using_hash(data):
     double loop and check for each pair if they sum up to the third.
     """
     results = []
-    s = {x for x in data}
+    s = set(data)
     for p1, x1 in enumerate(data):
         for x2 in data[p1 + 1:]:
             if x1 + x2 in s:
@@ -92,5 +95,5 @@ def main():
     print(pointers_going_inward(data))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

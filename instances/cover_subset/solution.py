@@ -1,5 +1,6 @@
-import random
+#!/usr/bin/env python
 
+import random
 import numpy
 
 large_set_size = 1000

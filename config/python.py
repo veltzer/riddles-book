@@ -2,10 +2,12 @@ from typing import List
 
 
 config_requires: List[str] = []
-dev_requires: List[str] = []
+dev_requires: List[str] = [
+]
 install_requires: List[str] = [
     "numpy",
     "BitVector",
+    "tqdm",
 ]
 build_requires: List[str] = [
     "pymakehelper",
