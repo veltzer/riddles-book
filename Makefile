@@ -28,8 +28,10 @@ Q:=@
 #.SILENT:
 endif # DO_MKDBG
 
-TEX_SRC:=$(shell find src -type f -and -name "*.tex")
+TEX_ALL:=$(shell find src -type f -and -name "*.tex")
+TEX_SRC:=$(shell find src/tex -type f -and -name "*.tex")
 TEX_PDF:=$(addsuffix .pdf,$(addprefix docs/,$(notdir $(basename $(TEX_SRC)))))
+TEX_INC:=$(shell find src/include -type f -and -name "*.tex")
 
 SK_SRC:=$(shell find src -type f -and -name "*.sk")
 SK_TEX:=$(addsuffix .tex,$(addprefix out/,$(basename $(SK_SRC))))
@@ -75,8 +77,10 @@ clean_hard:
 
 .PHONY: debug
 debug:
+	$(info TEX_ALL is $(TEX_ALL))
 	$(info TEX_SRC is $(TEX_SRC))
 	$(info TEX_PDF is $(TEX_PDF))
+	$(info TEX_INC is $(TEX_INC))
 	$(info SK_SRC is $(SK_SRC))
 	$(info SK_TEX is $(SK_TEX))
 	$(info PY_SRC is $(PY_SRC))
@@ -86,7 +90,7 @@ debug:
 ############
 # patterns #
 ############
-$(TEX_PDF): docs/%.pdf: src/%.tex $(SK_TEX) scripts/wrapper_pdflatex.py scripts/wrapper_lacheck.py
+$(TEX_PDF): docs/%.pdf: src/tex/%.tex $(SK_TEX) scripts/wrapper_pdflatex.py scripts/wrapper_lacheck.py $(TEX_INC)
 	$(info doing [$@])
 	$(Q)scripts/wrapper_lacheck.py $<
 	$(Q)scripts/wrapper_pdflatex.py $< $@
