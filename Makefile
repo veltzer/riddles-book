@@ -90,10 +90,10 @@ debug:
 ############
 # patterns #
 ############
-$(TEX_PDF): docs/%.pdf: src/tex/%.tex $(SK_TEX) scripts/wrapper_pdflatex.py scripts/wrapper_lacheck.py $(TEX_INC)
+$(TEX_PDF): docs/%.pdf: src/tex/%.tex $(SK_TEX) scripts/wrapper_lacheck.py $(TEX_INC)
 	$(info doing [$@])
 	$(Q)scripts/wrapper_lacheck.py $<
-	$(Q)scripts/wrapper_pdflatex.py $< $@
+	$(Q)pymakehelper wrapper_pdflatex --input_file $< --output_file $@
 $(SK_TEX): out/%.tex: %.sk scripts/wrapper_sketch.py
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
