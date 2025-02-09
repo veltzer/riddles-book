@@ -28,7 +28,7 @@ pyfakeuse==0.0.9
 Pygments==2.19.1
 pylint==3.3.4
 pylogconf==0.0.38
-pymakehelper==0.0.33
+pymakehelper==0.0.35
 pytconf==0.1.18
 PyYAML==6.0.2
 referencing==0.36.2
