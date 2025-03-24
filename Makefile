@@ -103,7 +103,7 @@ $(HTML_CHECK): out/%.check: %.html
 	$(Q)tidy -errors -q -utf8 $<
 	$(Q)pymakehelper only_print_on_error node_modules/.bin/htmlhint $<
 	$(Q)pymakehelper touch_mkdir $@
-$(PY_LINT): out/%.lint: %.py
+$(PY_LINT): out/%.lint: %.py .pylintrc
 	$(info doing [$@])
 	$(Q)pylint --reports=n --score=n $<
 	$(Q)pymakehelper touch_mkdir $@

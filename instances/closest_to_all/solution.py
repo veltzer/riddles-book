@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 
-import math  # for inf
-
-# should we do debugging?
-do_debug = False
-
 """
 for notation:
 N - number of squares on the board
@@ -29,6 +24,11 @@ N*P*N = N^2*P
 
 We code the more efficient solution here.
 """
+import math  # for inf
+
+# should we do debugging?
+do_debug = False
+
 
 
 class Position:
