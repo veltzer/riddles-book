@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Combine 2
+"""
+
 def gen(*data):
     yield from data
 
