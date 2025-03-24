@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Solutiib
+"""
+
 for to in [10, 100, 1000, 10000]:
     i = 0
     total = 0

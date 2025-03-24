@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Solution
+"""
+
 def three_loops(data):
     """ this is n^3 complexity """
     results = []

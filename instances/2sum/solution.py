@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Solution
+"""
+
 def sums_to_target(data, k):
     data.sort()
     lhs = 0
