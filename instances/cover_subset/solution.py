@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Solution
+"""
+
 import random
 import numpy
 

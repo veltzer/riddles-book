@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Is Prime
+"""
+
 import math
 import sys
 

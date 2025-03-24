@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Solution better
+"""
+
 size=77050
 arr = [None] * size
 

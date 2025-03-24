@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Solution
+"""
+
 size=1000000
 
 max_value=-1

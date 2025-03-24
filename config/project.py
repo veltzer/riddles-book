@@ -1,3 +1,5 @@
+""" project definitions """
+
 name = "riddles-book"
 description_short = "A riddle collection done with open source tools"
 description_long = """The idea is to create a collection of many riddles for your enjoyment.

@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+"""
+Solution
+"""
 
 def count_zeroes_right_of(s):
     c = 0

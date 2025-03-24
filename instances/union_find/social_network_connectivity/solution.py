@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+
+"""
+Solution
+"""
+
+
 class Algo:
     def __init__(self, n):
         self.n = n

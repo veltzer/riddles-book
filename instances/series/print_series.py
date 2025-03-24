@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+Print series
+"""
+
 n=77031
 while n!=1:
     print(n)
