@@ -1,8 +1,7 @@
 # THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
-numpy
 BitVector
-tqdm
-pymakehelper
-pyclassifiers
+numpy
 pydmt
 pylint
+pymakehelper
+tqdm
