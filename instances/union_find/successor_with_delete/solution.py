@@ -4,8 +4,6 @@
 Solution
 """
 
-from typing import Optional, List
-
 
 class Algo:
     def __init__(self, n):
