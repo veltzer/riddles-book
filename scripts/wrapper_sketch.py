@@ -22,7 +22,7 @@ def printout(filename):
     """Print to stderr the content of a file."""
     if DEBUG:
         print(f"printing [{filename}]")
-    with open(filename, "r", encoding="utf8") as file:
+    with open(filename, encoding="utf8") as file:
         for line in file:
             print(line, end="", file=sys.stderr)
 

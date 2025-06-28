@@ -14,7 +14,7 @@ class Algo:
         self.root = list(range(n))
         # extra data for this exercise
         self.inset = [True] * n
-        self.succ: List[Optional[int]] = list(range(n))
+        self.succ: list[int | None] = list(range(n))
 
     # standard union-find methods
     def find_root(self, i):
