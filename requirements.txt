@@ -22,7 +22,7 @@ mccabe==0.7.0
 numpy==2.3.1
 packaging==25.0
 platformdirs==4.3.8
-pydmt==0.3.23
+pydmt==0.3.26
 pyfakeuse==0.0.9
 Pygments==2.19.2
 pylint==3.3.7
