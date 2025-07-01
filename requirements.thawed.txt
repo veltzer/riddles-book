@@ -1,7 +1,12 @@
 # THIS IS AN AUTO-GENERATED FILE. DO NOT EDIT!
 BitVector
+mypy
 numpy
+pyclassifiers
+pycmdtools
 pydmt
 pylint
 pymakehelper
+pytest
+ruff
 tqdm
