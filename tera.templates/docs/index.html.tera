@@ -1,0 +1,44 @@
+{% set project = load_lua(path="config/project.lua") -%}
+{% set personal = load_lua(path="config/personal.lua") -%}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{{ project.NAME }}</title>
+		<!--suppress HtmlUnknownTarget -->
+		<link rel="shortcut icon" href="favicon.ico"/>
+		<meta name="Description" content="{{ project.DESCRIPTION_SHORT }}"/>
+		<meta name="Keywords" content="{{ personal.FULLNAME }}, {{ personal.SLUG }}, {{ project.NAME }}, {{ project.KEYWORDS | join(sep=", ") }}"/>
+	</head>
+	<body>
+		<h1>Welcome to the <i>{{ project.NAME }}</i> web site</h1>
+		
+		<p>current version is {{ version_str(path="config/version.lua") }}</p>
+
+		<h2>A demo for the impatient is
+			<a href="web/viewer.html?file=../riddling.pdf">here</a>
+		</h2>
+		<p>You can download the latest version of <b>{{ project.NAME }}</b> from <!--suppress HtmlUnknownTarget -->
+            <a href="riddling.pdf">here</a>.</p>
+
+		<p>
+			<b>{{ project.NAME }}</b> is collection of riddles in tex format.
+		</p>
+		<p>Some related <b>{{ project.NAME }}</b> project links:</p>
+		<ul>
+			<li>
+			The <b>{{ project.NAME }}</b> github project is <a title="{{ project.NAME }} github project" href="https://github.com/{{ personal.GITHUB_USERNAME }}/{{ project.NAME }}">here</a>
+			</li>
+			<li>
+			The <b>{{ project.NAME }}</b> web site for the project is <a title="{{ project.NAME }} web site" href="https://{{ personal.GITHUB_USERNAME }}.github.io/{{ project.NAME }}">here</a>
+			</li>
+			<li>
+			The <b>{{ project.NAME }}</b> git clone link is <a title="{{ project.NAME }} git clone link" href="git://github.com/{{ personal.GITHUB_USERNAME }}/{{ project.NAME }}.git">here</a>
+			</li>
+		</ul>
+		<p>
+			Copyright {{ personal.FULLNAME }} © {{ copyright_years() }}
+			<a href="mailto:{{ personal.EMAIL }}">{{ personal.EMAIL }}</a>
+		</p>
+	</body>
+</html>
