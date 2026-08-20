@@ -79,7 +79,7 @@ class Matrix:
     def add(self, m):
         for y, l in enumerate(self.data):
             for x, _e in enumerate(l):
-                if m.get(x, y) is not None and l[x] is not None:
+                if m.get(x, y) is not None and _e is not None:
                     l[x] += m.get(x, y)
 
     def minimum(self):

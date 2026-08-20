@@ -8,8 +8,8 @@ Why do we need this wrapper?
 - it is too verbose when there are no warnings.
 """
 
-import sys
 import subprocess
+import sys
 
 
 def main():

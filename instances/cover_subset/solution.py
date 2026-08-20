@@ -5,6 +5,7 @@ Solution
 """
 
 import random
+
 import numpy
 
 large_set_size = 1000

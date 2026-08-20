@@ -9,10 +9,9 @@ Why?
 """
 
 import os
-import sys
 import subprocess
+import sys
 import tempfile
-
 
 # Parameters
 DEBUG = False

@@ -5,6 +5,7 @@ https://en.wikipedia.org/wiki/Birthday_problem
 """
 
 import random
+
 import tqdm
 
 num = 1000000000

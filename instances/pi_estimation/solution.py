@@ -7,8 +7,8 @@ of the PI estimation riddle
 As you can see it takes quite a long time to get a to a good estimation of PI.
 """
 
-import random  # for uniform
 import math  # for hypot
+import random  # for uniform
 
 samples = 1000000
 good_samples = 0
