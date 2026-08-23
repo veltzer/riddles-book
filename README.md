@@ -1,28 +1,28 @@
-## riddles-book
-
-version: 0.0.1
+# *riddles-book* project by Mark Veltzer
 
 description: A riddle collection done with open source tools
 
-website: https://veltzer.github.io/riddles-book
+project website: https://veltzer.github.io/riddles-book
 
-## Build
+author: Mark Veltzer
+
+version: 0.0.1
+
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+
+## github
+
+![License](https://img.shields.io/github/license/veltzer/riddles-book)
+
+## build
 
 ![build](https://github.com/veltzer/riddles-book/workflows/build/badge.svg)
 
-The idea is to create a collection of many riddles for your enjoyment.
+## contact me
 
-Tools include: make, pdflatex, lacheck, latex, dvips, ps2pdf, latex2html, perl, sketch, git,
-        flexpaper, pdf2swf, qpdf, pdfinfo, pdftex, pdftohtml, luatex, xetex and possibly more.
-
-If you want to compile this package then:
-* install all required packages.
-        Ubuntu users you are in luck: just run "scripts/ubuntu_install.sh"...
-* make
-All the output is in the "out" folder.
-
-## Contact
-
-chat with me at [![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/veltzer/mark.veltzer)
+[mailto](mailto:mark.veltzer@gmail.com)
+![gitter](https://img.shields.io/gitter/room/veltzer/mark.veltzer)
+![discord](https://img.shields.io/discord/719336281624281119)
+![discord](https://img.shields.io/discord/719336282194444302)
 
 Mark Veltzer, Copyright © 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
