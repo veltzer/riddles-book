@@ -39,10 +39,9 @@ int main(int argc, char** argv, char** envp) {
 	int max=1000000;
 	int bits=0;
 	for(int i=0;i<max;i++) {
-		unsigned short* p=(unsigned short*)&i;
-		bits+=table[(int)*p];
-		p++;
-		bits+=table[(int)*p];
+		unsigned int u=(unsigned int)i;
+		bits+=table[u & 0xffff];
+		bits+=table[(u >> 16) & 0xffff];
 	}
 	printf("bits is %d\n", bits);
 	return EXIT_SUCCESS;

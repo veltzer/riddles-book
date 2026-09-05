@@ -1,5 +1,5 @@
 #ifndef __prisonerfull_hh
-#define __priosnerfull_hh
+#define __prisonerfull_hh
 
 #include "prisoner.hh"
 
@@ -12,11 +12,13 @@ class PrisonerFull:public Prisoner {
 	public:
 		PrisonerFull();
 		~PrisonerFull();
-		void init(int imynum,int iprisnum);
-		void nullit(void);
-		bool wantToEnd(void);
-		bool doYourThing(bool light);
-		void output(std::ostream& out) const;
+		PrisonerFull(const PrisonerFull&)=delete;
+		PrisonerFull& operator=(const PrisonerFull&)=delete;
+		void init(int imynum,int iprisnum) override;
+		void nullit(void) override;
+		bool wantToEnd(void) override;
+		bool doYourThing(bool light) override;
+		void output(std::ostream& out) const override;
 
 		bool hasBit(unsigned int bit);
 		unsigned int getNumBits(void);

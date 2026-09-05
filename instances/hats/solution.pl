@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use strict;
+use warnings;
+
 # this tests the solution to the hats riddle
 
 my($num_people)=4;

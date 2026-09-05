@@ -55,7 +55,7 @@ my $combinat = Math::Combinatorics->new(count => $series_size,
 	data => @n,
 );
 
-sub sum($) {
+sub sum {
 	my($arr)=$_[0];
 	#print $arr."\n";
 	my($sum)=0;

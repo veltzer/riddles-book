@@ -12,7 +12,7 @@ class Individual {
 		bool b;
 	public:
 		// constructor
-		inline Individual(void) {
+		inline Individual(void):a(false),b(false) {
 		}
 		// get the A gene
 		inline bool getA(void) {
@@ -39,10 +39,13 @@ class Selector {
 		unsigned int size;
 		unsigned int num;
 	public:
-		inline Selector(unsigned int isize) {
-			size=isize;
-			arr=new unsigned int[size];
+		inline explicit Selector(unsigned int isize):arr(new unsigned int[isize]),size(isize),num(0) {
 		}
+		inline ~Selector() {
+			delete[] arr;
+		}
+		Selector(const Selector&)=delete;
+		Selector& operator=(const Selector&)=delete;
 		// this is the method that does all the work.
 		// next method are just accesors to the results.
 		inline void select(unsigned int inum) {

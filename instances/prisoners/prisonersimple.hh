@@ -1,5 +1,5 @@
 #ifndef __prisonersimple_hh
-#define __priosnerfull_hh
+#define __prisonersimple_hh
 
 #include "prisoner.hh"
 
@@ -16,11 +16,11 @@ class PrisonerSimple:public Prisoner {
 	public:
 		PrisonerSimple();
 		~PrisonerSimple();
-		void init(int imynum,int iprisnum);
-		void nullit(void);
-		bool wantToEnd(void);
-		bool doYourThing(bool light);
-		void output(std::ostream& out) const;
+		void init(int imynum,int iprisnum) override;
+		void nullit(void) override;
+		bool wantToEnd(void) override;
+		bool doYourThing(bool light) override;
+		void output(std::ostream& out) const override;
 };
 
 #endif // __prisonersimple_hh

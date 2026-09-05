@@ -1,9 +1,9 @@
 #include "prisonerfull.hh"
 
-PrisonerFull::PrisonerFull() {
+PrisonerFull::PrisonerFull():bits(nullptr),numBits(0),mynum(0),prisnum(0) {
 }
 PrisonerFull::~PrisonerFull() {
-	delete bits;
+	delete[] bits;
 }
 void PrisonerFull::init(int imynum,int iprisnum) {
 	mynum=imynum;

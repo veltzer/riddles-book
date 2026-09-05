@@ -40,6 +40,7 @@ int main(int argc, char** argv, char** envp) {
 	assert(2==number_of_bits_in_uint(40));
 	assert(2==number_of_bits_in_int(20));
 	assert(3==number_of_bits_in_int(-20));
+	// cppcheck-suppress shiftNegativeLHS ; this prints exactly what that shift does
 	printf("-1>>1 is %d\n", -1 >> 1);
 	printf("-10 casted to unsigned int is %u\n", (unsigned int)-10);
 	return EXIT_SUCCESS;

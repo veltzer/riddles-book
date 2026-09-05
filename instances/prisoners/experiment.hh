@@ -30,9 +30,11 @@ template<class PrisonerType> class Experiment {
 			}
 		}
 		inline ~Experiment() {
-			delete bits;
+			delete[] bits;
 			delete[] prisoners;
 		}
+		Experiment(const Experiment&)=delete;
+		Experiment& operator=(const Experiment&)=delete;
 		inline void incDay(void) {
 			day++;
 		}

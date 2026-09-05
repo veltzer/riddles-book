@@ -1,9 +1,9 @@
-char* p="\";\n#include <stdio.h>\nint main(void)\n{\nchar* t;\nprintf(\"char* p=\\\"\");\nt=p;\nwhile(*t!='\\0')\n{\nchar c=*t;\nswitch(c)\n{\ncase '\\n':\nprintf(\"\\\\n\");\nbreak;\ncase '\\t':\nprintf(\"\\\\t\");\nbreak;\ncase '\"':\nprintf(\"\\\\\\\"\");\nbreak;\ncase '\\\\':\nprintf(\"\\\\\\\\\");\nbreak;\ndefault:\nputchar(c);\nbreak;\n}\nt++;\n}\nprintf(p);\nreturn(0);\n}\n";
+const char* p="\";\n#include <stdio.h>\nint main(void)\n{\nconst char* t;\nprintf(\"const char* p=\\\"\");\nt=p;\nwhile(*t!='\\0')\n{\nchar c=*t;\nswitch(c)\n{\ncase '\\n':\nprintf(\"\\\\n\");\nbreak;\ncase '\\t':\nprintf(\"\\\\t\");\nbreak;\ncase '\"':\nprintf(\"\\\\\\\"\");\nbreak;\ncase '\\\\':\nprintf(\"\\\\\\\\\");\nbreak;\ndefault:\nputchar(c);\nbreak;\n}\nt++;\n}\nprintf(p);\nreturn(0);\n}\n";
 #include <stdio.h>
 int main(void)
 {
-char* t;
-printf("char* p=\"");
+const char* t;
+printf("const char* p=\"");
 t=p;
 while(*t!='\0')
 {

@@ -1,6 +1,6 @@
 #include "prisonersimple.hh"
 
-PrisonerSimple::PrisonerSimple() {
+PrisonerSimple::PrisonerSimple():type(false),counter(0),prisnum(0),didILightItOn(false) {
 }
 PrisonerSimple::~PrisonerSimple() {
 }

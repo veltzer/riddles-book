@@ -3,12 +3,16 @@
 
 int main(int argc, char** argv, char** envp) {
 	long best_count=-1;
-	long best_value;
+	long best_value=-1;
 	long max=1000000;
 	long current = 1;
 	long max_value=-1;
 	long max_memoize=1000000;
 	int* array_count=(int*)malloc(max_memoize*sizeof(int));
+	if(array_count==NULL) {
+		perror("malloc");
+		return EXIT_FAILURE;
+	}
 	for(int i=0;i<max_memoize;i++) {
 		array_count[i]=-1;
 	}
@@ -30,6 +34,7 @@ int main(int argc, char** argv, char** envp) {
 			}
 			count++;
 		}
+		// cppcheck-suppress identicalInnerCondition ; max and max_memoize are separate knobs that happen to be equal
 		if(current<max_memoize) {
 			array_count[current]=count;
 		}
