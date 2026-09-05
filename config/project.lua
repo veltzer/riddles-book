@@ -1,4 +1,4 @@
-NAME = "riddles-book"
+NAME = "book-riddles"
 DESCRIPTION_SHORT = "A riddle collection done with open source tools"
 DESCRIPTION_LONG = [[The idea is to create a collection of many riddles for your enjoyment.
 

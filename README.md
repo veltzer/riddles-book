@@ -1,8 +1,8 @@
-# *riddles-book* project by Mark Veltzer
+# *book-riddles* project by Mark Veltzer
 
 description: A riddle collection done with open source tools
 
-project website: https://veltzer.github.io/riddles-book
+project website: https://veltzer.github.io/book-riddles
 
 author: Mark Veltzer
 
@@ -12,11 +12,11 @@ version: 0.0.1
 
 ## github
 
-![License](https://img.shields.io/github/license/veltzer/riddles-book)
+![License](https://img.shields.io/github/license/veltzer/book-riddles)
 
 ## build
 
-![build](https://github.com/veltzer/riddles-book/workflows/build/badge.svg)
+![build](https://github.com/veltzer/book-riddles/workflows/build/badge.svg)
 
 ## contact me
 

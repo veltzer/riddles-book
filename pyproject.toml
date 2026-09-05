@@ -2,7 +2,7 @@
 # Derived from the third-party imports found in the repo's .py files.
 
 [project]
-name = "riddles-book"
+name = "book-riddles"
 version = "0.0.0"
 requires-python = ">=3.14"
 dependencies = [
